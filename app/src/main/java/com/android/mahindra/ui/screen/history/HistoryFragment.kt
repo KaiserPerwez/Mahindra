@@ -1,15 +1,13 @@
-package com.android.mahindra.Fragment
+package com.android.mahindra.ui.screen.history
 
 
-import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import com.android.mahindra.R
-import com.android.mahindra.StartTestActivity
-import kotlinx.android.synthetic.main.fragment_up_coming.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,24 +18,14 @@ private const val ARG_PARAM2 = "param2"
  * A simple [Fragment] subclass.
  *
  */
-class UpComingFragment : Fragment() {
-
+class HistoryFragment : androidx.fragment.app.Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view: View = inflater.inflate(R.layout.fragment_up_coming, container, false)
-
-
-        view.layout.setOnClickListener() {
-            val intent = Intent(activity, StartTestActivity::class.java)
-            startActivity(intent)
-        }
-
-        return view
-
+        return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
 

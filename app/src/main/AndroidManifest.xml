@@ -9,18 +9,18 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".StartTestActivity">
+        <activity android:name=".ui.screen.start_test.StartTestActivity">
         </activity>
-        <activity android:name=".QuestionActivity">
+        <activity android:name=".ui.screen.question.QuestionActivity">
         </activity>
         <activity
-                android:name=".HomeActivity"
+                android:name=".ui.screen.home.HomeActivity"
                 android:label="@string/title_activity_home"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".RegisterActivity">
+        <activity android:name=".ui.screen.register.RegisterActivity">
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.screen.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

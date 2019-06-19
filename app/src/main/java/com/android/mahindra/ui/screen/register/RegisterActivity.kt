@@ -1,8 +1,10 @@
-package com.android.mahindra
+package com.android.mahindra.ui.screen.register
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.android.mahindra.R
+import com.android.mahindra.ui.screen.home.HomeActivity
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : AppCompatActivity() {

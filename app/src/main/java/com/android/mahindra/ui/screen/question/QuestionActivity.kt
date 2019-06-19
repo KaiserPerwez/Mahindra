@@ -1,25 +1,18 @@
-package com.android.mahindra
+package com.android.mahindra.ui.screen.question
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.android.mahindra.R
 import kotlinx.android.synthetic.main.activity_question.*
-import kotlinx.android.synthetic.main.activity_start_test.*
-import kotlinx.android.synthetic.main.activity_start_test.toolbar
 
-class StartTestActivity : AppCompatActivity() {
+class QuestionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start_test)
+        setContentView(R.layout.activity_question)
 
         initToolBar()
-        start_test.setOnClickListener(){
-            val intent = Intent(this, QuestionActivity::class.java)
-            startActivity(intent)
-
-        }
     }
 
     private fun initToolBar() {
@@ -30,5 +23,4 @@ class StartTestActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener(
             View.OnClickListener { onBackPressed() })
     }
-
 }
