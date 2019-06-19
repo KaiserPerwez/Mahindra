@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#D31E35</color>
+    <color name="colorPrimaryDark">#9E2F3E</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000</color>
+    <color name="material_color_red50">#FFEBEE</color>
+    <color name="material_color_red100">#FFCDD2</color>
+    <color name="material_color_red200">#EF9A9A</color>
+    <color name="material_color_red300">#E57373</color>
+    <color name="material_color_red400">#EF5350</color>
+    <color name="material_color_red500">#F44336</color>
+    <color name="material_color_red600">#E53935</color>
+    <color name="material_color_red700">#D32F2F</color>
+    <color name="material_color_red800">#C62828</color>
+    <color name="material_color_red900">#B71C1C</color>
+    <color name="material_color_redA100">#FF8A80</color>
+    <color name="material_color_redA200">#FF5252</color>
+    <color name="material_color_redA400">#FF1744</color>
+    <color name="material_color_redA700">#D50000</color>
+
+    <color name="material_color_teal50">#E0F2F1</color>
+    <color name="material_color_teal100">#B2DFDB</color>
+    <color name="material_color_teal200">#80CBC4</color>
+    <color name="material_color_teal300">#4DB6AC</color>
+    <color name="material_color_teal400">#26A69A</color>
+    <color name="material_color_teal500">#009688</color>
+    <color name="material_color_teal600">#00897B</color>
+    <color name="material_color_teal700">#00796B</color>
+    <color name="material_color_teal800">#00695C</color>
+    <color name="material_color_teal900">#004D40</color>
+    <color name="material_color_tealA100">#A7FFEB</color>
+    <color name="material_color_tealA200">#64FFDA</color>
+    <color name="material_color_tealA400">#1DE9B6</color>
+    <color name="material_color_tealA700">#00BFA5</color>
+
+    <color name="material_color_grey50">#FAFAFA</color>
+    <color name="material_color_grey100">#F5F5F5</color>
+    <color name="material_color_grey200">#EEEEEE</color>
+    <color name="material_color_grey300">#E0E0E0</color>
+    <color name="material_color_grey400">#BDBDBD</color>
+    <color name="material_color_grey500">#9E9E9E</color>
+    <color name="material_color_grey600">#757575</color>
+    <color name="material_color_grey700">#616161</color>
+    <color name="material_color_grey800">#424242</color>
+    <color name="material_color_grey900">#212121</color>
+
+    <color name="material_color_blueGrey50">#ECEFF1</color>
+    <color name="material_color_blueGrey100">#CFD8DC</color>
+    <color name="material_color_blueGrey200">#B0BEC5</color>
+    <color name="material_color_blueGrey300">#90A4AE</color>
+    <color name="material_color_blueGrey400">#78909C</color>
+    <color name="material_color_blueGrey500">#607D8B</color>
+    <color name="material_color_blueGrey600">#546E7A</color>
+    <color name="material_color_blueGrey700">#455A64</color>
+    <color name="material_color_blueGrey800">#37474F</color>
+    <color name="material_color_blueGrey900">#263238</color>
+
+
+    <color name="cyan_50">#E0F7FA</color>
+    <color name="amber_50">#FFF8E1</color>
+    <color name="purple_50">#F3E5F5</color>
+
+    <color name="blue">#0E2394</color>
+
+    <color name="primary_500">#3F51B5</color>
+    <!--Indigo 700-->
+    <color name="primary_700">#303F9F</color>
+    <color name="bg_circle_default">#666666</color>
+
+
+    <color name="red_active">#f44336</color>
+    <color name="purple_active">#9c27b0</color>
+    <color name="blue_active">#03a9f4</color>
+    <color name="green_active">#4caf50</color>
+    <color name="blue_grey_active">#607d8b</color>
+    <color name="yellow_active">#ffeb3b</color>
+    <color name="orange_active">#ff9800</color>
+    <color name="grey_active">#9e9e9e</color>
+
+    <color name="red_inactive">#e57373</color>
+    <color name="purple_inactive">#ba68c8</color>
+    <color name="blue_inactive">#64b5f6</color>
+    <color name="green_inactive">#81c784</color>
+    <color name="blue_grey_inactive">#90a4ae</color>
+    <color name="yellow_inactive">#fff176</color>
+    <color name="orange_inactive">#ffb74d</color>
+    <color name="gery_inactive">#e0e0e0</color>
+
+    <color name="default_inactive">#78909c</color>
+
+    <color name="red_bg_light">#ffebee</color>
+    <color name="purple_bg_light">#f3e5f5</color>
+    <color name="blue_bg_light">#e3f2fd</color>
+    <color name="green_bg_light">#e8f5e9</color>
+    <color name="blue_grey_bg_light">#eceff1</color>
+    <color name="yellow_bg_light">#fffde7</color>
+    <color name="orange_bg_light">#fff3e0</color>
+    <color name="grey_bg_light">#fafafa</color>
+
+
+</resources>
