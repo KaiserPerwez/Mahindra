@@ -1,23 +1,20 @@
 package com.android.mahindra.ui.screen.home
 
 import android.os.Bundle
-import com.google.android.material.tabs.TabLayout
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
-
+import androidx.core.view.GravityCompat
 import com.android.mahindra.Adapter.MyAdapter
 import com.android.mahindra.R
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
-class HomeActivity : AppCompatActivity(){//, NavigationView.OnNavigationItemSelectedListener {
-
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,14 +23,13 @@ class HomeActivity : AppCompatActivity(){//, NavigationView.OnNavigationItemSele
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        /*tabLayout!!.addTab(tabLayout!!.newTab().setText("Up Coming"))
+        tabLayout!!.addTab(tabLayout!!.newTab().setText("Up Coming"))
         tabLayout!!.addTab(tabLayout!!.newTab().setText("History"))
         tabLayout!!.tabGravity = com.google.android.material.tabs.TabLayout.GRAVITY_FILL
-*/
 
 
-       /* val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val navView: NavigationView = findViewById(R.id.nav_view)*/
+        /* val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+         val navView: NavigationView = findViewById(R.id.nav_view)*/
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
             R.string.navigation_drawer_open,
@@ -42,27 +38,32 @@ class HomeActivity : AppCompatActivity(){//, NavigationView.OnNavigationItemSele
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
-       /* nav_view.setNavigationItemSelectedListener(this)
+        nav_view.setNavigationItemSelectedListener(this)
 
 
         val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount)
         viewPager!!.adapter = adapter
 
-        viewPager!!.addOnPageChangeListener(com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener(tabLayout))
+        viewPager!!.addOnPageChangeListener(
+            com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener(
+                tabLayout
+            )
+        )
 
         tabLayout!!.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
             }
+
             override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab) {
 
             }
+
             override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab) {
 
             }
-        })*/
+        })
     }
-
 
 
     override fun onBackPressed() {
@@ -90,7 +91,7 @@ class HomeActivity : AppCompatActivity(){//, NavigationView.OnNavigationItemSele
         }
     }
 
-    /*override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_setting -> {
@@ -103,5 +104,5 @@ class HomeActivity : AppCompatActivity(){//, NavigationView.OnNavigationItemSele
         val drawerLayout: androidx.drawerlayout.widget.DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
-    }*/
+    }
 }
