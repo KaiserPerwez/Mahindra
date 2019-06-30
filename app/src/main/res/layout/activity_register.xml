@@ -4,6 +4,7 @@
     <data>
 
         <variable name="vm" type="com.android.mahindra.ui.screen.register.RegisterViewModel"/>
+        <variable name="act" type="com.android.mahindra.ui.screen.register.RegisterActivity"/>
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="First Name"
+                    android:text="@={vm.firstName}"
                     android:inputType="textCapWords"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -53,14 +55,14 @@
                 app:layout_constraintStart_toStartOf="@+id/first_name_layout"
                 app:layout_constraintEnd_toEndOf="@+id/first_name_layout"
                 app:layout_constraintTop_toBottomOf="@+id/first_name_layout"
-                android:layout_marginTop="10dp"
-        >
+                android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/last_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Last Name"
+                    android:text="@={vm.lastName}"
                     android:inputType="textCapWords"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -74,14 +76,14 @@
                 app:layout_constraintStart_toStartOf="@+id/last_name_layout"
                 app:layout_constraintEnd_toEndOf="@+id/last_name_layout"
                 app:layout_constraintTop_toBottomOf="@+id/last_name_layout"
-                android:layout_marginTop="10dp"
-        >
+                android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="*Email"
+                    android:text="@={vm.email}"
                     android:inputType="textCapWords"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -95,8 +97,7 @@
                 app:layout_constraintStart_toStartOf="@+id/email_layout"
                 app:layout_constraintEnd_toEndOf="@+id/email_layout"
                 app:layout_constraintTop_toBottomOf="@+id/email_layout"
-                android:layout_marginTop="10dp"
-        >
+                android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/mobile"
@@ -104,6 +105,7 @@
                     android:layout_height="wrap_content"
                     android:hint="*Mobile Number"
                     android:inputType="textCapWords"
+                    android:text="@={vm.mobile}"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,8 +119,7 @@
                 app:layout_constraintStart_toStartOf="@+id/mobile_layout"
                 app:layout_constraintEnd_toEndOf="@+id/mobile_layout"
                 app:layout_constraintTop_toBottomOf="@+id/mobile_layout"
-                android:layout_marginTop="10dp"
-        >
+                android:layout_marginTop="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/otp"
@@ -126,6 +127,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter OTP"
                     android:inputType="textCapWords"
+                    android:text="@={vm.otp}"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,11 +139,12 @@
                 app:layout_constraintEnd_toEndOf="@+id/otp_layout"
                 app:layout_constraintTop_toBottomOf="@+id/otp_layout"
                 android:layout_marginRight="50dp"
+                android:onClick="@{()->act.initPermission()}"
                 android:drawableRight="@drawable/ic_photo_camera"
                 android:drawableTint="@color/material_color_grey800"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"
-                android:text="*Upload Profile Photo"/>
+                android:layout_marginTop="20dp"
+                android:hint="*Upload Profile Photo"/>
 
         <View
                 android:id="@+id/profile_view"
@@ -153,7 +156,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/upload_profile_photo"
                 android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"/>
 
         <LinearLayout
                 android:id="@+id/id_proof_layout"
@@ -166,7 +170,8 @@
                 app:layout_constraintEnd_toEndOf="@+id/profile_view"
                 app:layout_constraintTop_toBottomOf="@+id/profile_view"
                 android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp">
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp">
 
             <Spinner
                     android:id="@+id/upload_id_proof"
@@ -178,6 +183,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:padding="10dp"
+                    android:entries="@array/proof_spinner"
                     android:text="*Upload Profile Photo"/>
             <View
                     android:layout_width="1dp"

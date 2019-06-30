@@ -15,6 +15,15 @@ import org.jetbrains.anko.toast
 class RegisterViewModel(private val activity: RegisterActivity) {
 
     var sapCode = ObservableField("")
+    var firstName = ObservableField("")
+    var lastName = ObservableField("")
+    var email = ObservableField("")
+    var mobile = ObservableField("")
+    var otp = ObservableField("")
+    var profilePic = ObservableField("")
+    var proofPic = ObservableField("")
+    var proofType = ObservableField("")
+
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
