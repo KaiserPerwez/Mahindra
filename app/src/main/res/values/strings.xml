@@ -22,4 +22,13 @@
     <string name="upcoming_fragment">Up Coming</string>
     <string name="history_fragment">History</string>
 
+    <string-array name="proof_spinner">
+        <item>Select ID Proof</item>
+        <item>Aadhaar Card</item>
+        <item>Voter Id</item>
+        <item>Passport</item>
+        <item>Driving Licence</item>
+        <item>Pan Card</item>
+    </string-array>
+
 </resources>
