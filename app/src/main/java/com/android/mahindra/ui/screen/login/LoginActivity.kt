@@ -26,12 +26,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initUiAndListeners() {
         binding.vm = viewModel
-       // setSupportActionBar(binding.toolbar)
+
         supportActionBar?.title = "Login"
-        login.setOnClickListener{
+        /*login.setOnClickListener{
             intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
     fun showToast(msg:String){
         toast(msg)

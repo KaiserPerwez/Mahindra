@@ -21,7 +21,13 @@ import java.util.concurrent.TimeUnit
 interface ApiService {
 
     //SAMPLES . METHOD-->GET 
-    
+
+    @GET("api/login/")
+    fun userLogin(@Query("sap_code") sap_code: String): Observable<UserLoginData>
+
+    @GET("api/generate_otp/")
+    fun validatePhone(@Query("ph_no") ph_no: String): Observable<BaseResponse<Any>>
+
     @GET("api/header")
     fun getByHeader(@Header("Authorizations") token: String? = ""): Observable<BaseResponse<Any>>
 

@@ -1,12 +1,16 @@
 package com.android.mahindra.data.model.api
 
+import com.google.gson.annotations.SerializedName
+
 /**
  * @author Kaiser Perwez
  */
 
 data class BaseResponse<out T>(
-    val status: Boolean,
-    val message: String?,
+    @SerializedName("status")
+    val status: Boolean? = false,
+    @SerializedName("msg")
+    val message: String? = "",
     val data: T?,
     val error: Throwable?
 )

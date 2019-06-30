@@ -1,18 +1,19 @@
-package com.android.mahindra.ui.screen.login
+package com.android.mahindra.ui.screen.register
 
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.remote.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
-import com.android.mahindra.ui.screen.register.RegisterActivity
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
-class LoginViewModel(private val activity: LoginActivity) {
+class RegisterViewModel(private val activity: RegisterActivity) {
+
     var sapCode = ObservableField("")
 
     private var disposable: Disposable? = null
@@ -25,7 +26,7 @@ class LoginViewModel(private val activity: LoginActivity) {
     fun fetchData() {
         //   activity?.hideKeyboard()
         if (!activity?.isDeviceOnline()) {
-            activity?.showToast("No internet connection.")
+            activity?.toast("No internet connection.")
             return
         }
 
@@ -52,12 +53,12 @@ class LoginViewModel(private val activity: LoginActivity) {
                                 it.startActivity<HomeActivity>("result" to result)
                             }
                         } else {
-                            it.showToast(result.message ?: "")
+                            it.toast(result.message ?: "")
                         }
                     }
                 },
                 { error ->
-                    activity?.showToast(error.message ?: "Error while fetching data")
+                    activity?.toast(error.message ?: "Error while fetching data")
                 }
             )
     }
@@ -66,7 +67,7 @@ class LoginViewModel(private val activity: LoginActivity) {
         disposable?.dispose()
     }
 
-    fun onResume() = activity?.showToast("View model resumed")
+    fun onResume() = activity?.toast("View model resumed")
     fun onPause() = dispose()
     fun onStop() = dispose()
 }
