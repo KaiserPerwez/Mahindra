@@ -1,16 +1,16 @@
-package com.android.mahindra.data.remote
+package com.android.mahindra.data.remote.api
 
 /**
  * @author Kaiser Perwez
  */
- 
+
 import com.android.mahindra.BuildConfig
-import com.android.mahindra.data.model.api.*
+import com.android.mahindra.data.model.api.BaseResponse
+import com.android.mahindra.data.model.api.QuestionsResponseModel
+import com.android.mahindra.data.model.api.UserLoginData
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
-import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -25,6 +25,7 @@ interface ApiService {
     @GET("api/login/")
     fun userLogin(@Query("sap_code") sap_code: String): Observable<UserLoginData>
 
+
     @GET("api/generate_otp/")
     fun validatePhone(@Query("ph_no") ph_no: String): Observable<BaseResponse<Any>>
 
@@ -37,7 +38,7 @@ interface ApiService {
     @GET("api/path/{ID}")
     fun getByPath(@Path("ID") jobId: String): Observable<BaseResponse<Any>>
 
-    
+
     //SAMPLES . METHOD-->POST
     @POST("api/asModelBody")
     fun postByModelBody(@Body requestModel: Any): Observable<BaseResponse<Any>>
@@ -47,17 +48,20 @@ interface ApiService {
     fun postAsParamKeys(@Field("key") key: String): Observable<BaseResponse<Any>>
 
     @POST("api/multipart")
-    fun postAsMultipart(@Header("Authorizations") token: String?, @Body requestBody: MultipartBody): 		     Observable<BaseResponse<Array<Any>>>
+    fun postAsMultipart(@Header("Authorizations") token: String?, @Body requestBody: MultipartBody): Observable<BaseResponse<Array<Any>>>
 
 
+    @POST("api/get_questions")
+    @FormUrlEncoded
+    fun getQuestions(@Field("test_id") testId: String): Observable<QuestionsResponseModel>
 
     companion object {
-	val debug=true
-	val devUrl="~devProject/"
-	val liveUrl="~liveProject/"
+        val debug = true
+        val devUrl = "~devProject/"
+        val liveUrl = "~liveProject/"
         // Dev URL
-        private val BASE_URL: String = "http://209.59.156.100/${if(debug) devUrl else liveUrl}" 
-        val BASE_URL_FILES = "http://209.59.156.100/${if(debug) devUrl else liveUrl}public/uploads/"
+        private val BASE_URL: String = "http://209.59.156.100/${if (debug) devUrl else liveUrl}"
+        val BASE_URL_FILES = "http://209.59.156.100/${if (debug) devUrl else liveUrl}public/uploads/"
 
         fun create(baseUrl: String = BASE_URL): ApiService {
 

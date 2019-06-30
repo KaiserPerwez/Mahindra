@@ -2,7 +2,7 @@ package com.android.mahindra.ui.screen.register
 
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
-import com.android.mahindra.data.remote.ApiService
+import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers

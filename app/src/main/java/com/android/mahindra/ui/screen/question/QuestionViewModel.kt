@@ -1,19 +1,23 @@
-package com.android.mahindra.ui.screen.login
+package com.android.mahindra.ui.screen.question
 
 import androidx.databinding.ObservableField
-import com.android.mahindra.data.model.api.Status
+import com.android.mahindra.data.model.api.Question
 import com.android.mahindra.data.remote.api.ApiService
-import com.android.mahindra.ui.screen.home.HomeActivity
-import com.android.mahindra.ui.screen.register.RegisterActivity
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.startActivity
 
-class LoginViewModel(private val activity: LoginActivity) {
-    var sapCode = ObservableField("")
+class QuestionViewModel(private val activity: QuestionActivity) {
+
+    //header
+    var indexCurrentQuestion = ObservableField("0")
+    var totalQuestions = ObservableField("0")
+    var timeToExpire = ObservableField("")
+
+    var currentQuestion = ObservableField<Question>()
+    var questionList = mutableListOf<Question>()
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
@@ -22,7 +26,7 @@ class LoginViewModel(private val activity: LoginActivity) {
            PreferenceHelper.customPrefs(searchActivity, PreferenceHelper.USER_PREF)
        }
      */
-    fun fetchData() {
+    fun fetchData(testId: String) {
         //   activity?.hideKeyboard()
         if (!activity?.isDeviceOnline()) {
             activity?.showToast("No internet connection.")
@@ -33,7 +37,7 @@ class LoginViewModel(private val activity: LoginActivity) {
             setCancelable(false)
         }
 
-        disposable = apiService.userLogin(sapCode?.get() ?: "")
+        disposable = apiService.getQuestions(testId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -45,14 +49,22 @@ class LoginViewModel(private val activity: LoginActivity) {
             .subscribe(
                 { result ->
                     activity?.let {
-                        if (result.status == Status.SUCCESS) {
-                            if (result.isFirstLogin == true) {
-                                it.startActivity<RegisterActivity>("result" to result)
-                            } else {
-                                it.startActivity<HomeActivity>("result" to result)
+                        /*  if (result.status == Status.SUCCESS) {
+                              if (result.isFirstLogin == true) {
+                                  it.startActivity<RegisterActivity>("result" to result)
+                              } else {
+                                  it.startActivity<HomeActivity>("result" to result)
+                              }
+                          } else {
+                              it.showToast(result.message ?: "")
+                          }*/
+                        result?.questions?.let {
+                            if (it.isNotEmpty()) {
+                                indexCurrentQuestion?.set("1")
+                                totalQuestions?.set(it.size.toString())
+                                questionList?.addAll(it)
+                                currentQuestion?.set(it.get(0))
                             }
-                        } else {
-                            it.showToast(result.message ?: "")
                         }
                     }
                 },
