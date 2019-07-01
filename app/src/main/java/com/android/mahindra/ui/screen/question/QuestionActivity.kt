@@ -22,17 +22,17 @@ class QuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initUiAndListeners()
 
-        val testId = intent?.getStringExtra("testId") ?: ""
+        val testId = intent?.getStringExtra("testId") ?: "1"
         binding?.vm?.fetchData(testId)
     }
 
     private fun initUiAndListeners() {
         supportActionBar?.title = "Questions"
-        initToolBar()
+        //initToolBar()
 
         binding.vm = viewModel
 
-        val timeToExpire = (intent?.getStringExtra("timer") ?: "0").toLong()
+        val timeToExpire = (intent?.getStringExtra("timer") ?: "120000").toLong()
         countDownTimer = object : CountDownTimer(timeToExpire, 1000) {
             override fun onFinish() {
                 binding?.vm?.timeToExpire?.set("TimeOut")

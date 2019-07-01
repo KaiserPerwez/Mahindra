@@ -51,7 +51,7 @@ interface ApiService {
     fun postAsMultipart(@Header("Authorizations") token: String?, @Body requestBody: MultipartBody): Observable<BaseResponse<Array<Any>>>
 
 
-    @POST("api/get_questions")
+    @POST("api/get_questions/")
     @FormUrlEncoded
     fun getQuestions(@Field("test_id") testId: String): Observable<QuestionsResponseModel>
 
@@ -60,7 +60,8 @@ interface ApiService {
         val devUrl = "~devProject/"
         val liveUrl = "~liveProject/"
         // Dev URL
-        private val BASE_URL: String = "http://209.59.156.100/${if (debug) devUrl else liveUrl}"
+      //  private val BASE_URL: String = "http://134.209.153.25/${if (debug) devUrl else liveUrl}"
+        private val BASE_URL: String = "http://134.209.153.25:9090/"
         val BASE_URL_FILES = "http://209.59.156.100/${if (debug) devUrl else liveUrl}public/uploads/"
 
         fun create(baseUrl: String = BASE_URL): ApiService {

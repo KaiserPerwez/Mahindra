@@ -5,8 +5,8 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.android.mahindra.Adapter.MyAdapter
 import com.android.mahindra.R
 import com.google.android.material.navigation.NavigationView
@@ -20,12 +20,13 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        tabLayout!!.addTab(tabLayout!!.newTab().setText("Up Coming"))
-        tabLayout!!.addTab(tabLayout!!.newTab().setText("History"))
-        tabLayout!!.tabGravity = com.google.android.material.tabs.TabLayout.GRAVITY_FILL
+        tabLayout?.apply {
+            addTab(newTab().setText("Up Coming"))
+            addTab(newTab().setText("History"))
+            tabGravity = TabLayout.GRAVITY_FILL
+        }
 
 
         /* val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -35,31 +36,31 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.string.navigation_drawer_open,
             R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+        drawer_layout?.addDrawerListener(toggle)
+        toggle?.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
+        nav_view?.setNavigationItemSelectedListener(this)
 
 
         val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount)
-        viewPager!!.adapter = adapter
+        viewPager?.adapter = adapter
 
-        viewPager!!.addOnPageChangeListener(
-            com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener(
+        viewPager?.addOnPageChangeListener(
+            TabLayout.TabLayoutOnPageChangeListener(
                 tabLayout
             )
         )
 
-        tabLayout!!.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab) {
+        tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
                 viewPager!!.currentItem = tab.position
             }
 
-            override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab) {
+            override fun onTabUnselected(tab: TabLayout.Tab) {
 
             }
 
-            override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab) {
+            override fun onTabReselected(tab: TabLayout.Tab) {
 
             }
         })
@@ -67,7 +68,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
     override fun onBackPressed() {
-        val drawerLayout: androidx.drawerlayout.widget.DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -101,7 +102,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             }
         }
-        val drawerLayout: androidx.drawerlayout.widget.DrawerLayout = findViewById(R.id.drawer_layout)
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
