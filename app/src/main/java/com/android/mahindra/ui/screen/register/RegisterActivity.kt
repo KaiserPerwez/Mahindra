@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
@@ -31,7 +32,7 @@ class RegisterActivity : AppCompatActivity() {
     private var loginData: UserLoginData? = null
 
     private val REQUEST_CAPTURE_IMAGE = 100
-    private lateinit var imageFilePath: String
+//    private lateinit var imageFilePath: String
 
     private lateinit var photoFile: File
 
@@ -81,7 +82,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     @Throws(IOException::class)
-    private fun createImageFile(): File {
+    private fun createImageFile(view: View): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -91,11 +92,15 @@ class RegisterActivity : AppCompatActivity() {
             storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            imageFilePath = absolutePath
+            if (view.id == R.id.upload_profile_photo) {
+                binding?.vm?.profilePic?.set(absolutePath)
+            } else {
+                binding?.vm?.proofPic?.set(absolutePath)
+            }
         }
     }
 
-    fun initPermission() {
+    fun initPermission(view: View) {
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.CAMERA,
@@ -106,7 +111,7 @@ class RegisterActivity : AppCompatActivity() {
                     // check if all permissions are granted
                     if (report.areAllPermissionsGranted()) {
                         // do you work now
-                        openCameraIntent()
+                        openCameraIntent(view)
                     }
 
                     // check for permanent denial of any permission
@@ -126,19 +131,13 @@ class RegisterActivity : AppCompatActivity() {
             .check()
     }
 
-    private fun openCameraIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_CAPTURE_IMAGE)
-            }
-        }
-
+    private fun openCameraIntent(view: View) {
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
             // Ensure that there's a camera activity to handle the intent
             takePictureIntent.resolveActivity(packageManager)?.also {
                 // Create the File where the photo should go
                 val photoFile: File? = try {
-                    createImageFile()
+                    createImageFile(view)
                 } catch (ex: IOException) {
                     null
                 }

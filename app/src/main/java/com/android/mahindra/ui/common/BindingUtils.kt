@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter
 import android.os.Build
 import android.text.Html
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import com.android.mahindra.R
 import com.android.mahindra.util.GlideApp
@@ -70,5 +71,20 @@ object BindingUtils {
             Html.fromHtml(text?.trim()) ?: ""
         }
     }
+
+    /*@BindingAdapter("entries")
+    fun Spinner.setEntries(entries: List<Any>?) {
+        setSpinnerEntries(entries)
+    }
+
+    @BindingAdapter("onItemSelected")
+    fun Spinner.setItemSelectedListener(itemSelectedListener: ItemSelectedListener?) {
+        setSpinnerItemSelectedListener(itemSelectedListener)
+    }
+
+    @BindingAdapter("newValue")
+    fun Spinner.setNewValue(newValue: Any?) {
+        setSpinnerValue(newValue)
+    }*/
 
 }
