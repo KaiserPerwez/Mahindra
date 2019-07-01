@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.ui.screen.start_test.StartTestActivity
+import kotlinx.android.synthetic.main.fragment_up_coming.*
 import kotlinx.android.synthetic.main.fragment_up_coming.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -44,11 +46,14 @@ class UpComingFragment : androidx.fragment.app.Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fetchUpcomingExams()
+        setUpcomingExams()
     }
 
-    private fun fetchUpcomingExams() {
-
+    private fun setUpcomingExams() {
+        rv_upcoming?.apply {
+            layoutManager = LinearLayoutManager(this.context)
+            adapter = UpcomingExamsAdapter(listUpcomingFrag, this@UpComingFragment.context)
+        }
     }
 
 }
