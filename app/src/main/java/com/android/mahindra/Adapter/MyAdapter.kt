@@ -1,10 +1,17 @@
 package com.android.mahindra.Adapter
 
 import android.content.Context;
+import androidx.fragment.app.FragmentManager
+import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.ui.screen.history.HistoryFragment
 import com.android.mahindra.ui.screen.upcoming.UpComingFragment
 
-class MyAdapter(private val myContext: Context, fm: androidx.fragment.app.FragmentManager, internal var totalTabs: Int) : androidx.fragment.app.FragmentPagerAdapter(fm) {
+class MyAdapter(
+    private val myContext: Context,
+    fm: FragmentManager,
+    internal var totalTabs: Int,
+    list: List<ExamsModel>
+) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     // this is for fragment tabs
     override fun getItem(position: Int): androidx.fragment.app.Fragment? {

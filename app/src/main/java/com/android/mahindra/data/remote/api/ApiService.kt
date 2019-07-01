@@ -6,6 +6,7 @@ package com.android.mahindra.data.remote.api
 
 import com.android.mahindra.BuildConfig
 import com.android.mahindra.data.model.api.BaseResponse
+import com.android.mahindra.data.model.api.MyExamsResponseModel
 import com.android.mahindra.data.model.api.QuestionsResponseModel
 import com.android.mahindra.data.model.api.UserLoginData
 import io.reactivex.Observable
@@ -54,6 +55,10 @@ interface ApiService {
     @POST("api/get_questions/")
     @FormUrlEncoded
     fun getQuestions(@Field("test_id") testId: String): Observable<QuestionsResponseModel>
+
+    @POST("api/fetch_scheduled_test/")
+    @FormUrlEncoded
+    fun getExams(@Field("sap_code") sapCode: String): Observable<MyExamsResponseModel>
 
     companion object {
         val debug = true

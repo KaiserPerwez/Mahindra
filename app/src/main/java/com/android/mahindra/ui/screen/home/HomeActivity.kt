@@ -9,13 +9,22 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.android.mahindra.Adapter.MyAdapter
 import com.android.mahindra.R
+import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.util.extension.isDeviceOnline
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.toast
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
+    private var disposable: Disposable? = null
+    private val apiService by lazy { ApiService.create() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +50,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view?.setNavigationItemSelectedListener(this)
 
+        fetchExams("az10111")
+    }
 
-        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount)
+    private fun setUpViewPager(list: List<ExamsModel>) {
+        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount,list)
         viewPager?.adapter = adapter
 
         viewPager?.addOnPageChangeListener(
@@ -105,5 +117,53 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun showToast(msg: String) {
+        toast(msg)
+    }
+
+    fun fetchExams(sapCode: String) {
+        if (!isDeviceOnline()) {
+            showToast("No internet connection.")
+            return
+        }
+
+        val dialog = indeterminateProgressDialog("Loading data...").apply {
+            setCancelable(false)
+        }
+
+        val disposable = apiService.getExams(sapCode)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                runOnUiThread { dialog.show() }
+            }
+            .doAfterTerminate {
+                runOnUiThread { dialog.dismiss() }
+            }
+            .subscribe(
+                { result ->
+                    let {
+                        /*  if (result.status == Status.SUCCESS) {
+                              if (result.isFirstLogin == true) {
+                                  it.startActivity<RegisterActivity>("result" to result)
+                              } else {
+                                  it.startActivity<HomeActivity>("result" to result)
+                              }
+                          } else {
+                              it.showToast(result.message ?: "")
+                          }*/
+                        result?.data?.let {
+                            if (it.isNotEmpty()) {
+                                setUpViewPager(it)
+                            }
+                        }
+                    }
+                },
+                { error ->
+                    showToast(error.message ?: "Error while fetching data")
+                }
+            )
     }
 }
