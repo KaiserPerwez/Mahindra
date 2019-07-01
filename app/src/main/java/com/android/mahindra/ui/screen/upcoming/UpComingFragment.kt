@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.mahindra.R
+import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.ui.screen.start_test.StartTestActivity
 import kotlinx.android.synthetic.main.fragment_up_coming.view.*
 
@@ -21,6 +22,7 @@ private const val ARG_PARAM2 = "param2"
  *
  */
 class UpComingFragment : androidx.fragment.app.Fragment() {
+    lateinit var listUpcomingFrag: List<ExamsModel>
 
 
     override fun onCreateView(

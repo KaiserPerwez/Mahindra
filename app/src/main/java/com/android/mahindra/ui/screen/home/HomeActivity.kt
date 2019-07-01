@@ -54,7 +54,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setUpViewPager(list: List<ExamsModel>) {
-        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount,list)
+        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount, list)
         viewPager?.adapter = adapter
 
         viewPager?.addOnPageChangeListener(

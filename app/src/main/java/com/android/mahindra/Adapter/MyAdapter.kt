@@ -10,7 +10,7 @@ class MyAdapter(
     private val myContext: Context,
     fm: FragmentManager,
     internal var totalTabs: Int,
-    list: List<ExamsModel>
+    val list: List<ExamsModel>
 ) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
     // this is for fragment tabs
@@ -18,10 +18,12 @@ class MyAdapter(
         when (position) {
             0 -> {
                 //  val homeFragment: HomeFragment = HomeFragment()
-                return UpComingFragment()
+                val listUpcoming = list.filter { it.status != "completed" }
+                return UpComingFragment().apply { listUpcomingFrag = listUpcoming }
             }
             1 -> {
-                return HistoryFragment()
+                val listHistory = list.filter { it.status == "completed" }
+                return HistoryFragment().apply { listHistoryFrag = listHistory }
             }
 
             else -> return null
