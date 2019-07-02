@@ -78,7 +78,7 @@ class QuestionActivity : AppCompatActivity() {
             tv_dropdown?.setOnClickListener {
                 val options = currentQuestion.get()!!.options
                 if (options.isNullOrEmpty()) return@setOnClickListener
-                selector("Select and option", options) { dialogInterface, index ->
+                selector("Select an option", options) { dialogInterface, index ->
                     tv_dropdown?.text = options[index]
                 }
             }

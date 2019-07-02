@@ -32,11 +32,7 @@
 		<activity android:name=".ui.screen.start_test.StartTestActivity" >
 		</activity >
 		<activity android:name=".ui.screen.question.QuestionActivity" >
-			<intent-filter >
-				<action android:name="android.intent.action.MAIN" />
-				
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter >
+		
 		</activity >
 		<activity
 				android:name=".ui.screen.home.HomeActivity"
@@ -44,7 +40,11 @@
 				android:theme="@style/AppTheme.NoActionBar" >
 		</activity >
 		<activity android:name=".ui.screen.register.RegisterActivity" >
-		
+			<intent-filter >
+				<action android:name="android.intent.action.MAIN" />
+				
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter >
 		</activity >
 		<activity android:name=".ui.screen.login.LoginActivity" >
 			<!--  <intent-filter>

@@ -26,7 +26,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class RegisterActivity : AppCompatActivity() {
 
     private var loginData: UserLoginData? = null
@@ -72,12 +71,9 @@ class RegisterActivity : AppCompatActivity() {
             if (resultCode == RESULT_OK) {
 //                imageView.setImageURI(Uri.parse(imageFilePath));
             } else if (resultCode == RESULT_CANCELED) {
+                binding?.vm?.profilePic?.set("")
                 toast("You cancelled the operation")
             }
-            /*if (data != null && data.extras != null) {
-                val imageBitmap = data.extras!!.get("data") as Bitmap
-//                mImageView.setImageBitmap(imageBitmap)
-            }*/
         }
     }
 
@@ -101,6 +97,12 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun initPermission(view: View) {
+
+        if (view.id == R.id.id_proof_layout && binding.vm?.proofType?.get() == "") {
+            toast("Please select ID Proof.")
+            return
+        }
+
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.CAMERA,

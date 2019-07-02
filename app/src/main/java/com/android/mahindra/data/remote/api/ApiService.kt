@@ -5,13 +5,11 @@ package com.android.mahindra.data.remote.api
  */
 
 import com.android.mahindra.BuildConfig
-import com.android.mahindra.data.model.api.BaseResponse
-import com.android.mahindra.data.model.api.MyExamsResponseModel
-import com.android.mahindra.data.model.api.QuestionsResponseModel
-import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.data.model.api.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -29,6 +27,9 @@ interface ApiService {
 
     @GET("api/generate_otp/")
     fun validatePhone(@Query("ph_no") ph_no: String): Observable<BaseResponse<Any>>
+
+    @POST("api/update_profile/")
+    fun updateProfile(@Body file: RequestBody): Observable<UpdateProfileData>
 
     @GET("api/header")
     fun getByHeader(@Header("Authorizations") token: String? = ""): Observable<BaseResponse<Any>>

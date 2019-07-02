@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:hint="*Email"
                     android:text="@={vm.email}"
-                    android:inputType="textCapWords"
+                    android:inputType="textEmailAddress"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,7 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="*Mobile Number"
-                    android:inputType="textCapWords"
+                    android:inputType="phone"
                     android:text="@={vm.mobile}"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter OTP"
-                    android:inputType="textCapWords"
+                    android:inputType="number"
                     android:text="@={vm.otp}"
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -144,6 +144,8 @@
                 android:drawableTint="@color/material_color_grey800"
                 android:layout_marginLeft="40dp"
                 android:text="@{vm.profilePic}"
+                android:singleLine="true"
+                android:textSize="14dp"
                 android:layout_marginTop="20dp"
                 android:hint="*Upload Profile Photo"/>
 
@@ -151,7 +153,7 @@
                 android:id="@+id/profile_view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/material_color_grey300"
+                android:background="@color/material_color_grey600"
                 app:layout_constraintStart_toStartOf="@+id/upload_profile_photo"
                 app:layout_constraintEnd_toEndOf="@+id/upload_profile_photo"
                 app:layout_constraintTop_toBottomOf="@+id/upload_profile_photo"
@@ -173,10 +175,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/profile_view"
                 android:layout_marginRight="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="20dp" >
     
             <!--android:entries="@array/proof_spinner"-->
-            <Spinner
+            <!--<Spinner
                     android:id="@+id/upload_id_proof"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -186,11 +188,28 @@
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:padding="10dp"
-                    android:entries="@array/proof_spinner" />
+                    android:entries="@array/proof_spinner" />-->
+    
+            <TextView
+                    android:id="@+id/upload_id_proof"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTint="@color/material_color_grey800"
+                    android:hint="Click to select an option"
+                    android:layout_weight="1"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:textSize="14dp"
+                    android:drawableEnd="@android:drawable/arrow_down_float"
+                    android:onClick="@{()->vm.displayProofType()}"
+                    android:text="@{vm.proofType}"
+                    android:drawablePadding="10dp" />
+    
             <View
                     android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:background="@color/material_color_grey300"
+                    android:background="@color/material_color_grey600"
                     android:layout_marginRight="10dp"/>
 
             <ImageView
@@ -208,7 +227,7 @@
                 android:id="@+id/proof_view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/material_color_grey300"
+                android:background="@color/material_color_grey600"
                 app:layout_constraintStart_toStartOf="@+id/id_proof_layout"
                 app:layout_constraintEnd_toEndOf="@+id/id_proof_layout"
                 app:layout_constraintTop_toBottomOf="@+id/id_proof_layout"
@@ -233,6 +252,7 @@
                 android:background="@color/colorPrimary"
                 android:padding="16dp"
                 android:text="Register"
+                android:onClick="@{()->vm.register()}"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16dp"

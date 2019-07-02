@@ -23,3 +23,17 @@ data class UserLoginData(
     @SerializedName("msg")
     val message: String? = ""
 ) : Parcelable
+
+@Parcelize
+data class UpdateProfileData(
+    @SerializedName("msg")
+    val msg: String? = "",
+    @SerializedName("profile_pic")
+    val profilePic: String? = "",
+    @SerializedName("sap_code")
+    val sapCode: String? = "",
+    @SerializedName("status")
+    val status: Boolean? = false,
+    @SerializedName("msg")
+    val message: String? = ""
+) : Parcelable

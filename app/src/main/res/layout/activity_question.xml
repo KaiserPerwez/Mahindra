@@ -92,7 +92,7 @@
 					android:text="Click to record audio"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `audio`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`audio`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -103,7 +103,7 @@
 					android:text="Click to record video"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `video`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`video`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -114,7 +114,7 @@
 					android:text="Click to upload file"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `file`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`file`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -125,7 +125,7 @@
 					android:text="Click to select an option"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `dropdown`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`dropdown`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -134,7 +134,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						tools:visibility="visible"
-						android:visibility="@{(vm.currentQuestion.type == `dropdown`) ? View.VISIBLE : View.GONE}"
+						android:visibility="@{(vm.currentQuestion.type.equals(`dropdown`) ? View.VISIBLE : View.GONE}"
 						android:id="@+id/dropdown" >
 					
 					<RadioButton
@@ -168,12 +168,13 @@
 							android:textSize="18dp" />
 				</RadioGroup >
 	-->
+			
 			<LinearLayout
 					android:id="@+id/choice"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `choice`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`choice`)) ? View.VISIBLE : View.GONE}"
 					android:orientation="vertical" >
 				<CheckBox
 						android:id="@+id/chk_A"
@@ -228,7 +229,7 @@
 					android:hint="@{vm.currentQuestion.hint}"
 					android:layout_height="wrap_content"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `number`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`number`)) ? View.VISIBLE : View.GONE}"
 					android:inputType="number" />
 			<EditText
 					android:id="@+id/txt_text"
@@ -237,9 +238,9 @@
 					android:layout_height="wrap_content"
 					android:hint="@{vm.currentQuestion.hint}"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type == `text`) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equals(`text`)) ? View.VISIBLE : View.GONE}"
 					android:gravity="center"
-					android:inputType="number" />
+					android:inputType="text" />
 		</LinearLayout >
 		
 		
