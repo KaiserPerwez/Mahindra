@@ -28,7 +28,7 @@ import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
-    private var loginData: UserLoginData? = null
+    var loginData: UserLoginData? = null
 
     private val REQUEST_CAPTURE_IMAGE = 100
 //    private lateinit var imageFilePath: String
@@ -58,6 +58,7 @@ class RegisterActivity : AppCompatActivity() {
         loginData = intent.getParcelableExtra("result")
 
         binding.vm = viewModel
+        binding?.vm?.setData()
         binding.act = this
 
         supportActionBar?.title = "Register"

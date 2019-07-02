@@ -124,7 +124,8 @@ dependencies {
        //File Downloader
        implementation 'com.mindorks.android:prdownloader:0.5.0'
 
-
+        // Image compress
+        implementation 'id.zelory:compressor:2.1.0'
 
 }
 //apply plugin: 'com.google.gms.google-services'

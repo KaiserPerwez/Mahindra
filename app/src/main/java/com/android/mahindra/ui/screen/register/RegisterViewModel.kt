@@ -1,14 +1,16 @@
 package com.android.mahindra.ui.screen.register
 
+import android.graphics.Bitmap
+import android.os.Environment
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.extension.isDeviceOnline
+import id.zelory.compressor.Compressor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_question.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -33,6 +35,15 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
+
+    fun setData() {
+        activity.loginData.let {
+            sapCode.set(it?.sapCode)
+            email.set(it?.emailId)
+            firstName.set(it?.firstName)
+            lastName.set(it?.lastName)
+        }
+    }
 
     fun displayProofType() {
         val list = arrayListOf<String>()
@@ -59,8 +70,6 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
-        val profilePicFile = File(profilePic.get())
-        val proofPicFile = File(proofPic.get())
 
         builder.addFormDataPart("sap_code", sapCode.get())
         builder.addFormDataPart("ph_no", mobile.get())
@@ -70,15 +79,41 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         builder.addFormDataPart("id_proof_type", proofType.get())
         builder.addFormDataPart("otp", otp.get())
 
+        val profilePicFile = File(profilePic.get())
+        val compressedprofilePic = Compressor(activity)
+//                    .setMaxWidth(640)
+//                    .setMaxHeight(480)
+            .setQuality(60)
+            .setCompressFormat(Bitmap.CompressFormat.PNG)
+            .setDestinationDirectoryPath(
+                Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES
+                ).absolutePath
+            )
+            .compressToFile(profilePicFile)
+
         builder.addFormDataPart(
             "profile_pic",
-            profilePicFile.name,
-            RequestBody.create(MediaType.parse("multipart/form-data"), profilePicFile)
+            compressedprofilePic.name,
+            RequestBody.create(MediaType.parse("multipart/form-data"), compressedprofilePic)
         )
+
+        val proofPicFile = File(proofPic.get())
+        val compressedproofPic = Compressor(activity)
+//                    .setMaxWidth(640)
+//                    .setMaxHeight(480)
+            .setQuality(60)
+            .setCompressFormat(Bitmap.CompressFormat.PNG)
+            .setDestinationDirectoryPath(
+                Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_PICTURES
+                ).absolutePath
+            )
+            .compressToFile(proofPicFile)
         builder.addFormDataPart(
             "id_proof",
-            proofPicFile.name,
-            RequestBody.create(MediaType.parse("multipart/form-data"), proofPicFile)
+            compressedproofPic.name,
+            RequestBody.create(MediaType.parse("multipart/form-data"), compressedproofPic)
         )
 
         val requestBody = builder.build()
@@ -97,7 +132,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                 { result ->
                     activity?.let {
                         if (result.status == Status.SUCCESS) {
-                                it.startActivity<HomeActivity>("result" to result)
+                            it.startActivity<HomeActivity>("result" to result)
                         } else {
                             it.toast(result.message ?: "")
                         }
@@ -113,7 +148,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         disposable?.dispose()
     }
 
-    fun onResume() = activity?.toast("View model resumed")
+    //    fun onResume() = activity?.toast("View model resumed")
     fun onPause() = dispose()
     fun onStop() = dispose()
 }

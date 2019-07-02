@@ -10,6 +10,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.android.mahindra.Adapter.MyAdapter
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.util.extension.isDeviceOnline
 import com.google.android.material.navigation.NavigationView
@@ -26,10 +27,15 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
 
+    private var loginData: UserLoginData? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
+
+
+        loginData = intent.getParcelableExtra("result")
 
         tabLayout?.apply {
             addTab(newTab().setText("Up Coming"))
