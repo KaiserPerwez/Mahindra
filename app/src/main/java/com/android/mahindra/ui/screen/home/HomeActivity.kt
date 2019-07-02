@@ -56,7 +56,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view?.setNavigationItemSelectedListener(this)
 
-        fetchExams("az10111")
+        loginData?.sapCode?.let { fetchExams(it) }
     }
 
     private fun setUpViewPager(list: List<ExamsModel>) {

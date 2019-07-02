@@ -32,3 +32,9 @@ data class Question(
     @Expose
     var hint: String? = null
 ) : Parcelable
+
+
+data class AnswerModel(val quesnId:String,
+                       val quesnType:String,
+                       var answer:String
+                       )

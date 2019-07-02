@@ -65,16 +65,59 @@ class QuestionActivity : AppCompatActivity() {
             previous?.setOnClickListener {
                 val currentIndex = indexCurrentQuestion.get()!!.toInt() - 1
                 val newIndex = currentIndex - 1
+
                 if (newIndex >= 0) {
-                    currentQuestion.set(questionList.get(newIndex))
+                    currentQuestion.set(questionList[newIndex])
                     indexCurrentQuestion?.set((newIndex + 1).toString())
+
+                    when (questionList[newIndex].type) {
+                        "audio" -> binding.tvAudio.text = answerList[newIndex].answer
+                        "video" -> binding.tvVideo.text = answerList[newIndex].answer
+                        "dropdown" -> binding.tvDropdown.text = answerList[newIndex].answer
+                        "choice" -> {
+                            binding.chkA.isChecked = answerList[newIndex].answer[0] == '1'
+                            binding.chkB.isChecked = answerList[newIndex].answer[1] == '1'
+                            binding.chkC.isChecked = answerList[newIndex].answer[2] == '1'
+                            binding.chkD.isChecked = answerList[newIndex].answer[3] == '1'
+                        }
+                        "number" -> binding.txtNumber.text
+                        "text" -> binding.txtText.text
+                        else -> ""
+                    }
                 }
             }
             next?.setOnClickListener {
+
                 val currentIndex = indexCurrentQuestion.get()!!.toInt() - 1
                 val newIndex = currentIndex + 1
+
+                answerList[currentIndex].answer =
+                    when (answerList[currentIndex].quesnType) {
+                        "audio" -> binding.tvAudio.text.let { if (it.startsWith("Click to")) "" else it }
+                        "video" -> binding.tvVideo.text.let { if (it.startsWith("Click to")) "" else it }
+                        "dropdown" -> binding.tvDropdown.text.let { if (it.startsWith("Click to")) "" else it }
+                        "choice" -> (if (binding.chkA.isChecked) "1" else "0") +
+                                (if (binding.chkB.isChecked) "1" else "0") +
+                                (if (binding.chkC.isChecked) "1" else "0") +
+                                (if (binding.chkD.isChecked) "1" else "0")
+                        "number" -> binding.txtNumber.text
+                        "text" -> binding.txtText.text
+                        else -> ""
+                    }.toString()
+
+
+
+                if (questionList[currentIndex].mandatory!! &&
+                    (answerList[currentIndex].answer.isBlank() || answerList[currentIndex].answer == "0000")
+                ) {
+                    showToast("Answering this question is mandatory")
+                    return@setOnClickListener
+                }
+
+
+
                 if (newIndex < questionList.size) {
-                    currentQuestion.set(questionList.get(newIndex))
+                    currentQuestion.set(questionList[newIndex])
                     indexCurrentQuestion?.set((newIndex + 1).toString())
                 }
             }
@@ -94,7 +137,7 @@ class QuestionActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-      //  viewModel.onResume()
+        //  viewModel.onResume()
     }
 
     override fun onPause() {
