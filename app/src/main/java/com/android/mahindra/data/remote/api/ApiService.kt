@@ -19,10 +19,11 @@ import java.util.concurrent.TimeUnit
 
 interface ApiService {
 
-    //SAMPLES . METHOD-->GET 
+    //SAMPLES
 
-    @GET("api/login/")
-    fun userLogin(@Query("sap_code") sap_code: String): Observable<UserLoginData>
+    @POST("api/login/")
+    @FormUrlEncoded
+    fun userLogin(@Field("sap_code") sap_code: String): Observable<UserLoginData>
 
 
     @GET("api/generate_otp/")

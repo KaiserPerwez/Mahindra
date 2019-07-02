@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
+import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.databinding.ActivityQuestionBinding
 import kotlinx.android.synthetic.main.activity_question.*
 import org.jetbrains.anko.selector
@@ -20,19 +21,21 @@ class QuestionActivity : AppCompatActivity() {
     var countDownTimer: CountDownTimer? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initUiAndListeners()
+        val item = intent.getParcelableExtra<ExamsModel>("item")
+        item?.let {
+            val testId = it.testId.toString()
+            initUiAndListeners(it.testDuration ?: "0")
+            binding?.vm?.fetchData(testId)
+        }
 
-        val testId = intent?.getStringExtra("testId") ?: "1"
-        binding?.vm?.fetchData(testId)
     }
 
-    private fun initUiAndListeners() {
+    private fun initUiAndListeners(timeInMins: String) {
         supportActionBar?.title = "Questions"
         //initToolBar()
 
         binding.vm = viewModel
-
-        val timeToExpire = (intent?.getStringExtra("timer") ?: "120000").toLong()
+        val timeToExpire = timeInMins.toLong() * 60 * 1000
         countDownTimer = object : CountDownTimer(timeToExpire, 1000) {
             override fun onFinish() {
                 binding?.vm?.timeToExpire?.set("TimeOut")
@@ -91,7 +94,7 @@ class QuestionActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.onResume()
+      //  viewModel.onResume()
     }
 
     override fun onPause() {

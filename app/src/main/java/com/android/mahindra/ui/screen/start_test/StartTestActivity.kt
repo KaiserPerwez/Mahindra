@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.android.mahindra.R
+import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.ui.screen.question.QuestionActivity
 import kotlinx.android.synthetic.main.activity_start_test.*
 import kotlinx.android.synthetic.main.activity_start_test.toolbar
@@ -17,8 +18,13 @@ class StartTestActivity : AppCompatActivity() {
 
         initToolBar()
         start_test.setOnClickListener(){
-            val intent = Intent(this, QuestionActivity::class.java)
-            startActivity(intent)
+            val item=intent.getParcelableExtra<ExamsModel>("item")
+            item?.let {
+                val intentNext = Intent(this, QuestionActivity::class.java).apply {
+                    putExtra("item", item)
+                }
+                startActivity(intentNext)
+            }
 
         }
     }

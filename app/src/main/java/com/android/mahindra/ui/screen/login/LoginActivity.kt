@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.onResume()
+       // viewModel.onResume()
     }
 
     override fun onPause() {

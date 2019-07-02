@@ -35,10 +35,10 @@ class UpComingFragment : androidx.fragment.app.Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_up_coming, container, false)
 
 
-        view.layout.setOnClickListener() {
+      /*  view.layout.setOnClickListener() {
             val intent = Intent(activity, StartTestActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         return view
 

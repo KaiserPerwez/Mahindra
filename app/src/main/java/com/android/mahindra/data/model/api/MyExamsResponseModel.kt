@@ -1,39 +1,39 @@
 package com.android.mahindra.data.model.api
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-class MyExamsResponseModel {
-
+@Parcelize
+data class MyExamsResponseModel(
     @SerializedName("data")
     @Expose
     var data: List<ExamsModel>? = null
+) : Parcelable
 
-}
-
-class ExamsModel {
-
+@Parcelize
+data class ExamsModel(
     @SerializedName("status")
     @Expose
-    var status: String? = null
+    var status: String? = null,
     @SerializedName("to_date")
     @Expose
-    var toDate: String? = null
+    var toDate: String? = null,
     @SerializedName("test_duration")
     @Expose
-    var testDuration: String? = null
+    var testDuration: String? = null,
     @SerializedName("from_date")
     @Expose
-    var fromDate: String? = null
+    var fromDate: String? = null,
     @SerializedName("test_name")
     @Expose
-    var testName: String? = null
+    var testName: String? = null,
     @SerializedName("total_questions_no")
     @Expose
-    var totalQuestionsNo: String? = null
+    var totalQuestionsNo: String? = null,
     @SerializedName("test_id")
     @Expose
     var testId: Int? = null
-
-}
+) : Parcelable
