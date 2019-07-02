@@ -15,7 +15,7 @@ data class UserLoginData(
     @SerializedName("last_name")
     val lastName: String? = "",
     @SerializedName("profile_pic")
-    val profilePic: String? = "",
+    var profilePic: String? = "",
     @SerializedName("sap_code")
     val sapCode: String? = "",
     @SerializedName("status")

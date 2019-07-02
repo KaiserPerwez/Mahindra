@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import android.os.Environment
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
+import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.extension.isDeviceOnline
@@ -132,7 +133,11 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                 { result ->
                     activity?.let {
                         if (result.status == Status.SUCCESS) {
-                            it.startActivity<HomeActivity>("result" to result)
+
+                            var resultData: UserLoginData? = activity.loginData
+                            resultData?.profilePic = result.profilePic
+
+                            it.startActivity<HomeActivity>("result" to resultData)
                         } else {
                             it.toast(result.message ?: "")
                         }
