@@ -14,6 +14,7 @@ import org.jetbrains.anko.selector
 import org.jetbrains.anko.toast
 
 class QuestionActivity : AppCompatActivity() {
+
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityQuestionBinding>(this, R.layout.activity_question)
     }
@@ -77,10 +78,8 @@ class QuestionActivity : AppCompatActivity() {
                     setViewDisabled(it)
                     currentQuestion.set(questionList[newIndex])
                     indexCurrentQuestion?.set((newIndex + 1).toString())
-
-
                 }
-                when (questionList[newIndex].type) {
+                /*when (questionList[newIndex].type?.toLowerCase()) {
                     "audio" -> binding.tvAudio.text = answerList[newIndex].answer
                     "video" -> binding.tvVideo.text = answerList[newIndex].answer
                     "dropdown" -> binding.tvDropdown.text = answerList[newIndex].answer
@@ -93,15 +92,15 @@ class QuestionActivity : AppCompatActivity() {
                     "number" -> binding.txtNumber.text
                     "text" -> binding.txtText.text
                     else -> ""
-                }
+                }*/
             }
             next?.setOnClickListener {
                 setViewEnabled(previous)
                 val currentIndex = indexCurrentQuestion.get()!!.toInt() - 1
                 val newIndex = currentIndex + 1
 
-                answerList[currentIndex].answer =
-                    when (answerList[currentIndex].quesnType) {
+                /*answerList[currentIndex].answer =
+                    when (answerList[currentIndex].quesnType.toLowerCase()) {
                         "audio" -> binding.tvAudio.text.let { if (it.startsWith("Click to")) "" else it }
                         "video" -> binding.tvVideo.text.let { if (it.startsWith("Click to")) "" else it }
                         "dropdown" -> binding.tvDropdown.text.let { if (it.startsWith("Click to")) "" else it }
@@ -112,14 +111,14 @@ class QuestionActivity : AppCompatActivity() {
                         "number" -> binding.txtNumber.text
                         "text" -> binding.txtText.text
                         else -> ""
-                    }.toString()
+                    }.toString()*/
 
-                if (questionList[currentIndex].mandatory!! &&
+                /*if (questionList[currentIndex].mandatory!! &&
                     (answerList[currentIndex].answer.isBlank() || answerList[currentIndex].answer == "0000")
                 ) {
                     showToast("Answering this question is mandatory")
                     return@setOnClickListener
-                }
+                }*/
 
                 when (newIndex) {
                     (questionList.lastIndex) -> {
@@ -133,6 +132,8 @@ class QuestionActivity : AppCompatActivity() {
                         indexCurrentQuestion?.set((newIndex + 1).toString())
                     }
                 }
+
+//                resetCheckBox()
             }
             tv_dropdown?.setOnClickListener {
                 val options = currentQuestion.get()!!.options
@@ -142,6 +143,13 @@ class QuestionActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun resetCheckBox() {
+        binding.chkA.isChecked = false
+        binding.chkB.isChecked = false
+        binding.chkC.isChecked = false
+        binding.chkD.isChecked = false
     }
 
     fun setViewDisabled(view: View) {
