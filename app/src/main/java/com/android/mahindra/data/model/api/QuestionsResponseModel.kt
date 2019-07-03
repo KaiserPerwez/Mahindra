@@ -30,8 +30,11 @@ data class Question(
     var options: List<String>? = null,
     @SerializedName("hint")
     @Expose
-    var hint: String? = null,
-    @SerializedName("selected")
-    @Expose
-    var selected: List<String>? = null
+    var hint: String? = null
 ) : Parcelable
+
+
+data class AnswerModel(val quesnId:String,
+                       val quesnType:String,
+                       var answer:String
+                       )
