@@ -58,6 +58,48 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         }
     }
 
+    fun validateMobile() {
+        if (!activity?.isDeviceOnline()) {
+            activity?.toast("No internet connection.")
+            return
+        }
+
+        val dialog = activity?.indeterminateProgressDialog("Validating mobile...").apply {
+            setCancelable(false)
+        }
+
+        disposable = apiService.validatePhone(mobile.get())
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                activity.runOnUiThread { dialog.show() }
+            }
+            .doAfterTerminate {
+                activity.runOnUiThread { dialog.dismiss() }
+            }
+            .subscribe(
+                { result ->
+                    activity?.let {
+                        if (result.status == Status.SUCCESS) {
+                            it.toast(result.message ?: "")
+                        } else {
+                            it.toast(result.message ?: "")
+                        }
+                    }
+                },
+                { error ->
+                    activity?.toast(error.message ?: "Error while uploading data")
+                }
+            )
+    }
+
+    fun redirectLogin() {
+        activity.apply {
+            startActivity<HomeActivity>()
+            finish()
+        }
+    }
+
     fun register() {
         //   activity?.hideKeyboard()
         if (!activity?.isDeviceOnline()) {

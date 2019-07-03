@@ -30,5 +30,8 @@ data class Question(
     var options: List<String>? = null,
     @SerializedName("hint")
     @Expose
-    var hint: String? = null
+    var hint: String? = null,
+    @SerializedName("selected")
+    @Expose
+    var selected: List<String>? = null
 ) : Parcelable

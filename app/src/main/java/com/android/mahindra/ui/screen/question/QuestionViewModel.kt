@@ -49,21 +49,12 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             .subscribe(
                 { result ->
                     activity?.let {
-                        /*  if (result.status == Status.SUCCESS) {
-                              if (result.isFirstLogin == true) {
-                                  it.startActivity<RegisterActivity>("result" to result)
-                              } else {
-                                  it.startActivity<HomeActivity>("result" to result)
-                              }
-                          } else {
-                              it.showToast(result.message ?: "")
-                          }*/
                         result?.questions?.let {
                             if (it.isNotEmpty()) {
                                 indexCurrentQuestion?.set("1")
                                 totalQuestions?.set(it.size.toString())
                                 questionList?.addAll(it)
-                                currentQuestion?.set(it.get(0))
+                                currentQuestion?.set(it[0])
                             }
                         }
                     }

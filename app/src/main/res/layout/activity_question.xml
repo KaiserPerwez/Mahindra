@@ -78,8 +78,6 @@
 		              android:layout_height="wrap_content"
 		              app:layout_constraintStart_toStartOf="@+id/textView"
 		              app:layout_constraintEnd_toEndOf="@+id/textView"
-		              android:layout_marginEnd="10dp"
-		              android:layout_marginTop="20dp"
 		              android:gravity="center"
 		              app:layout_constraintTop_toBottomOf="@+id/textView"
 		              app:layout_constraintHorizontal_bias="0.0"
@@ -92,7 +90,7 @@
 					android:text="Click to record audio"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`audio`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`audio`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -103,7 +101,7 @@
 					android:text="Click to record video"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`video`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`video`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -114,7 +112,7 @@
 					android:text="Click to upload file"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`file`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`file`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -125,7 +123,7 @@
 					android:text="Click to select an option"
 					android:gravity="center"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`dropdown`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`dropdown`)) ? View.VISIBLE : View.GONE}"
 					android:drawableEnd="@android:drawable/ic_dialog_info"
 					android:drawablePadding="10dp"
 					android:drawableTint="@color/green_active" />
@@ -174,7 +172,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`choice`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`choice`)) ? View.VISIBLE : View.GONE}"
 					android:orientation="vertical" >
 				<CheckBox
 						android:id="@+id/chk_A"
@@ -229,7 +227,7 @@
 					android:hint="@{vm.currentQuestion.hint}"
 					android:layout_height="wrap_content"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`number`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`number`)) ? View.VISIBLE : View.GONE}"
 					android:inputType="number" />
 			<EditText
 					android:id="@+id/txt_text"
@@ -238,20 +236,22 @@
 					android:layout_height="wrap_content"
 					android:hint="@{vm.currentQuestion.hint}"
 					tools:visibility="visible"
-					android:visibility="@{(vm.currentQuestion.type.equals(`text`)) ? View.VISIBLE : View.GONE}"
+					android:visibility="@{(vm.currentQuestion.type.equalsIgnoreCase(`text`)) ? View.VISIBLE : View.GONE}"
 					android:gravity="center"
 					android:inputType="text" />
 		</LinearLayout >
 		
 		
 		<Button
-				android:id="@+id/register"
+				android:id="@+id/submit"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@color/green_active"
 				android:padding="16dp"
 				android:text="Submit"
 				android:textAllCaps="false"
+				tools:visibility="visible"
+				android:visibility="gone"
 				android:textColor="@color/white"
 				android:textSize="16dp"
 				app:layout_constraintStart_toStartOf="@+id/button_layout"

@@ -2,7 +2,9 @@ package com.android.mahindra.ui.screen.question
 
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
@@ -19,6 +21,7 @@ class QuestionActivity : AppCompatActivity() {
         QuestionViewModel(this)
     }
     var countDownTimer: CountDownTimer? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val item = intent.getParcelableExtra<ExamsModel>("item")
@@ -27,7 +30,6 @@ class QuestionActivity : AppCompatActivity() {
             initUiAndListeners(it.testDuration ?: "0")
             binding?.vm?.fetchData(testId)
         }
-
     }
 
     private fun initUiAndListeners(timeInMins: String) {
@@ -61,21 +63,37 @@ class QuestionActivity : AppCompatActivity() {
 
         binding?.vm?.apply {
 
+            setViewDisabled(previous)
 
             previous?.setOnClickListener {
+                setViewEnabled(next)
+                submit.visibility = View.GONE
                 val currentIndex = indexCurrentQuestion.get()!!.toInt() - 1
                 val newIndex = currentIndex - 1
-                if (newIndex >= 0) {
-                    currentQuestion.set(questionList.get(newIndex))
+                if (newIndex > 0) {
+                    currentQuestion.set(questionList[newIndex])
+                    indexCurrentQuestion?.set((newIndex + 1).toString())
+                } else {
+                    setViewDisabled(it)
+                    currentQuestion.set(questionList[newIndex])
                     indexCurrentQuestion?.set((newIndex + 1).toString())
                 }
             }
             next?.setOnClickListener {
+                setViewEnabled(previous)
                 val currentIndex = indexCurrentQuestion.get()!!.toInt() - 1
                 val newIndex = currentIndex + 1
-                if (newIndex < questionList.size) {
-                    currentQuestion.set(questionList.get(newIndex))
-                    indexCurrentQuestion?.set((newIndex + 1).toString())
+                when (newIndex) {
+                    (questionList.lastIndex) -> {
+                        currentQuestion.set(questionList[newIndex])
+                        indexCurrentQuestion?.set((newIndex + 1).toString())
+                        setViewDisabled(it)
+                        submit.visibility = View.VISIBLE
+                    }
+                    in 0 until (questionList.size) -> {
+                        currentQuestion.set(questionList[newIndex])
+                        indexCurrentQuestion?.set((newIndex + 1).toString())
+                    }
                 }
             }
             tv_dropdown?.setOnClickListener {
@@ -88,13 +106,27 @@ class QuestionActivity : AppCompatActivity() {
         }
     }
 
+    fun setViewDisabled(view: View) {
+        view.apply {
+            isEnabled = false
+            setBackgroundColor(ContextCompat.getColor(this@QuestionActivity, R.color.material_color_red200))
+        }
+    }
+
+    fun setViewEnabled(view: View) {
+        view.apply {
+            isEnabled = true
+            setBackgroundColor(ContextCompat.getColor(this@QuestionActivity, R.color.colorPrimary))
+        }
+    }
+
     fun showToast(msg: String) {
         toast(msg)
     }
 
     override fun onResume() {
         super.onResume()
-      //  viewModel.onResume()
+        //  viewModel.onResume()
     }
 
     override fun onPause() {

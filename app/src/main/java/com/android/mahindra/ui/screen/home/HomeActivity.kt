@@ -12,6 +12,7 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.ui.screen.login.LoginActivity
 import com.android.mahindra.util.extension.isDeviceOnline
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
@@ -20,10 +21,10 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
-import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
 
@@ -34,7 +35,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
 
-
         loginData = intent.getParcelableExtra("result")
 
         tabLayout?.apply {
@@ -42,7 +42,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             addTab(newTab().setText("History"))
             tabGravity = TabLayout.GRAVITY_FILL
         }
-
 
         /* val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
          val navView: NavigationView = findViewById(R.id.nav_view)*/
@@ -56,7 +55,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view?.setNavigationItemSelectedListener(this)
 
-        fetchExams("az10111")
+        fetchExams(loginData?.sapCode)
     }
 
     private fun setUpViewPager(list: List<ExamsModel>) {
@@ -84,7 +83,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
     }
 
-
     override fun onBackPressed() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -96,7 +94,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.home, menu)
+//        menuInflater.inflate(R.menu.home, menu)
         return true
     }
 
@@ -105,7 +103,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> true
+//            R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -117,7 +115,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 // Handle the camera action
             }
             R.id.nav_logout -> {
-
+                startActivity(intentFor<LoginActivity>().clearTop().newTask())
+                finish()
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -129,7 +128,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toast(msg)
     }
 
-    fun fetchExams(sapCode: String) {
+    fun fetchExams(sapCode: String?) {
         if (!isDeviceOnline()) {
             showToast("No internet connection.")
             return
@@ -139,7 +138,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             setCancelable(false)
         }
 
-        val disposable = apiService.getExams(sapCode)
+        disposable = apiService.getExams(sapCode)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {

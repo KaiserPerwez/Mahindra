@@ -26,8 +26,9 @@ interface ApiService {
     fun userLogin(@Field("sap_code") sap_code: String): Observable<UserLoginData>
 
 
-    @GET("api/generate_otp/")
-    fun validatePhone(@Query("ph_no") ph_no: String): Observable<BaseResponse<Any>>
+    @POST("api/generate_otp/")
+    @FormUrlEncoded
+    fun validatePhone(@Field("ph_no") ph_no: String?): Observable<BaseResponse<Any>>
 
     @POST("api/update_profile/")
     fun updateProfile(@Body file: RequestBody): Observable<UpdateProfileData>
@@ -60,7 +61,7 @@ interface ApiService {
 
     @POST("api/fetch_scheduled_test/")
     @FormUrlEncoded
-    fun getExams(@Field("sap_code") sapCode: String): Observable<MyExamsResponseModel>
+    fun getExams(@Field("sap_code") sapCode: String?): Observable<MyExamsResponseModel>
 
     companion object {
         val debug = true
