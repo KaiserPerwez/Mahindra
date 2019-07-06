@@ -31,12 +31,12 @@ class QuestionViewModel(private val activity: QuestionActivity) {
      */
     fun fetchData(testId: String) {
         //   activity?.hideKeyboard()
-        if (!activity?.isDeviceOnline()) {
-            activity?.showToast("No internet connection.")
+        if (!activity.isDeviceOnline()) {
+            activity.showToast("No internet connection.")
             return
         }
 
-        val dialog = activity?.indeterminateProgressDialog("Loading data...").apply {
+        val dialog = activity.indeterminateProgressDialog("Loading data...").apply {
             setCancelable(false)
         }
 
@@ -51,31 +51,31 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             }
             .subscribe(
                 { result ->
-                    activity?.let {
+                    activity.let {
                         /*  if (result.status == Status.SUCCESS) {
-                              if (result.isFirstLogin == true) {
-                                  it.startActivity<RegisterActivity>("result" to result)
-                              } else {
-                                  it.startActivity<HomeActivity>("result" to result)
-                              }
-                          } else {
-                              it.showToast(result.message ?: "")
-                          }*/
+                                              if (result.isFirstLogin == true) {
+                                                  it.startActivity<RegisterActivity>("result" to result)
+                                              } else {
+                                                  it.startActivity<HomeActivity>("result" to result)
+                                              }
+                                          } else {
+                                              it.showToast(result.message ?: "")
+                                          }*/
                         result?.questions?.let {
                             if (it.isNotEmpty()) {
-                                indexCurrentQuestion?.set("1")
-                                totalQuestions?.set(it.size.toString())
-                                questionList?.addAll(it)
-                                it?.forEach {
-                                    answerList?.add(AnswerModel(it.questionId ?: "0", it.type ?: "", ""))
+                                indexCurrentQuestion.set("1")
+                                totalQuestions.set(it.size.toString())
+                                questionList.addAll(it)
+                                it.forEach {
+                                    answerList.add(AnswerModel(it.questionId ?: "0", it.type ?: "", ""))
                                 }
-                                currentQuestion?.set(it.get(0))
+                                currentQuestion.set(it.get(0))
                             }
                         }
                     }
                 },
                 { error ->
-                    activity?.showToast(error.message ?: "Error while fetching data")
+                    activity.showToast(error.message ?: "Error while fetching data")
                 }
             )
     }
@@ -84,7 +84,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
         disposable?.dispose()
     }
 
-    fun onResume() = activity?.showToast("View model resumed")
+    fun onResume() = activity.showToast("View model resumed")
     fun onPause() = dispose()
     fun onStop() = dispose()
 }

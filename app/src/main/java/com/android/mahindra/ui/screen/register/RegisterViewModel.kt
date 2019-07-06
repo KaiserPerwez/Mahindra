@@ -59,12 +59,12 @@ class RegisterViewModel(private val activity: RegisterActivity) {
     }
 
     fun validateMobile() {
-        if (!activity?.isDeviceOnline()) {
-            activity?.toast("No internet connection.")
+        if (!activity.isDeviceOnline()) {
+            activity.toast("No internet connection.")
             return
         }
 
-        val dialog = activity?.indeterminateProgressDialog("Validating mobile...").apply {
+        val dialog = activity.indeterminateProgressDialog("Validating mobile...").apply {
             setCancelable(false)
         }
 
@@ -79,7 +79,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             }
             .subscribe(
                 { result ->
-                    activity?.let {
+                    activity.let {
                         if (result.status == Status.SUCCESS) {
                             it.toast(result.message ?: "")
                         } else {
@@ -88,7 +88,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                     }
                 },
                 { error ->
-                    activity?.toast(error.message ?: "Error while uploading data")
+                    activity.toast(error.message ?: "Error while uploading data")
                 }
             )
     }
@@ -102,12 +102,12 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     fun register() {
         //   activity?.hideKeyboard()
-        if (!activity?.isDeviceOnline()) {
-            activity?.toast("No internet connection.")
+        if (!activity.isDeviceOnline()) {
+            activity.toast("No internet connection.")
             return
         }
 
-        val dialog = activity?.indeterminateProgressDialog("Registering user...").apply {
+        val dialog = activity.indeterminateProgressDialog("Registering user...").apply {
             setCancelable(false)
         }
 
@@ -173,7 +173,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             }
             .subscribe(
                 { result ->
-                    activity?.let {
+                    activity.let {
                         if (result.status == Status.SUCCESS) {
 
                             var resultData: UserLoginData? = activity.loginData
@@ -186,7 +186,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                     }
                 },
                 { error ->
-                    activity?.toast(error.message ?: "Error while uploading data")
+                    activity.toast(error.message ?: "Error while uploading data")
                 }
             )
     }

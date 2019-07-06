@@ -15,7 +15,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.fragment.app.Fragment
 import androidx.core.content.ContextCompat
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
@@ -188,7 +187,7 @@ class CurrentLocationUtils(
     private fun openSettings() {
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", activity.packageName, null)
-        intent.setData(uri)
+        intent.data = uri
         startActivityForResult(activity, intent, 101, null)
     }
 }

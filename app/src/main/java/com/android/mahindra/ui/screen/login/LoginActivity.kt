@@ -35,11 +35,6 @@ class LoginActivity : AppCompatActivity() {
         toast(msg)
     }
 
-    override fun onResume() {
-        super.onResume()
-       // viewModel.onResume()
-    }
-
     override fun onPause() {
         super.onPause()
         viewModel.onPause()

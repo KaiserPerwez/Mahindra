@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.string.navigation_drawer_close
         )
         drawer_layout?.addDrawerListener(toggle)
-        toggle?.syncState()
+        toggle.syncState()
 
         nav_view?.setNavigationItemSelectedListener(this)
 

@@ -35,5 +35,8 @@ data class ExamsModel(
     var totalQuestionsNo: String? = null,
     @SerializedName("test_id")
     @Expose
-    var testId: Int? = null
+    var testId: Int? = null,
+    @SerializedName("completed_in")
+    @Expose
+    var completedIn: String? = null
 ) : Parcelable

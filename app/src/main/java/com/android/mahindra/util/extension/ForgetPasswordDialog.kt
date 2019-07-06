@@ -5,8 +5,6 @@ package com.android.mahindra.util.extension
  */
  
 import android.content.DialogInterface
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import android.view.Gravity
 import android.view.View
 import android.view.ViewManager

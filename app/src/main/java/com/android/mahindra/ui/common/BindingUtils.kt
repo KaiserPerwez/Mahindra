@@ -4,12 +4,11 @@ package com.android.mahindra.ui.common
  * @author Kaiser Perwez
  */
  
-import androidx.databinding.BindingAdapter
 import android.os.Build
 import android.text.Html
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import com.android.mahindra.R
 import com.android.mahindra.util.GlideApp
 

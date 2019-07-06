@@ -6,15 +6,12 @@ package com.android.mahindra.util.extension
  
 import android.app.Activity
 import android.content.Context
-import android.graphics.Color
-import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
-import com.android.mahindra.R
+import androidx.annotation.LayoutRes
 
 
 fun getPixelsFromDp(context: Context, dp: Float): Int {

@@ -5,7 +5,6 @@ package com.android.mahindra.util.extension
  */
  
 import android.app.Activity
-import androidx.lifecycle.MutableLiveData
 import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
@@ -13,6 +12,8 @@ import android.net.Uri
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.lifecycle.MutableLiveData
+import com.android.mahindra.data.local.prefs.PreferenceHelper
 import com.android.mahindra.ui.screen.login.LoginActivity
 import com.google.android.exoplayer2.DefaultLoadControl
 import com.google.android.exoplayer2.DefaultRenderersFactory
@@ -22,7 +23,6 @@ import com.google.android.exoplayer2.source.MediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import com.android.mahindra.data.local.prefs.PreferenceHelper
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -38,8 +38,8 @@ fun Context?.isDeviceOnline(): Boolean {
     var connected = false
     try {
         val connectivityManager = this?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val networkInfo = connectivityManager.getActiveNetworkInfo()
-        connected = networkInfo != null && networkInfo.isAvailable() && networkInfo.isConnected()
+        val networkInfo = connectivityManager.activeNetworkInfo
+        connected = networkInfo != null && networkInfo.isAvailable && networkInfo.isConnected
         return connected
 
     } catch (e: Exception) {
@@ -138,7 +138,7 @@ private fun buildMediaSource(uri: Uri): MediaSource {
 
 fun String.isImageFile(): Boolean {
     val mimeType = URLConnection.guessContentTypeFromName(this)
-    return mimeType != null && mimeType!!.startsWith("image")
+    return mimeType != null && mimeType.startsWith("image")
 }
 
 fun String.isVideoFile(): Boolean {

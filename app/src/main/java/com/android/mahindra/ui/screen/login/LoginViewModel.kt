@@ -13,7 +13,7 @@ import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
 
 class LoginViewModel(private val activity: LoginActivity) {
-    var sapCode = ObservableField("")
+    var sapCode = ObservableField("23066056")
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
@@ -24,16 +24,16 @@ class LoginViewModel(private val activity: LoginActivity) {
      */
     fun fetchData() {
         //   activity?.hideKeyboard()
-        if (!activity?.isDeviceOnline()) {
-            activity?.showToast("No internet connection.")
+        if (!activity.isDeviceOnline()) {
+            activity.showToast("No internet connection.")
             return
         }
 
-        val dialog = activity?.indeterminateProgressDialog("Loading data...").apply {
+        val dialog = activity.indeterminateProgressDialog("Loading data...").apply {
             setCancelable(false)
         }
 
-        disposable = apiService.userLogin(sapCode?.get() ?: "")
+        disposable = apiService.userLogin(sapCode.get() ?: "")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
@@ -44,7 +44,7 @@ class LoginViewModel(private val activity: LoginActivity) {
             }
             .subscribe(
                 { result ->
-                    activity?.apply {
+                    activity.apply {
                         if (result.status == Status.SUCCESS) {
                             if (result.isFirstLogin == true) {
                                 startActivity<RegisterActivity>("result" to result)
@@ -58,7 +58,7 @@ class LoginViewModel(private val activity: LoginActivity) {
                     }
                 },
                 { error ->
-                    activity?.showToast(error.message ?: "Error while fetching data")
+                    activity.showToast(error.message ?: "Error while fetching data")
                 }
             )
     }
@@ -67,7 +67,7 @@ class LoginViewModel(private val activity: LoginActivity) {
         disposable?.dispose()
     }
 
-    fun onResume() = activity?.showToast("View model resumed")
+    fun onResume() = activity.showToast("View model resumed")
     fun onPause() = dispose()
     fun onStop() = dispose()
 }

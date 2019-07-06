@@ -4,7 +4,6 @@ package com.android.mahindra.ui.base
  * @author Kaiser Perwez
  */
  
-import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 
 //if your derived class needs removal or updation of list items,pass mutable list to adapter at derived class.

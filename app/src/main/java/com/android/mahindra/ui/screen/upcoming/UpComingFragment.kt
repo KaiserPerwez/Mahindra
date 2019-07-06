@@ -1,7 +1,6 @@
 package com.android.mahindra.ui.screen.upcoming
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
-import com.android.mahindra.ui.screen.start_test.StartTestActivity
 import kotlinx.android.synthetic.main.fragment_up_coming.*
-import kotlinx.android.synthetic.main.fragment_up_coming.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
