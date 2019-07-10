@@ -70,6 +70,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
                                     answerList.add(AnswerModel(it.questionId ?: "0", it.type ?: "", ""))
                                 }
                                 currentQuestion.set(it.get(0))
+                                activity.initViewPager()
                             }
                         }
                     }

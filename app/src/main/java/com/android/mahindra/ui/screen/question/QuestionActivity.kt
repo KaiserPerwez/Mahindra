@@ -35,7 +35,6 @@ class QuestionActivity : AppCompatActivity() {
     private fun initUiAndListeners(timeInMins: String) {
         supportActionBar?.title = "Questions"
         initToolBar()
-        initViewPager()
         binding.vm = viewModel
         val timeToExpire = timeInMins.toLong() * 60 * 1000
         countDownTimer = object : CountDownTimer(timeToExpire, 1000) {
@@ -67,7 +66,7 @@ class QuestionActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViewPager() {
+    fun initViewPager() {
         binding?.vm?.apply {
             val quesAdapter = QuestionAdapter(questionList, supportFragmentManager)
             viewPager?.apply {
@@ -118,8 +117,8 @@ class QuestionActivity : AppCompatActivity() {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
+//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        //    toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
 }
