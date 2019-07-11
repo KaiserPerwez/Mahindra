@@ -61,7 +61,6 @@ class QuestionActivity : AppCompatActivity() {
         countDownTimer?.start()
 
         binding?.vm?.apply {
-
             setViewDisabled(previous)
         }
     }
@@ -72,12 +71,24 @@ class QuestionActivity : AppCompatActivity() {
             viewPager?.apply {
                 adapter = quesAdapter
                 previous?.setOnClickListener {
-                    if (currentItem > 0)
+                    if (currentItem > 0) {
                         currentItem -= 1
+                        indexCurrentQuestion.set((currentItem + 1).toString())
+                    }
+                    if (currentItem == 0) {
+                        setViewDisabled(previous)
+                        setViewEnabled(next)
+                    }
                 }
                 next?.setOnClickListener {
-                    if (currentItem < questionList.size)
+                    if (currentItem < questionList.size) {
                         currentItem += 1
+                        indexCurrentQuestion.set((currentItem + 1).toString())
+                    }
+                    if (currentItem == questionList.size - 1) {
+                        setViewDisabled(next)
+                        setViewEnabled(previous)
+                    }
                 }
             }
         }

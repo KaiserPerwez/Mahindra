@@ -1,14 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".ui.screen.question.QuestionFrag" >
-	
-	<!-- TODO: Update blank fragment layout -->
-	<TextView
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" >
+	<data >
+		<variable name="model"
+		          type="com.android.mahindra.data.model.api.Question" />
+		<import type="android.view.View" />
+	</data >
+	<FrameLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:text="@string/hello_blank_fragment" />
-
-</FrameLayout >
+			android:orientation="vertical"
+			tools:context=".ui.screen.question.QuestionFrag" >
+		
+		<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:textSize="18dp"
+				android:drawablePadding="10dp"
+				android:drawableLeft="@drawable/ic_question_error"
+				android:drawableTint="@color/material_color_grey900"
+				android:textColor="@color/material_color_grey900"
+				tools:text="Question goes here"
+				android:text="@{model.question}"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:layout_marginTop="20dp"
+				android:id="@+id/textView" />
+		<LinearLayout android:orientation="vertical"
+		              android:layout_width="match_parent"
+		              android:layout_gravity="center"
+		              android:layout_height="wrap_content"
+		
+		              android:gravity="center"
+		
+		              android:layout_marginBottom="8dp"
+		>
+			<TextView
+					android:id="@+id/tv_audio"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Click to record audio"
+					android:gravity="center"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`audio`)) ? View.VISIBLE : View.GONE}"
+					android:drawableEnd="@android:drawable/ic_dialog_info"
+					android:drawablePadding="10dp"
+					android:drawableTint="@color/green_active" />
+			<TextView
+					android:id="@+id/tv_video"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Click to record video"
+					android:gravity="center"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`video`)) ? View.VISIBLE : View.GONE}"
+					android:drawableEnd="@android:drawable/ic_dialog_info"
+					android:drawablePadding="10dp"
+					android:drawableTint="@color/green_active" />
+			<TextView
+					android:id="@+id/tv_file"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Click to upload file"
+					android:gravity="center"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`file`)) ? View.VISIBLE : View.GONE}"
+					android:drawableEnd="@android:drawable/ic_dialog_info"
+					android:drawablePadding="10dp"
+					android:drawableTint="@color/green_active" />
+			<TextView
+					android:id="@+id/tv_dropdown"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Click to select an option"
+					android:gravity="center"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`dropdown`)) ? View.VISIBLE : View.GONE}"
+					android:drawableEnd="@android:drawable/ic_dialog_info"
+					android:drawablePadding="10dp"
+					android:drawableTint="@color/green_active" />
+			
+			<!--	<RadioGroup
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						tools:visibility="visible"
+						android:visibility="@{(model.type.equals(`dropdown`) ? View.VISIBLE : View.GONE}"
+						android:id="@+id/dropdown" >
+					
+					<RadioButton
+							android:id="@+id/option_a"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:text="Choose Option A"
+							android:layout_marginTop="10dp"
+							android:paddingLeft="15dp"
+							android:checked="false"
+							android:textSize="18dp" />
+					
+					<RadioButton
+							android:id="@+id/option_b"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:text="Choose Option B"
+							android:layout_marginTop="10dp"
+							android:paddingLeft="15dp"
+							android:checked="false"
+							android:textSize="18dp" />
+					
+					<RadioButton
+							android:id="@+id/option_c"
+							android:layout_width="fill_parent"
+							android:layout_height="wrap_content"
+							android:text="Choose Option C"
+							android:layout_marginTop="10dp"
+							android:paddingLeft="15dp"
+							android:checked="false"
+							android:textSize="18dp" />
+				</RadioGroup >
+	-->
+			
+			<LinearLayout
+					android:id="@+id/choice"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`choice`)) ? View.VISIBLE : View.GONE}"
+					android:orientation="vertical" >
+				<CheckBox
+						android:id="@+id/chk_A"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="10dp"
+						tools:visibility="visible"
+						android:visibility="@{(model.options.size>0) ? View.VISIBLE : View.GONE}"
+						android:paddingLeft="15dp"
+						tools:text="Option A"
+						android:text="@{(model.options.size>0) ? model.options.get(0) : ``}"
+						android:textSize="18dp" />
+				<CheckBox
+						android:id="@+id/chk_B"
+						android:layout_width="match_parent"
+						tools:visibility="visible"
+						android:layout_height="wrap_content"
+						android:visibility="@{(model.options.size>1) ? View.VISIBLE : View.GONE}"
+						android:layout_marginTop="10dp"
+						android:paddingStart="15dp"
+						tools:text="Option B"
+						android:text="@{(model.options.size>1) ? model.options.get(1) : ``}"
+						android:textSize="18dp" />
+				<CheckBox
+						android:id="@+id/chk_C"
+						android:layout_width="match_parent"
+						tools:visibility="visible"
+						android:layout_height="wrap_content"
+						android:visibility="@{(model.options.size>2) ? View.VISIBLE : View.GONE}"
+						android:layout_marginTop="10dp"
+						android:paddingStart="15dp"
+						tools:text="Option C"
+						android:text="@{(model.options.size>2) ? model.options.get(2) : ``}"
+						android:textSize="18dp" />
+				<CheckBox
+						android:id="@+id/chk_D"
+						tools:visibility="visible"
+						android:visibility="@{(model.options.size>3) ? View.VISIBLE : View.GONE}"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="10dp"
+						android:paddingStart="15dp"
+						tools:text="Option D"
+						android:text="@{(model.options.size>3) ? model.options.get(3) : ``}"
+						android:textSize="18dp" />
+			</LinearLayout >
+			<EditText
+					android:id="@+id/txt_number"
+					android:layout_width="match_parent"
+					android:gravity="center"
+					tools:hint="enter number"
+					android:hint="@{model.hint}"
+					android:layout_height="wrap_content"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`number`)) ? View.VISIBLE : View.GONE}"
+					android:inputType="number" />
+			<EditText
+					android:id="@+id/txt_text"
+					android:layout_width="match_parent"
+					tools:hint="enter text"
+					android:layout_height="wrap_content"
+					android:hint="@{model.hint}"
+					tools:visibility="visible"
+					android:visibility="@{(model.type.equalsIgnoreCase(`text`)) ? View.VISIBLE : View.GONE}"
+					android:gravity="center"
+					android:inputType="text" />
+		</LinearLayout >
+	
+	</FrameLayout >
+</layout >
