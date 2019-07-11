@@ -46,7 +46,7 @@ class LoginViewModel(private val activity: LoginActivity) {
                 { result ->
                     activity.apply {
                         if (result.status == Status.SUCCESS) {
-                            if (result.isFirstLogin == false) {
+                            if (result.isFirstLogin == true) {
                                 startActivity<RegisterActivity>("result" to result)
                             } else {
                                 startActivity<HomeActivity>("result" to result)

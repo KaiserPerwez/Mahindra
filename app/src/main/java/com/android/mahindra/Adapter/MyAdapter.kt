@@ -25,6 +25,7 @@ class MyAdapter(
                 val listHistory = list.filter { it.status == "completed" }
                 return HistoryFragment().apply { listHistoryFrag = listHistory }
             }
+
             else -> return null
         }
     }

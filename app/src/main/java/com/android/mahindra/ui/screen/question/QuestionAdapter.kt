@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.android.mahindra.data.model.api.Question
 
 class QuestionAdapter(val questionList: List<Question>, fm: FragmentManager?) : FragmentStatePagerAdapter(fm) {
-    override fun getItem(position: Int): Fragment = QuestionFrag(questionList[position])
+    override fun getItem(position: Int): Fragment = QuestionFrag().apply { initQuestion(questionList[position]) }
 
     override fun getCount(): Int = questionList.size
 }

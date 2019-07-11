@@ -33,6 +33,9 @@ interface ApiService {
     @POST("api/update_profile/")
     fun updateProfile(@Body file: RequestBody): Observable<UpdateProfileData>
 
+    @POST("api/save_capture_image/")
+    fun saveCaptureImage(@Body file: RequestBody): Observable<UpdateProfileData>
+
     @GET("api/header")
     fun getByHeader(@Header("Authorizations") token: String? = ""): Observable<BaseResponse<Any>>
 
