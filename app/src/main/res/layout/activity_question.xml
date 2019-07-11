@@ -73,8 +73,6 @@
 				android:padding="16dp"
 				android:text="Submit"
 				android:textAllCaps="false"
-				tools:visibility="visible"
-				android:visibility="@{(vm.indexCurrentQuestion+1==vm.totalQuestions) ? View.VISIBLE : View.GONE}"
 				android:textColor="@color/white"
 				android:textSize="16dp"
 				app:layout_constraintStart_toStartOf="@+id/button_layout"

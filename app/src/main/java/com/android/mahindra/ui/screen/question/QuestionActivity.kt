@@ -69,6 +69,10 @@ class QuestionActivity : AppCompatActivity() {
         binding?.vm?.apply {
             val quesAdapter = QuestionAdapter(questionList, supportFragmentManager)
             viewPager?.apply {
+                setOnTouchListener { view, motionEvent ->
+                    this.currentItem = this.currentItem
+                    return@setOnTouchListener true
+                }
                 adapter = quesAdapter
                 previous?.setOnClickListener {
                     if (currentItem > 0) {
@@ -77,8 +81,8 @@ class QuestionActivity : AppCompatActivity() {
                     }
                     if (currentItem == 0) {
                         setViewDisabled(previous)
-                        setViewEnabled(next)
                     }
+                    setViewEnabled(next)
                 }
                 next?.setOnClickListener {
                     if (currentItem < questionList.size) {
@@ -87,8 +91,8 @@ class QuestionActivity : AppCompatActivity() {
                     }
                     if (currentItem == questionList.size - 1) {
                         setViewDisabled(next)
-                        setViewEnabled(previous)
                     }
+                    setViewEnabled(previous)
                 }
             }
         }
