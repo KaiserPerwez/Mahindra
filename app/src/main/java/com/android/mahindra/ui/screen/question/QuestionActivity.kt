@@ -113,7 +113,7 @@ class QuestionActivity : HiddenCameraActivity() {
     private fun initUiAndListeners(timeInMins: String) {
         supportActionBar?.title = "Questions"
         initToolBar()
-        initViewPager()
+//        initViewPager()
         binding.vm = viewModel
         val timeToExpire = timeInMins.toLong() * 60 * 1000
         countDownTimer = object : CountDownTimer(timeToExpire, 1000) {
@@ -174,7 +174,7 @@ class QuestionActivity : HiddenCameraActivity() {
     }
 
 
-    private fun initViewPager() {
+    /*private fun initViewPager() {
         binding?.vm?.apply {
             val quesAdapter = QuestionAdapter(questionList, supportFragmentManager)
             viewPager?.apply {
@@ -186,6 +186,39 @@ class QuestionActivity : HiddenCameraActivity() {
                 next?.setOnClickListener {
                     if (currentItem < questionList.size)
                         currentItem += 1
+                }
+            }
+        }
+    }*/
+
+    fun initViewPager() {
+        binding?.vm?.apply {
+            val quesAdapter = QuestionAdapter(questionList, supportFragmentManager)
+            viewPager?.apply {
+                setOnTouchListener { view, motionEvent ->
+                    this.currentItem = this.currentItem
+                    return@setOnTouchListener true
+                }
+                adapter = quesAdapter
+                previous?.setOnClickListener {
+                    if (currentItem > 0) {
+                        currentItem -= 1
+                        indexCurrentQuestion.set((currentItem + 1).toString())
+                    }
+                    if (currentItem == 0) {
+                        setViewDisabled(previous)
+                    }
+                    setViewEnabled(next)
+                }
+                next?.setOnClickListener {
+                    if (currentItem < questionList.size) {
+                        currentItem += 1
+                        indexCurrentQuestion.set((currentItem + 1).toString())
+                    }
+                    if (currentItem == questionList.size - 1) {
+                        setViewDisabled(next)
+                    }
+                    setViewEnabled(previous)
                 }
             }
         }
