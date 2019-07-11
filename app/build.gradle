@@ -99,33 +99,31 @@ dependencies {
     // implementation 'com.android.support:recyclerview-v7:28.0.0'
 
 
-      //Sockets
-       implementation('io.socket:socket.io-client:1.0.0') {
-           // excluding org.json which is provided by Android
-           exclude group: 'org.json', module: 'json'
-       }
+    //Sockets
+    implementation('io.socket:socket.io-client:1.0.0') {
+        // excluding org.json which is provided by Android
+        exclude group: 'org.json', module: 'json'
+    }
 
 
+    // File Picker
+    implementation 'com.github.jaiselrahman:FilePicker:1.1.1'
+    implementation 'com.fxn769:pix:1.2.5'
+    //implementation project(':mediapicker')
 
+    //image and video compressor
+    implementation 'com.github.tcking:giraffecompressor:0.1.4'
 
-       // File Picker
-       implementation 'com.github.jaiselrahman:FilePicker:1.1.1'
-       implementation 'com.fxn769:pix:1.2.5'
-       //implementation project(':mediapicker')
+    //Exoplayer
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.8.4'
+    implementation 'com.google.android.exoplayer:exoplayer-dash:2.8.4'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.4'
 
-       //image and video compressor
-       implementation 'com.github.tcking:giraffecompressor:0.1.4'
+    //File Downloader
+    implementation 'com.mindorks.android:prdownloader:0.5.0'
 
-       //Exoplayer
-       implementation 'com.google.android.exoplayer:exoplayer-core:2.8.4'
-       implementation 'com.google.android.exoplayer:exoplayer-dash:2.8.4'
-       implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.4'
-
-       //File Downloader
-       implementation 'com.mindorks.android:prdownloader:0.5.0'
-
-        // Image compress
-        implementation 'id.zelory:compressor:2.1.0'
+    // Image compress
+    implementation 'id.zelory:compressor:2.1.0'
 
     // hidden capture
     implementation 'com.kevalpatel2106:hiddencamera:1.3.5'
@@ -133,3 +131,4 @@ dependencies {
 
 }
 //apply plugin: 'com.google.gms.google-services'
+
