@@ -195,6 +195,7 @@ class QuestionActivity : HiddenCameraActivity() {
         binding?.vm?.apply {
             val quesAdapter = QuestionAdapter(questionList, supportFragmentManager)
             viewPager?.apply {
+                offscreenPageLimit = questionList.size
                 setOnTouchListener { view, motionEvent ->
                     this.currentItem = this.currentItem
                     return@setOnTouchListener true
