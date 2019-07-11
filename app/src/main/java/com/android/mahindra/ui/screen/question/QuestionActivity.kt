@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -32,6 +33,7 @@ class QuestionActivity : HiddenCameraActivity() {
 
     private var mCameraConfig: CameraConfig? = null
 
+    lateinit var item: ExamsModel
 
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityQuestionBinding>(this, R.layout.activity_question)
@@ -47,14 +49,16 @@ class QuestionActivity : HiddenCameraActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        cameraConfigration()
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        val item = intent.getParcelableExtra<ExamsModel>("item")
+        item = intent.getParcelableExtra("item")
         item?.let {
             val testId = it.testId.toString()
             initUiAndListeners(it.testDuration ?: "0")
             binding?.vm?.fetchData(testId)
         }
+
+        cameraConfigration()
 
     }
 
@@ -70,7 +74,7 @@ class QuestionActivity : HiddenCameraActivity() {
 
         permissionCheck()
 
-        ramdomImageCapture(10)
+        ramdomImageCapture(5)
     }
 
     private fun permissionCheck() {
@@ -93,34 +97,16 @@ class QuestionActivity : HiddenCameraActivity() {
             //Take picture using the camera without preview.
             takePicture()
 
-            val rnds = (5..10).random()
+            val rnds = (20..60).random()
             ramdomImageCapture(rnds)
             toast(rnds.toString())
         }
 
         updateHandler.postDelayed(runnable, rand)
 
-        /*countDownTimerRandom = object : CountDownTimer(rand, 1000) {
-
-            override fun onTick(millisUntilFinished: Long) {
-
-                //here you can have your logic to set text to edittext
-            }
-
-            override fun onFinish() {
-                //Take picture using the camera without preview.
-                takePicture()
-
-                val rnds = (5..10).random()
-                ramdomImageCapture(rnds)
-                toast(rnds.toString())
-            }
-
-        }.start()*/
     }
 
     override fun onImageCapture(imageFile: File) {
-        toast(imageFile.absolutePath)
         binding?.vm?.uploadImage(imageFile.absolutePath)
     }
 
