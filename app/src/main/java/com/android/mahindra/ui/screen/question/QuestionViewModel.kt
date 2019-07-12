@@ -32,7 +32,6 @@ class QuestionViewModel(private val activity: QuestionActivity) {
     var currentQuestion = ObservableField<Question>()
     var questionList = mutableListOf<Question>()
 
-    var answerList = mutableListOf<AnswerModel>()
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
@@ -78,9 +77,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
                                 indexCurrentQuestion.set("1")
                                 totalQuestions.set(it.size.toString())
                                 questionList.addAll(it)
-                                it.forEach {
-                                    answerList.add(AnswerModel(it.questionId ?: "0", it.type ?: "", ""))
-                                }
+
                                 currentQuestion.set(it.get(0))
                                 activity.initViewPager()
                             }

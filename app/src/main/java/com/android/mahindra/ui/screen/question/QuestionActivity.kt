@@ -203,6 +203,18 @@ class QuestionActivity : HiddenCameraActivity() {
                 adapter = quesAdapter
                 previous?.setOnClickListener {
                     if (currentItem > 0) {
+                        saveAnswer()
+
+                        quesAdapter.fragList[currentItem].binding?.apply {
+                            val ans =
+                                "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
+                            questionList[currentItem].answer = ans
+                        }
+
+
+
+
+
                         currentItem -= 1
                         indexCurrentQuestion.set((currentItem + 1).toString())
                     }
@@ -213,6 +225,20 @@ class QuestionActivity : HiddenCameraActivity() {
                 }
                 next?.setOnClickListener {
                     if (currentItem < questionList.size) {
+                        saveAnswer()
+
+
+
+                        quesAdapter.fragList[currentItem].binding?.apply {
+                            val ans =
+                                "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
+                            questionList[currentItem].answer = ans
+                        }
+
+
+
+
+
                         currentItem += 1
                         indexCurrentQuestion.set((currentItem + 1).toString())
                     }
@@ -223,6 +249,10 @@ class QuestionActivity : HiddenCameraActivity() {
                 }
             }
         }
+    }
+
+    private fun saveAnswer() {
+
     }
 
 
