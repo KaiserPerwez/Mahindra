@@ -90,6 +90,47 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             )
     }
 
+    fun submitData(testId: String,testName:String) {
+        //   activity?.hideKeyboard()
+        if (!activity.isDeviceOnline()) {
+            activity.showToast("No internet connection.")
+            return
+        }
+
+        val dialog = activity.indeterminateProgressDialog("Submitting your answers.Please be patient..").apply {
+            setCancelable(false)
+        }
+
+        disposable = apiService.submitAnswers(testId,"23066056","12333",questionList)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe {
+                activity.runOnUiThread { dialog.show() }
+            }
+            .doAfterTerminate {
+                activity.runOnUiThread { dialog.dismiss() }
+            }
+            .subscribe(
+                { result ->
+                    activity.let {
+                        /*  if (result.status == Status.SUCCESS) {
+                                              if (result.isFirstLogin == true) {
+                                                  it.startActivity<RegisterActivity>("result" to result)
+                                              } else {
+                                                  it.startActivity<HomeActivity>("result" to result)
+                                              }
+                                          } else {
+                                              it.showToast(result.message ?: "")
+                                          }*/
+
+                    }
+                },
+                { error ->
+                    activity.showToast(error.message ?: "Error while fetching data")
+                }
+            )
+    }
+
     fun uploadImage(imagePath: String) {
         //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {

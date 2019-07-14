@@ -123,15 +123,20 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         builder.addFormDataPart("otp", otp.get())
 
         val profilePicFile = File(profilePic.get())
+        val picFromPicturesDirectory =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
+
+        if (picFromPicturesDirectory == null) {
+            activity.toast("Your pic not accessible")
+            return
+        }
         val compressedprofilePic = Compressor(activity)
 //                    .setMaxWidth(640)
 //                    .setMaxHeight(480)
             .setQuality(60)
             .setCompressFormat(Bitmap.CompressFormat.PNG)
             .setDestinationDirectoryPath(
-                Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_PICTURES
-                ).absolutePath
+                picFromPicturesDirectory
             )
             .compressToFile(profilePicFile)
 
@@ -197,5 +202,6 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     //    fun onResume() = activity?.toast("View model resumed")
     fun onPause() = dispose()
+
     fun onStop() = dispose()
 }

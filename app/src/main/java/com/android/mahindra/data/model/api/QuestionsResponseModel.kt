@@ -31,7 +31,9 @@ data class Question(
     @SerializedName("hint")
     @Expose
     var hint: String? = null,
-    var answer:String?=null
+    @SerializedName("answer")
+    @Expose
+    var answer:String="0000"
 ) : Parcelable
 
 

@@ -71,6 +71,8 @@
 				android:layout_height="wrap_content"
 				android:background="@color/green_active"
 				android:padding="16dp"
+				android:visibility="gone"
+				tools:visibility="visible"
 				android:text="Submit"
 				android:textAllCaps="false"
 				android:textColor="@color/white"

@@ -62,6 +62,14 @@ interface ApiService {
     @FormUrlEncoded
     fun getQuestions(@Field("test_id") testId: String): Observable<QuestionsResponseModel>
 
+
+    @POST("api/end_test/")
+    @FormUrlEncoded
+    fun submitAnswers(@Field("test_id") testId: String,
+                      @Field("sap_code") sapCode: String,
+                      @Field("end_date_time") endDateTime: String,
+                      @Field("questions") questions:List<Question>): Observable<BaseResponse<Any>>
+
     @POST("api/fetch_scheduled_test/")
     @FormUrlEncoded
     fun getExams(@Field("sap_code") sapCode: String?): Observable<MyExamsResponseModel>

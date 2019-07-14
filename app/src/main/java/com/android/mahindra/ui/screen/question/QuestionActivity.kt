@@ -145,6 +145,10 @@ class QuestionActivity : HiddenCameraActivity() {
 
             setViewDisabled(previous)
         }
+        binding?.submit?.setOnClickListener {
+            binding?.vm?.submitData(item.testId?.toString()?:"0",item.testName?:"")
+
+        }
     }
 
 
@@ -222,6 +226,7 @@ class QuestionActivity : HiddenCameraActivity() {
                         setViewDisabled(previous)
                     }
                     setViewEnabled(next)
+                    binding?.submit?.visibility=View.GONE
                 }
                 next?.setOnClickListener {
                     if (currentItem < questionList.size) {
@@ -244,6 +249,7 @@ class QuestionActivity : HiddenCameraActivity() {
                     }
                     if (currentItem == questionList.size - 1) {
                         setViewDisabled(next)
+                        binding?.submit?.visibility=View.VISIBLE
                     }
                     setViewEnabled(previous)
                 }
