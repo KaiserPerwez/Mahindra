@@ -1,16 +1,11 @@
 package com.android.mahindra.ui.screen.question
 
-import android.graphics.Bitmap
-import android.os.Environment
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.AnswerModel
 import com.android.mahindra.data.model.api.Question
-import com.android.mahindra.data.model.api.Status
-import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.data.model.api.SubmitAnswerModel
 import com.android.mahindra.data.remote.api.ApiService
-import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.extension.isDeviceOnline
-import id.zelory.compressor.Compressor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -18,8 +13,6 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
 import java.io.File
 
 class QuestionViewModel(private val activity: QuestionActivity) {
@@ -90,7 +83,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             )
     }
 
-    fun submitData(testId: String,testName:String) {
+    fun submitData(testId: String, testName: String) {
         //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {
             activity.showToast("No internet connection.")
@@ -101,7 +94,13 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             setCancelable(false)
         }
 
-        disposable = apiService.submitAnswers(testId,"23066056","12333",questionList)
+        val list = mutableListOf<AnswerModel>()
+        questionList?.forEach {
+            val answerModel = AnswerModel(it.questionId, it.type?.toLowerCase(), it.answer)
+            list.add(answerModel)
+        }
+        val answerRequestModel = SubmitAnswerModel(testId, "23066056", "12333", list)
+        disposable = apiService.submitAnswers(answerRequestModel)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {

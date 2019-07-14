@@ -64,11 +64,7 @@ interface ApiService {
 
 
     @POST("api/end_test/")
-    @FormUrlEncoded
-    fun submitAnswers(@Field("test_id") testId: String,
-                      @Field("sap_code") sapCode: String,
-                      @Field("end_date_time") endDateTime: String,
-                      @Field("questions") questions:List<Question>): Observable<BaseResponse<Any>>
+    fun submitAnswers(@Body submitAnswerModel: SubmitAnswerModel): Observable<BaseResponse<Any>>
 
     @POST("api/fetch_scheduled_test/")
     @FormUrlEncoded
@@ -79,7 +75,7 @@ interface ApiService {
         val devUrl = "~devProject/"
         val liveUrl = "~liveProject/"
         // Dev URL
-      //  private val BASE_URL: String = "http://134.209.153.25/${if (debug) devUrl else liveUrl}"
+        //  private val BASE_URL: String = "http://134.209.153.25/${if (debug) devUrl else liveUrl}"
         private val BASE_URL: String = "http://134.209.153.25:9090/"
         val BASE_URL_FILES = "http://209.59.156.100/${if (debug) devUrl else liveUrl}public/uploads/"
 

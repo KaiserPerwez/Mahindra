@@ -33,11 +33,6 @@ data class Question(
     var hint: String? = null,
     @SerializedName("answer")
     @Expose
-    var answer:String="0000"
+    var answer: String = "0000"
 ) : Parcelable
 
-
-data class AnswerModel(val quesnId:String,
-                       val quesnType:String,
-                       var answer:String
-                       )

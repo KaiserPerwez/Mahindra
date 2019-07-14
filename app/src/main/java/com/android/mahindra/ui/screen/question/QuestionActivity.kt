@@ -146,7 +146,7 @@ class QuestionActivity : HiddenCameraActivity() {
             setViewDisabled(previous)
         }
         binding?.submit?.setOnClickListener {
-            binding?.vm?.submitData(item.testId?.toString()?:"0",item.testName?:"")
+            binding?.vm?.submitData(item.testId?.toString() ?: "0", item.testName ?: "")
 
         }
     }
@@ -207,18 +207,11 @@ class QuestionActivity : HiddenCameraActivity() {
                 adapter = quesAdapter
                 previous?.setOnClickListener {
                     if (currentItem > 0) {
-                        saveAnswer()
-
                         quesAdapter.fragList[currentItem].binding?.apply {
                             val ans =
                                 "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
                             questionList[currentItem].answer = ans
                         }
-
-
-
-
-
                         currentItem -= 1
                         indexCurrentQuestion.set((currentItem + 1).toString())
                     }
@@ -226,39 +219,27 @@ class QuestionActivity : HiddenCameraActivity() {
                         setViewDisabled(previous)
                     }
                     setViewEnabled(next)
-                    binding?.submit?.visibility=View.GONE
+                    binding?.submit?.visibility = View.GONE
                 }
                 next?.setOnClickListener {
                     if (currentItem < questionList.size) {
-                        saveAnswer()
-
-
 
                         quesAdapter.fragList[currentItem].binding?.apply {
                             val ans =
                                 "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
                             questionList[currentItem].answer = ans
                         }
-
-
-
-
-
                         currentItem += 1
                         indexCurrentQuestion.set((currentItem + 1).toString())
                     }
                     if (currentItem == questionList.size - 1) {
                         setViewDisabled(next)
-                        binding?.submit?.visibility=View.VISIBLE
+                        binding?.submit?.visibility = View.VISIBLE
                     }
                     setViewEnabled(previous)
                 }
             }
         }
-    }
-
-    private fun saveAnswer() {
-
     }
 
 
