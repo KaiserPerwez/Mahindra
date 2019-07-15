@@ -13,6 +13,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.jetbrains.anko.indeterminateProgressDialog
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 class QuestionViewModel(private val activity: QuestionActivity) {
 
@@ -98,7 +100,8 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             val answerModel = AnswerModel(it.questionId, it.type?.toLowerCase(), it.answer)
             list.add(answerModel)
         }
-        val answerRequestModel = SubmitAnswerModel(testId, activity.userData.sapCode, "12333", list)
+
+        val answerRequestModel = SubmitAnswerModel(testId, activity.userData.sapCode, SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date()), list)
 
         disposable = apiService.submitAnswers(answerRequestModel)
             .subscribeOn(Schedulers.io())
@@ -133,13 +136,13 @@ class QuestionViewModel(private val activity: QuestionActivity) {
     fun uploadImage(imagePath: String) {
         //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {
-            activity.showToast("No internet connection.")
+//            activity.showToast("No internet connection.")
             return
         }
 
-        val dialog = activity.indeterminateProgressDialog("Loading data...").apply {
+        /*val dialog = activity.indeterminateProgressDialog("Loading data...").apply {
             setCancelable(false)
-        }
+        }*/
 
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
@@ -161,10 +164,10 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-                activity.runOnUiThread { dialog.show() }
+//                activity.runOnUiThread { dialog.show() }
             }
             .doAfterTerminate {
-                activity.runOnUiThread { dialog.dismiss() }
+//                activity.runOnUiThread { dialog.dismiss() }
             }
             .subscribe(
                 { result ->
