@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.ui.screen.start_test.StartTestActivity
 import kotlinx.android.synthetic.main.item_rv_upcoming.view.*
 
 
-class UpcomingExamsAdapter(val listUpcomingFrag: List<ExamsModel>, val context: Context?) :
+class UpcomingExamsAdapter(val listUpcomingFrag: List<ExamsModel>, val context: Context?, val userLoginData: UserLoginData) :
     RecyclerView.Adapter<UpcomingExamsAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_rv_upcoming, parent, false))
@@ -31,6 +32,7 @@ class UpcomingExamsAdapter(val listUpcomingFrag: List<ExamsModel>, val context: 
             root?.setOnClickListener {
                 val intent = Intent(it.context, StartTestActivity::class.java).apply {
                     putExtra("item", item)
+                    putExtra("user_data", userLoginData)
                 }
                 it.context.startActivity(intent)
             }

@@ -1,10 +1,9 @@
 package com.android.mahindra.ui.screen.question
 
 import androidx.databinding.ObservableField
-import com.android.mahindra.data.model.api.AnswerModel
-import com.android.mahindra.data.model.api.Question
-import com.android.mahindra.data.model.api.SubmitAnswerModel
+import com.android.mahindra.data.model.api.*
 import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.data.model.api.SubmitAnswerModel
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -99,7 +98,8 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             val answerModel = AnswerModel(it.questionId, it.type?.toLowerCase(), it.answer)
             list.add(answerModel)
         }
-        val answerRequestModel = SubmitAnswerModel(testId, "23066056", "12333", list)
+        val answerRequestModel = SubmitAnswerModel(testId, activity.userData.sapCode, "12333", list)
+
         disposable = apiService.submitAnswers(answerRequestModel)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

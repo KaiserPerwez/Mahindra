@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.UserLoginData
 import kotlinx.android.synthetic.main.fragment_up_coming.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,6 +23,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class UpComingFragment : androidx.fragment.app.Fragment() {
     lateinit var listUpcomingFrag: List<ExamsModel>
+    lateinit var loginData: UserLoginData
 
 
     override fun onCreateView(
@@ -49,7 +51,7 @@ class UpComingFragment : androidx.fragment.app.Fragment() {
     private fun setUpcomingExams() {
         rv_upcoming?.apply {
             layoutManager = LinearLayoutManager(this.context)
-            adapter = UpcomingExamsAdapter(listUpcomingFrag, this@UpComingFragment.context)
+            adapter = UpcomingExamsAdapter(listUpcomingFrag, this@UpComingFragment.context, loginData)
         }
     }
 

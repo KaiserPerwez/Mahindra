@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
 
-    private var loginData: UserLoginData? = null
+    lateinit var loginData: UserLoginData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +60,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setUpViewPager(list: List<ExamsModel>) {
-        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount, list)
+        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount, list, loginData)
         viewPager?.adapter = adapter
 
         viewPager?.addOnPageChangeListener(

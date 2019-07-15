@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.UserLoginData
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +21,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class HistoryFragment : androidx.fragment.app.Fragment() {
     lateinit var listHistoryFrag: List<ExamsModel>
+    lateinit var loginData: UserLoginData
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

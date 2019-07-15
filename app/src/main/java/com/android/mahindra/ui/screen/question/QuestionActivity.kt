@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityQuestionBinding
 import com.androidhiddencamera.CameraConfig
 import com.androidhiddencamera.CameraError
@@ -34,6 +35,7 @@ class QuestionActivity : HiddenCameraActivity() {
     private var mCameraConfig: CameraConfig? = null
 
     lateinit var item: ExamsModel
+    lateinit var userData: UserLoginData
 
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityQuestionBinding>(this, R.layout.activity_question)
@@ -52,6 +54,8 @@ class QuestionActivity : HiddenCameraActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
         item = intent.getParcelableExtra("item")
+
+        userData = intent.getParcelableExtra("user_data")
         item?.let {
             val testId = it.testId.toString()
             initUiAndListeners(it.testDuration ?: "0")
