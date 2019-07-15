@@ -211,11 +211,7 @@ class QuestionActivity : HiddenCameraActivity() {
                 adapter = quesAdapter
                 previous?.setOnClickListener {
                     if (currentItem > 0) {
-                        quesAdapter.fragList[currentItem].binding?.apply {
-                            val ans =
-                                "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
-                            questionList[currentItem].answer = ans
-                        }
+                        saveAnswer(currentItem, quesAdapter)
                         currentItem -= 1
                         indexCurrentQuestion.set((currentItem + 1).toString())
                     }
@@ -228,11 +224,7 @@ class QuestionActivity : HiddenCameraActivity() {
                 next?.setOnClickListener {
                     if (currentItem < questionList.size) {
 
-                        quesAdapter.fragList[currentItem].binding?.apply {
-                            val ans =
-                                "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
-                            questionList[currentItem].answer = ans
-                        }
+                        saveAnswer(currentItem, quesAdapter)
                         currentItem += 1
                         indexCurrentQuestion.set((currentItem + 1).toString())
                     }
@@ -243,6 +235,20 @@ class QuestionActivity : HiddenCameraActivity() {
                     setViewEnabled(previous)
                 }
             }
+        }
+    }
+
+    private fun saveAnswer(
+        currentItem: Int,
+        quesAdapter: QuestionAdapter
+    ) {
+
+        quesAdapter.fragList[currentItem].binding?.apply {
+            //     val ans = "${if (chkA.isChecked) "1" else "0"}${if (chkB.isChecked) "1" else "0"}${if (chkC.isChecked) "1" else "0"}${if (chkD.isChecked) "1" else "0"}"
+            val ans =
+                "${if (chkA.isChecked) "1," else ""}${if (chkB.isChecked) "2," else ""}${if (chkC.isChecked) "3," else ""}${if (chkD.isChecked) "4," else ""}"
+
+            binding?.vm?.questionList?.get(currentItem)?.answer = ans.substringBeforeLast(",")
         }
     }
 

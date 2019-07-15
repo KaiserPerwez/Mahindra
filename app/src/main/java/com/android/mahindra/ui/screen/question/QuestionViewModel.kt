@@ -1,9 +1,11 @@
 package com.android.mahindra.ui.screen.question
 
 import androidx.databinding.ObservableField
-import com.android.mahindra.data.model.api.*
-import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.data.model.api.AnswerModel
+import com.android.mahindra.data.model.api.Question
+import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.SubmitAnswerModel
+import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -11,7 +13,9 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.okButton
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -101,7 +105,12 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             list.add(answerModel)
         }
 
-        val answerRequestModel = SubmitAnswerModel(testId, activity.userData.sapCode, SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date()), list)
+        val answerRequestModel = SubmitAnswerModel(
+            testId,
+            activity.userData.sapCode,
+            SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date()),
+            list
+        )
 
         disposable = apiService.submitAnswers(answerRequestModel)
             .subscribeOn(Schedulers.io())
@@ -115,15 +124,13 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             .subscribe(
                 { result ->
                     activity.let {
-                        /*  if (result.status == Status.SUCCESS) {
-                                              if (result.isFirstLogin == true) {
-                                                  it.startActivity<RegisterActivity>("result" to result)
-                                              } else {
-                                                  it.startActivity<HomeActivity>("result" to result)
-                                              }
-                                          } else {
-                                              it.showToast(result.message ?: "")
-                                          }*/
+                        if (result.status == Status.SUCCESS) {
+                            activity?.alert("Thanks for the exam") {
+                                okButton { activity.finish() }
+                            }
+                        } else {
+                            it.showToast(result.message ?: "")
+                        }
 
                     }
                 },
@@ -164,10 +171,10 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe {
-//                activity.runOnUiThread { dialog.show() }
+                //                activity.runOnUiThread { dialog.show() }
             }
             .doAfterTerminate {
-//                activity.runOnUiThread { dialog.dismiss() }
+                //                activity.runOnUiThread { dialog.dismiss() }
             }
             .subscribe(
                 { result ->
