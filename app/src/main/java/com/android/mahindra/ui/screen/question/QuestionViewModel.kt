@@ -6,6 +6,7 @@ import com.android.mahindra.data.model.api.Question
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.SubmitAnswerModel
 import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -13,9 +14,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.jetbrains.anko.alert
-import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.okButton
+import org.jetbrains.anko.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -123,13 +122,15 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             }
             .subscribe(
                 { result ->
-                    activity.let {
+                    activity.apply {
                         if (result.status == Status.SUCCESS) {
-                            activity?.alert("Thanks for the exam") {
-                                okButton { activity.finish() }
+                            alert("Thanks for the exam") {
+                                okButton {
+                                        startActivity(intentFor<HomeActivity>("result" to userData).newTask().clearTask())
+                                }
                             }
                         } else {
-                            it.showToast(result.message ?: "")
+                            showToast(result.message ?: "")
                         }
 
                     }
@@ -141,22 +142,16 @@ class QuestionViewModel(private val activity: QuestionActivity) {
     }
 
     fun uploadImage(imagePath: String) {
-        //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {
-//            activity.showToast("No internet connection.")
             return
         }
-
-        /*val dialog = activity.indeterminateProgressDialog("Loading data...").apply {
-            setCancelable(false)
-        }*/
 
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
 
         builder.addFormDataPart("test_id", activity.item.testId.toString() ?: "")
         builder.addFormDataPart("test_name", activity.item.testName)
-        builder.addFormDataPart("sap_code", "23066056")
+        builder.addFormDataPart("sap_code", activity.userData.sapCode)
 
         val imageCapture = File(imagePath)
 
