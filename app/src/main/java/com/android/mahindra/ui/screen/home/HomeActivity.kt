@@ -69,11 +69,11 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         loginData?.apply {
             fetchExams(sapCode ?: "")
 
-            val navHeader=nav_view?.getHeaderView(0)
+            val navHeader = nav_view?.getHeaderView(0)
             val imageView = navHeader?.findViewById<ImageView>(R.id.imageCandidate)
             imageView?.let {
                 GlideApp.with(this@HomeActivity)
-                    .load(profilePic)
+                    .load("http://134.209.153.25:9090/" + profilePic)
                     .into(it)
             }
 
