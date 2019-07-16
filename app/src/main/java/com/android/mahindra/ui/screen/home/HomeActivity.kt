@@ -3,6 +3,8 @@ package com.android.mahindra.ui.screen.home
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -12,6 +14,7 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.util.GlideApp
 import com.android.mahindra.util.extension.isDeviceOnline
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
@@ -20,6 +23,7 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import kotlinx.android.synthetic.main.nav_header_home.*
 import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.toast
 
@@ -56,7 +60,23 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view?.setNavigationItemSelectedListener(this)
 
-        loginData?.sapCode?.let { fetchExams(it) }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loginData?.apply {
+            fetchExams(sapCode ?: "")
+
+            val navHeader=nav_view?.getHeaderView(0)
+            val imageView = navHeader?.findViewById<ImageView>(R.id.imageCandidate)
+            imageView?.let {
+                GlideApp.with(this@HomeActivity)
+                    .load(profilePic)
+                    .into(it)
+            }
+
+            navHeader?.findViewById<TextView>(R.id.nameCandidate)?.text = "${firstName} ${lastName}"
+        }
     }
 
     private fun setUpViewPager(list: List<ExamsModel>) {
