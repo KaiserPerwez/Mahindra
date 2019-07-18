@@ -128,7 +128,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
                                 okButton {
                                         startActivity(intentFor<HomeActivity>("result" to userData).newTask().clearTask())
                                 }
-                            }
+                            }.show()
                         } else {
                             showToast(result.message ?: "")
                         }
