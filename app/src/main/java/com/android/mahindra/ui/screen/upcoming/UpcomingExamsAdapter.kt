@@ -27,8 +27,8 @@ class UpcomingExamsAdapter(val listUpcomingFrag: List<ExamsModel>, val context: 
         holder.apply {
             val item = listUpcomingFrag[position]
             testName?.text = item.testName
-            duration?.text = "${item.testDuration} mins"
-            scheduledOn?.text = item.fromDate
+            duration?.text = "Duration : ${item.testDuration} mins"
+            scheduledOn?.text = "Scheduled : ${item.fromDate}"
             root?.setOnClickListener {
                 val intent = Intent(it.context, StartTestActivity::class.java).apply {
                     putExtra("item", item)
