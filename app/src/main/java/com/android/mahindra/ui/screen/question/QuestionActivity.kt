@@ -148,11 +148,7 @@ class QuestionActivity : HiddenCameraActivity() {
 
             setViewDisabled(previous)
         }
-        binding?.submit?.setOnClickListener {
 
-            binding?.vm?.submitData(item.testId?.toString() ?: "0", item.testName ?: "")
-
-        }
     }
 
 
@@ -233,6 +229,10 @@ class QuestionActivity : HiddenCameraActivity() {
                         binding?.submit?.visibility = View.VISIBLE
                     }
                     setViewEnabled(previous)
+                }
+                submit?.setOnClickListener {
+                    saveAnswer(currentItem, quesAdapter)
+                    binding?.vm?.submitData(item.testId?.toString() ?: "0", item.testName ?: "")
                 }
             }
         }
