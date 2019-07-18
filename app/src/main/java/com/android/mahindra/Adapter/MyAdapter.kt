@@ -21,14 +21,17 @@ class MyAdapter(
             0 -> {
                 //  val homeFragment: HomeFragment = HomeFragment()
                 val listUpcoming = list.filter { it.status != "completed" }
-                return UpComingFragment().apply { listUpcomingFrag = listUpcoming
-                loginData = userLoginData
+                return UpComingFragment().apply {
+                    listUpcomingFrag = listUpcoming
+                    loginData = userLoginData
                 }
             }
             1 -> {
-                val listHistory = list.filter { it.status == "completed" }
-                return HistoryFragment().apply { listHistoryFrag = listHistory
-                    loginData = userLoginData}
+                val listHistory = list.filter { (it.status?.toLowerCase() == "completed") }
+                return HistoryFragment().apply {
+                    listHistoryFrag = listHistory
+                    loginData = userLoginData
+                }
             }
 
             else -> return null
