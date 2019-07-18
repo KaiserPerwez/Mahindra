@@ -1,6 +1,5 @@
 package com.android.mahindra.ui.screen.register
 
-import android.graphics.Bitmap
 import android.os.Environment
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
@@ -8,7 +7,7 @@ import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.extension.isDeviceOnline
-import id.zelory.compressor.Compressor
+import com.iceteck.silicompressorr.SiliCompressor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -122,7 +121,6 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         builder.addFormDataPart("id_proof_type", proofType.get())
         builder.addFormDataPart("otp", otp.get())
 
-        val profilePicFile = File(profilePic.get())
         val picFromPicturesDirectory =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
 
@@ -130,38 +128,49 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             activity.toast("Your pic not accessible")
             return
         }
-        val compressedprofilePic = Compressor(activity)
-//                    .setMaxWidth(640)
-//                    .setMaxHeight(480)
-            .setQuality(60)
+        /*val compressedprofilePic = Compressor(activity)
+                    .setMaxWidth(640)
+                    .setMaxHeight(480)
+            .setQuality(40)
             .setCompressFormat(Bitmap.CompressFormat.PNG)
             .setDestinationDirectoryPath(
                 picFromPicturesDirectory
             )
-            .compressToFile(profilePicFile)
+            .compressToFile(profilePicFile)*/
+
+        val compressedprofilePic =
+            SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), true)
+
+        val profilePicFile = File(compressedprofilePic)
 
         builder.addFormDataPart(
             "profile_pic",
-            compressedprofilePic.name,
-            RequestBody.create(MediaType.parse("multipart/form-data"), compressedprofilePic)
+            profilePicFile.name,
+            RequestBody.create(MediaType.parse("multipart/form-data"), profilePicFile)
         )
 
-        val proofPicFile = File(proofPic.get())
+        /*val proofPicFile = File(proofPic.get())
         val compressedproofPic = Compressor(activity)
-//                    .setMaxWidth(640)
-//                    .setMaxHeight(480)
-            .setQuality(60)
+                    .setMaxWidth(640)
+                    .setMaxHeight(480)
+            .setQuality(40)
             .setCompressFormat(Bitmap.CompressFormat.PNG)
             .setDestinationDirectoryPath(
                 Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_PICTURES
                 ).absolutePath
             )
-            .compressToFile(proofPicFile)
+            .compressToFile(proofPicFile)*/
+
+        val compressedproofPic =
+            SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), true)
+
+        val proofPicFile = File(compressedproofPic)
+
         builder.addFormDataPart(
             "id_proof",
-            compressedproofPic.name,
-            RequestBody.create(MediaType.parse("multipart/form-data"), compressedproofPic)
+            proofPicFile.name,
+            RequestBody.create(MediaType.parse("multipart/form-data"), proofPicFile)
         )
 
         val requestBody = builder.build()

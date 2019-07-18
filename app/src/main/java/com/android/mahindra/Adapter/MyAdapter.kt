@@ -20,7 +20,7 @@ class MyAdapter(
         when (position) {
             0 -> {
                 //  val homeFragment: HomeFragment = HomeFragment()
-                val listUpcoming = list.filter { it.status != "completed" }
+                val listUpcoming = list.filter { it.status?.toLowerCase() != "completed" }
                 return UpComingFragment().apply {
                     listUpcomingFrag = listUpcoming
                     loginData = userLoginData
