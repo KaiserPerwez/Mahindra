@@ -32,14 +32,25 @@
             app:layout_constraintEnd_toEndOf="@+id/toolbar"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent">
-        <TextView
+        <!--<TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/material_color_grey900"
-                android:text="1. Each correct answer is 1 mark "/>
+                android:text="1. Each correct answer is 1 mark "/>-->
+
+        <TextView
+                android:id="@+id/test_duration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/material_color_grey900"
+                android:text="1. Test duration **** min"/>
+
 
         <TextView
                 android:layout_width="match_parent"
@@ -48,17 +59,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/material_color_grey900"
-                android:text="2. Wrong answer is -0.25 mark"/>
-
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/material_color_grey900"
-                android:text="3. Your camera will be access while taking test"/>
+                android:text="2. Your camera will be access while taking test"/>
 
         <Button
                 android:id="@+id/start_test"

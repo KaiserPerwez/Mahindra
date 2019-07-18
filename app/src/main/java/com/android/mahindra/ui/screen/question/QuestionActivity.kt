@@ -103,7 +103,6 @@ class QuestionActivity : HiddenCameraActivity() {
 
             val rnds = (20..60).random()
             ramdomImageCapture(rnds)
-            toast(rnds.toString())
         }
 
         updateHandler.postDelayed(runnable, rand)
@@ -150,6 +149,7 @@ class QuestionActivity : HiddenCameraActivity() {
             setViewDisabled(previous)
         }
         binding?.submit?.setOnClickListener {
+
             binding?.vm?.submitData(item.testId?.toString() ?: "0", item.testName ?: "")
 
         }

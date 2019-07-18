@@ -13,7 +13,7 @@ import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
 
 class LoginViewModel(private val activity: LoginActivity) {
-    var sapCode = ObservableField("23066056")
+    var sapCode = ObservableField("")
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
@@ -46,7 +46,7 @@ class LoginViewModel(private val activity: LoginActivity) {
                 { result ->
                     activity.apply {
                         if (result.status == Status.SUCCESS) {
-                            if (result.isFirstLogin == false) {
+                            if (result.isFirstLogin == true) {
                                 startActivity<RegisterActivity>("result" to result)
                             } else {
                                 startActivity<HomeActivity>("result" to result)

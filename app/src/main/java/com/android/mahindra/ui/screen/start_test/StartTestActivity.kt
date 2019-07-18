@@ -16,10 +16,13 @@ class StartTestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_test)
 
+        val item=intent.getParcelableExtra<ExamsModel>("item")
+        val userData=intent.getParcelableExtra<UserLoginData>("user_data")
+
+        test_duration.text = "1. Test duration ${item.testDuration} min"
+
         initToolBar()
         start_test.setOnClickListener {
-            val item=intent.getParcelableExtra<ExamsModel>("item")
-            val userData=intent.getParcelableExtra<UserLoginData>("user_data")
             item?.let {
                 val intentNext = Intent(this, QuestionActivity::class.java).apply {
                     putExtra("item", item)

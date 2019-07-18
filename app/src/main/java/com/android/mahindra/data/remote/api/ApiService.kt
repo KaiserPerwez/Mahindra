@@ -76,7 +76,10 @@ interface ApiService {
         val liveUrl = "~liveProject/"
         // Dev URL
         //  private val BASE_URL: String = "http://134.209.153.25/${if (debug) devUrl else liveUrl}"
-        private val BASE_URL: String = "http://134.209.153.25:9090/"
+//        val BASE_URL: String = "http://192.168.1.100:9090/"
+//        val BASE_URL_FILE: String = "http://192.168.1.100:9090"
+        val BASE_URL: String = "http://134.209.153.25:9090/"
+        val BASE_URL_FILE: String = "http://134.209.153.25:9090"
         val BASE_URL_FILES = "http://209.59.156.100/${if (debug) devUrl else liveUrl}public/uploads/"
 
         fun create(baseUrl: String = BASE_URL): ApiService {

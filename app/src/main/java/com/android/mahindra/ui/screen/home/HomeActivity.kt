@@ -14,6 +14,8 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
+import com.android.mahindra.data.remote.api.ApiService.Companion.BASE_URL
+import com.android.mahindra.data.remote.api.ApiService.Companion.BASE_URL_FILE
 import com.android.mahindra.ui.screen.login.LoginActivity
 import com.android.mahindra.util.GlideApp
 import com.android.mahindra.util.extension.isDeviceOnline
@@ -71,13 +73,14 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             val navHeader = nav_view?.getHeaderView(0)
             val imageView = navHeader?.findViewById<ImageView>(R.id.imageCandidate)
+
             imageView?.let {
                 GlideApp.with(this@HomeActivity)
-                    .load("http://134.209.153.25:9090/" + profilePic)
+                    .load("$BASE_URL_FILE$profilePic").placeholder(R.mipmap.ic_launcher_round).circleCrop()
                     .into(it)
             }
 
-            navHeader?.findViewById<TextView>(R.id.nameCandidate)?.text = "${firstName} ${lastName}"
+            navHeader?.findViewById<TextView>(R.id.nameCandidate)?.text = "$firstName $lastName"
         }
     }
 
@@ -126,10 +129,12 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
+        /*return when (item.itemId) {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
-        }
+        }*/
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
