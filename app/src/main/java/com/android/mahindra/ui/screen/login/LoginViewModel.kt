@@ -18,11 +18,8 @@ class LoginViewModel(private val activity: LoginActivity) {
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
 
-    /*   private val userPrefs by lazy {
-           PreferenceHelper.customPrefs(searchActivity, PreferenceHelper.USER_PREF)
-       }
-     */
-    fun fetchData() {
+
+    fun loginUser() {
         //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {
             activity.showToast("No internet connection.")
@@ -63,11 +60,9 @@ class LoginViewModel(private val activity: LoginActivity) {
             )
     }
 
-    fun dispose() {
+    private fun dispose() {
         disposable?.dispose()
     }
 
-    fun onResume() = activity.showToast("View model resumed")
     fun onPause() = dispose()
-    fun onStop() = dispose()
 }

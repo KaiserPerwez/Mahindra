@@ -56,7 +56,7 @@ class QuestionActivity : HiddenCameraActivity() {
         item = intent.getParcelableExtra("item")
 
         userData = intent.getParcelableExtra("user_data")
-        item?.let {
+        item.let {
             val testId = it.testId.toString()
             initUiAndListeners(it.testDuration ?: "0")
             binding?.vm?.fetchData(testId)
@@ -232,7 +232,7 @@ class QuestionActivity : HiddenCameraActivity() {
                 }
                 submit?.setOnClickListener {
                     saveAnswer(currentItem, quesAdapter)
-                    binding?.vm?.submitData(item.testId?.toString() ?: "0", item.testName ?: "")
+                    binding?.vm?.submitData(item.testId?.toString() ?: "0")
                 }
             }
         }

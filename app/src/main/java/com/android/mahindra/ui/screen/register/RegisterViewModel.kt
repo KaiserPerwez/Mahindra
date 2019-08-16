@@ -113,13 +113,13 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
 
-        builder.addFormDataPart("sap_code", sapCode.get())
-        builder.addFormDataPart("ph_no", mobile.get())
-        builder.addFormDataPart("first_name", firstName.get())
-        builder.addFormDataPart("last_name", lastName.get())
-        builder.addFormDataPart("email", email.get())
-        builder.addFormDataPart("id_proof_type", proofType.get())
-        builder.addFormDataPart("otp", otp.get())
+        builder.addFormDataPart("sap_code", sapCode.get() ?: "")
+        builder.addFormDataPart("ph_no", mobile.get() ?: "")
+        builder.addFormDataPart("first_name", firstName.get() ?: "")
+        builder.addFormDataPart("last_name", lastName.get() ?: "")
+        builder.addFormDataPart("email", email.get() ?: "")
+        builder.addFormDataPart("id_proof_type", proofType.get() ?: "")
+        builder.addFormDataPart("otp", otp.get() ?: "")
 
         val picFromPicturesDirectory =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
@@ -138,10 +138,10 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
             .compressToFile(profilePicFile)*/
 
-        val compressedprofilePic =
+        val compressedProfilePic =
             SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), true)
 
-        val profilePicFile = File(compressedprofilePic)
+        val profilePicFile = File(compressedProfilePic)
 
         builder.addFormDataPart(
             "profile_pic",
@@ -162,10 +162,10 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
             .compressToFile(proofPicFile)*/
 
-        val compressedproofPic =
+        val compressedProofPic =
             SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), true)
 
-        val proofPicFile = File(compressedproofPic)
+        val proofPicFile = File(compressedProofPic)
 
         builder.addFormDataPart(
             "id_proof",
@@ -205,11 +205,10 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
     }
 
-    fun dispose() {
+    private fun dispose() {
         disposable?.dispose()
     }
 
-    //    fun onResume() = activity?.toast("View model resumed")
     fun onPause() = dispose()
 
     fun onStop() = dispose()

@@ -2,7 +2,6 @@ package com.android.mahindra.ui.screen.login
 
 import android.Manifest
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
@@ -30,12 +29,11 @@ class LoginActivity : AppCompatActivity() {
         initPermission()
     }
 
-    fun initPermission() {
+    private fun initPermission() {
 
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.CAMERA,
-//                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
@@ -61,13 +59,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initUiAndListeners() {
-        binding.vm = viewModel
+        binding?.vm = viewModel
 
         supportActionBar?.title = "Login"
-        /*login.setOnClickListener{
-            intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 
     fun showToast(msg: String) {
@@ -79,9 +73,5 @@ class LoginActivity : AppCompatActivity() {
         viewModel.onPause()
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.onStop()
-    }
 
 }

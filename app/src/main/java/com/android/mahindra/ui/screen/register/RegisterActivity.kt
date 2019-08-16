@@ -19,7 +19,7 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
 import java.io.IOException
@@ -44,31 +44,29 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initUiAndListeners()
-
-        register.setOnClickListener {
-            intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initUiAndListeners() {
-
+        supportActionBar?.title = "Register"
         loginData = intent.getParcelableExtra("result")
 
-        binding.vm = viewModel
-        binding?.vm?.setData()
-        binding.act = this
+        binding.apply {
+            vm = viewModel
+            vm?.setData()
+            act = this@RegisterActivity
 
-        supportActionBar?.title = "Register"
+            register.setOnClickListener {
+                startActivity<HomeActivity>()
+            }
 
-        mobile.setOnFocusChangeListener { view, hasFocus ->
-            if (!hasFocus) {
-                if (mobile.text?.length == 10) {
-                    binding?.vm?.validateMobile()
-                } else {
-                    mobile.error = "Enter a valid number."
+            mobile.setOnFocusChangeListener { view, hasFocus ->
+                if (!hasFocus) {
+                    if (mobile.text?.length == 10) {
+                        vm?.validateMobile()
+                    } else {
+                        mobile.error = "Enter a valid number."
+                    }
                 }
             }
         }
@@ -93,18 +91,17 @@ class RegisterActivity : AppCompatActivity() {
     private fun createImageFile(view: View): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
             storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            if (view.id == R.id.upload_profile_photo) {
+            if (view.id == R.id.upload_profile_photo)
                 binding?.vm?.profilePic?.set(absolutePath)
-            } else {
+            else
                 binding?.vm?.proofPic?.set(absolutePath)
-            }
         }
     }
 
@@ -168,6 +165,11 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.onPause()
     }
 
 }

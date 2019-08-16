@@ -87,7 +87,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             )
     }
 
-    fun submitData(testId: String, testName: String) {
+    fun submitData(testId: String) {
         //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {
             activity.showToast("No internet connection.")
@@ -99,7 +99,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
         }
 
         val list = mutableListOf<AnswerModel>()
-        questionList?.forEach {
+        questionList.forEach {
             val answerModel = AnswerModel(it.questionId, it.type?.toLowerCase(), it.answer)
             list.add(answerModel)
         }
@@ -149,7 +149,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
 
-        builder.addFormDataPart("test_id", activity.item.testId.toString() ?: "")
+        builder.addFormDataPart("test_id", activity.item.testId.toString())
         builder.addFormDataPart("test_name", activity.item.testName)
         builder.addFormDataPart("sap_code", activity.userData.sapCode)
 

@@ -68,7 +68,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16dp"
-                android:onClick="@{()->vm.fetchData()}"
+                android:onClick="@{()->vm.loginUser()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
