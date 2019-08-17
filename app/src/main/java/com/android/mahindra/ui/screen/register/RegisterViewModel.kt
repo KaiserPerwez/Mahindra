@@ -6,6 +6,8 @@ import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
+import com.android.mahindra.util.extension.dismissKeyboard
 import com.android.mahindra.util.extension.isDeviceOnline
 import com.iceteck.silicompressorr.SiliCompressor
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -99,33 +101,34 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         }
     }
 
+
     fun register() {
-        //   activity?.hideKeyboard()
+        activity?.dismissKeyboard()
         if (!activity.isDeviceOnline()) {
             activity.toast("No internet connection.")
             return
         }
 
-        val dialog = activity.indeterminateProgressDialog("Registering user...").apply {
-            setCancelable(false)
-        }
-
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
 
-        builder.addFormDataPart("sap_code", sapCode.get())
-        builder.addFormDataPart("ph_no", mobile.get())
-        builder.addFormDataPart("first_name", firstName.get())
-        builder.addFormDataPart("last_name", lastName.get())
-        builder.addFormDataPart("email", email.get())
-        builder.addFormDataPart("id_proof_type", proofType.get())
-        builder.addFormDataPart("otp", otp.get())
+        builder.addFormDataPart("sap_code", sapCode.get() ?: "")
+        builder.addFormDataPart("ph_no", mobile.get() ?: "")
+        builder.addFormDataPart("first_name", firstName.get() ?: "")
+        builder.addFormDataPart("last_name", lastName.get() ?: "")
+        builder.addFormDataPart("email", email.get() ?: "")
+        builder.addFormDataPart("id_proof_type", proofType.get() ?: "")
+        builder.addFormDataPart("otp", otp.get() ?: "")
 
         val picFromPicturesDirectory =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
 
         if (picFromPicturesDirectory == null) {
             activity.toast("Your pic not accessible")
+            return
+        }
+        if (profilePic?.get()?.isBlank() == true) {
+            activity.toast("Uploading your pic is mandatory")
             return
         }
         /*val compressedprofilePic = Compressor(activity)
@@ -138,10 +141,10 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
             .compressToFile(profilePicFile)*/
 
-        val compressedprofilePic =
+        val compressedProfilePic =
             SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), true)
 
-        val profilePicFile = File(compressedprofilePic)
+        val profilePicFile = File(compressedProfilePic)
 
         builder.addFormDataPart(
             "profile_pic",
@@ -162,10 +165,15 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
             .compressToFile(proofPicFile)*/
 
-        val compressedproofPic =
+        if (proofPic?.get()?.isBlank() == true) {
+            activity.toast("Uploading your proof pic is mandatory")
+            return
+        }
+
+        val compressedProofPic =
             SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), true)
 
-        val proofPicFile = File(compressedproofPic)
+        val proofPicFile = File(compressedProofPic)
 
         builder.addFormDataPart(
             "id_proof",
@@ -175,6 +183,9 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
         val requestBody = builder.build()
 
+        val dialog = activity.indeterminateProgressDialog("Registering user...").apply {
+            setCancelable(false)
+        }
 
         disposable = apiService.updateProfile(requestBody)
             .subscribeOn(Schedulers.io())
@@ -193,7 +204,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                             var resultData: UserLoginData? = activity.loginData
                             resultData?.profilePic = result.profilePic
 
-                            it.startActivity<HomeActivity>("result" to resultData)
+                            it.startActivity<HomeActivity>(KEY_INTENT_LOGIN_DATA to resultData)
                         } else {
                             it.toast(result.message ?: "")
                         }
@@ -205,12 +216,10 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
     }
 
-    fun dispose() {
+    private fun dispose() {
         disposable?.dispose()
     }
 
-    //    fun onResume() = activity?.toast("View model resumed")
     fun onPause() = dispose()
 
-    fun onStop() = dispose()
 }

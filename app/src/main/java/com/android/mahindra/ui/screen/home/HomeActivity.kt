@@ -8,70 +8,64 @@ import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import com.android.mahindra.Adapter.MyAdapter
+import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
-import com.android.mahindra.data.remote.api.ApiService
-import com.android.mahindra.data.remote.api.ApiService.Companion.BASE_URL
 import com.android.mahindra.data.remote.api.ApiService.Companion.BASE_URL_FILE
+import com.android.mahindra.databinding.ActivityHomeBinding
 import com.android.mahindra.ui.screen.login.LoginActivity
 import com.android.mahindra.util.GlideApp
-import com.android.mahindra.util.extension.isDeviceOnline
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
-import org.jetbrains.anko.*
-import kotlinx.android.synthetic.main.nav_header_home.*
-import org.jetbrains.anko.indeterminateProgressDialog
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private var disposable: Disposable? = null
-    private val apiService by lazy { ApiService.create() }
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityHomeBinding>(this, R.layout.activity_home)
+    }
 
-    lateinit var loginData: UserLoginData
+    val loginData by lazy {
+        intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA) as UserLoginData
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        initUiAndListeners()
+    }
+
+    private fun initUiAndListeners() {
         setSupportActionBar(toolbar)
+        binding?.apply {
+            vm = HomeViewModel(this@HomeActivity)
+            appBarHome?.tabLayout?.apply {
+                addTab(newTab().setText("Up Coming"))
+                addTab(newTab().setText("History"))
+                tabGravity = TabLayout.GRAVITY_FILL
+            }
 
+            val toggle = ActionBarDrawerToggle(
+                this@HomeActivity, drawer_layout, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+            )
+            drawerLayout?.addDrawerListener(toggle)
+            toggle.syncState()
 
-        loginData = intent.getParcelableExtra("result")
-
-        tabLayout?.apply {
-            addTab(newTab().setText("Up Coming"))
-            addTab(newTab().setText("History"))
-            tabGravity = TabLayout.GRAVITY_FILL
+            navView?.setNavigationItemSelectedListener(this@HomeActivity)
         }
-
-
-        /* val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-         val navView: NavigationView = findViewById(R.id.nav_view)*/
-        val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar,
-            R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close
-        )
-        drawer_layout?.addDrawerListener(toggle)
-        toggle.syncState()
-
-        nav_view?.setNavigationItemSelectedListener(this)
-
     }
 
     override fun onResume() {
         super.onResume()
         loginData?.apply {
-            fetchExams(sapCode ?: "")
+            binding?.vm?.fetchExams(loginData.sapCode ?: "")
 
-            val navHeader = nav_view?.getHeaderView(0)
+            val navHeader = binding?.navView?.getHeaderView(0)
             val imageView = navHeader?.findViewById<ImageView>(R.id.imageCandidate)
 
             imageView?.let {
@@ -84,38 +78,46 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
 
-    private fun setUpViewPager(list: List<ExamsModel>) {
-        val adapter = MyAdapter(this, supportFragmentManager, tabLayout!!.tabCount, list, loginData)
-        viewPager?.adapter = adapter
-
-        viewPager?.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(
-                tabLayout
+    fun setUpViewPager(list: List<ExamsModel>) {
+        //TODO: create a binding adapter later
+        binding?.appBarHome?.apply {
+            val adapter = MyAdapter(
+                this@HomeActivity,
+                supportFragmentManager,
+                tabLayout.tabCount,
+                list,
+                loginData
             )
-        )
+            viewPager?.adapter = adapter
 
-        tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager!!.currentItem = tab.position
-            }
+            viewPager?.addOnPageChangeListener(
+                TabLayout.TabLayoutOnPageChangeListener(tabLayout)
+            )
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
+            tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    viewPager.currentItem = tab.position
+                }
 
-            }
+                override fun onTabUnselected(tab: TabLayout.Tab) {
 
-            override fun onTabReselected(tab: TabLayout.Tab) {
+                }
 
-            }
-        })
+                override fun onTabReselected(tab: TabLayout.Tab) {
+
+                }
+            })
+        }
     }
 
 
     override fun onBackPressed() {
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
+        binding?.drawerLayout?.apply {
+            if (isDrawerOpen(GravityCompat.START)) {
+                closeDrawer(GravityCompat.START)
+            } else {
+                super.onBackPressed()
+            }
         }
     }
 
@@ -148,56 +150,18 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
             }
         }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.closeDrawer(GravityCompat.START)
+        binding?.drawerLayout?.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding?.vm?.onPause()
     }
 
     fun showToast(msg: String) {
         toast(msg)
     }
 
-    fun fetchExams(sapCode: String) {
-        if (!isDeviceOnline()) {
-            showToast("No internet connection.")
-            return
-        }
 
-        val dialog = indeterminateProgressDialog("Loading data...").apply {
-            setCancelable(false)
-        }
-
-        val disposable = apiService.getExams(sapCode)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe {
-                runOnUiThread { dialog.show() }
-            }
-            .doAfterTerminate {
-                runOnUiThread { dialog.dismiss() }
-            }
-            .subscribe(
-                { result ->
-                    let {
-                        /*  if (result.status == Status.SUCCESS) {
-                              if (result.isFirstLogin == true) {
-                                  it.startActivity<RegisterActivity>("result" to result)
-                              } else {
-                                  it.startActivity<HomeActivity>("result" to result)
-                              }
-                          } else {
-                              it.showToast(result.message ?: "")
-                          }*/
-                        result?.data?.let {
-                            if (it.isNotEmpty()) {
-                                setUpViewPager(it)
-                            }
-                        }
-                    }
-                },
-                { error ->
-                    showToast(error.message ?: "Error while fetching data")
-                }
-            )
-    }
 }

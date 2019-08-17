@@ -1,4 +1,4 @@
-package com.android.mahindra.ui.screen.history
+package com.android.mahindra.ui.screen.home.history
 
 import android.content.Context
 import android.content.Intent

@@ -14,12 +14,13 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityRegisterBinding
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import kotlinx.android.synthetic.main.activity_register.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
 import java.io.IOException
@@ -31,9 +32,6 @@ class RegisterActivity : AppCompatActivity() {
     var loginData: UserLoginData? = null
 
     private val REQUEST_CAPTURE_IMAGE = 100
-//    private lateinit var imageFilePath: String
-
-    private lateinit var photoFile: File
 
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityRegisterBinding>(this, R.layout.activity_register)
@@ -44,31 +42,29 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         initUiAndListeners()
-
-        register.setOnClickListener {
-            intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun initUiAndListeners() {
-
-        loginData = intent.getParcelableExtra("result")
-
-        binding.vm = viewModel
-        binding?.vm?.setData()
-        binding.act = this
-
         supportActionBar?.title = "Register"
+        loginData = intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA)
 
-        mobile.setOnFocusChangeListener { view, hasFocus ->
-            if (!hasFocus) {
-                if (mobile.text?.length == 10) {
-                    binding?.vm?.validateMobile()
-                } else {
-                    mobile.error = "Enter a valid number."
+        binding.apply {
+            vm = viewModel
+            vm?.setData()
+            act = this@RegisterActivity
+
+            register.setOnClickListener {
+                startActivity<HomeActivity>()
+            }
+
+            mobile.setOnFocusChangeListener { view, hasFocus ->
+                if (!hasFocus) {
+                    if (mobile.text?.length == 10) {
+                        vm?.validateMobile()
+                    } else {
+                        mobile.error = "Enter a valid number."
+                    }
                 }
             }
         }
@@ -93,18 +89,17 @@ class RegisterActivity : AppCompatActivity() {
     private fun createImageFile(view: View): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
             storageDir /* directory */
         ).apply {
             // Save a file: path for use with ACTION_VIEW intents
-            if (view.id == R.id.upload_profile_photo) {
+            if (view.id == R.id.upload_profile_photo)
                 binding?.vm?.profilePic?.set(absolutePath)
-            } else {
+            else
                 binding?.vm?.proofPic?.set(absolutePath)
-            }
         }
     }
 
@@ -118,7 +113,6 @@ class RegisterActivity : AppCompatActivity() {
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.CAMERA,
-//                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
@@ -168,6 +162,11 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.onPause()
     }
 
 }

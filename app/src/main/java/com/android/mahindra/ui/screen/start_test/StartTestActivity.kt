@@ -2,35 +2,40 @@ package com.android.mahindra.ui.screen.start_test
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.databinding.ActivityStartTestBinding
 import com.android.mahindra.ui.screen.question.QuestionActivity
+import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
+import com.android.mahindra.util.KEY_INTENT_EXAM_USER
 import kotlinx.android.synthetic.main.activity_start_test.*
+import org.jetbrains.anko.startActivity
 
 class StartTestActivity : AppCompatActivity() {
+    private val binding by lazy {
+        DataBindingUtil.setContentView<ActivityStartTestBinding>(this, R.layout.activity_start_test)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_start_test)
+        initUiAndListeners()
+    }
 
-        val item=intent.getParcelableExtra<ExamsModel>("item")
-        val userData=intent.getParcelableExtra<UserLoginData>("user_data")
-
-        test_duration.text = "1. Test duration ${item.testDuration} min"
-
+    private fun initUiAndListeners() {
         initToolBar()
-        start_test.setOnClickListener {
-            item?.let {
-                val intentNext = Intent(this, QuestionActivity::class.java).apply {
-                    putExtra("item", item)
-                    putExtra("user_data", userData)
-                }
-                startActivity(intentNext)
-            }
+        val item = intent.getParcelableExtra<ExamsModel>(KEY_INTENT_EXAM_MODEL)
+        val userData = intent.getParcelableExtra<UserLoginData>(KEY_INTENT_EXAM_USER)
 
+        binding?.apply {
+
+            testDuration?.text = "1. Test duration ${item.testDuration} min"
+
+            startTest?.setOnClickListener {
+                    startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_EXAM_USER to userData)
+            }
         }
     }
 
@@ -39,8 +44,7 @@ class StartTestActivity : AppCompatActivity() {
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        toolbar.setNavigationOnClickListener(
-            View.OnClickListener { onBackPressed() })
+        toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
 }

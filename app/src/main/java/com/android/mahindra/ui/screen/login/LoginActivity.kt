@@ -2,7 +2,6 @@ package com.android.mahindra.ui.screen.login
 
 import android.Manifest
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
@@ -18,24 +17,19 @@ class LoginActivity : AppCompatActivity() {
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
     }
-    private val viewModel by lazy {
-        LoginViewModel(this)
-    }
 
     //methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUiAndListeners()
-
-        initPermission()
+        initPermissionToCaptureImageInBackground()
     }
 
-    fun initPermission() {
+    private fun initPermissionToCaptureImageInBackground() {
 
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.CAMERA,
-//                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {
@@ -45,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
                     // check for permanent denial of any permission
                     if (report.isAnyPermissionPermanentlyDenied) {
-                        // permission is denied permenantly, navigate user to app settings
+                        //TODO: permission is denied permenantly, navigate user to app settings
                     }
                 }
 
@@ -61,13 +55,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initUiAndListeners() {
-        binding.vm = viewModel
-
+        binding?.vm = LoginViewModel(this)
         supportActionBar?.title = "Login"
-        /*login.setOnClickListener{
-            intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }*/
     }
 
     fun showToast(msg: String) {
@@ -76,12 +65,8 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.onPause()
+        binding?.vm?.onPause()
     }
 
-    override fun onStop() {
-        super.onStop()
-        viewModel.onStop()
-    }
 
 }

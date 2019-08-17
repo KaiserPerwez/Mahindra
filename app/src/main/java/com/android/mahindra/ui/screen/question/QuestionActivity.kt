@@ -15,6 +15,8 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityQuestionBinding
+import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
+import com.android.mahindra.util.KEY_INTENT_EXAM_USER
 import com.androidhiddencamera.CameraConfig
 import com.androidhiddencamera.CameraError
 import com.androidhiddencamera.HiddenCameraActivity
@@ -53,10 +55,10 @@ class QuestionActivity : HiddenCameraActivity() {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
-        item = intent.getParcelableExtra("item")
+        item = intent.getParcelableExtra(KEY_INTENT_EXAM_MODEL)
 
-        userData = intent.getParcelableExtra("user_data")
-        item?.let {
+        userData = intent.getParcelableExtra(KEY_INTENT_EXAM_USER)
+        item.let {
             val testId = it.testId.toString()
             initUiAndListeners(it.testDuration ?: "0")
             binding?.vm?.fetchData(testId)
@@ -232,7 +234,7 @@ class QuestionActivity : HiddenCameraActivity() {
                 }
                 submit?.setOnClickListener {
                     saveAnswer(currentItem, quesAdapter)
-                    binding?.vm?.submitData(item.testId?.toString() ?: "0", item.testName ?: "")
+                    binding?.vm?.submitData(item.testId?.toString() ?: "0")
                 }
             }
         }
