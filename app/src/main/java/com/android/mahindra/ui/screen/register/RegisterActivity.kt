@@ -14,6 +14,7 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityRegisterBinding
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -31,9 +32,6 @@ class RegisterActivity : AppCompatActivity() {
     var loginData: UserLoginData? = null
 
     private val REQUEST_CAPTURE_IMAGE = 100
-//    private lateinit var imageFilePath: String
-
-    private lateinit var photoFile: File
 
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityRegisterBinding>(this, R.layout.activity_register)
@@ -49,7 +47,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun initUiAndListeners() {
         supportActionBar?.title = "Register"
-        loginData = intent.getParcelableExtra("result")
+        loginData = intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA)
 
         binding.apply {
             vm = viewModel
@@ -115,7 +113,6 @@ class RegisterActivity : AppCompatActivity() {
         Dexter.withActivity(this)
             .withPermissions(
                 Manifest.permission.CAMERA,
-//                Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport) {

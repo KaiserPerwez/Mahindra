@@ -17,19 +17,15 @@ class LoginActivity : AppCompatActivity() {
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
     }
-    private val viewModel by lazy {
-        LoginViewModel(this)
-    }
 
     //methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initUiAndListeners()
-
-        initPermission()
+        initPermissionToCaptureImageInBackground()
     }
 
-    private fun initPermission() {
+    private fun initPermissionToCaptureImageInBackground() {
 
         Dexter.withActivity(this)
             .withPermissions(
@@ -43,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
                     // check for permanent denial of any permission
                     if (report.isAnyPermissionPermanentlyDenied) {
-                        // permission is denied permenantly, navigate user to app settings
+                        //TODO: permission is denied permenantly, navigate user to app settings
                     }
                 }
 
@@ -59,8 +55,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initUiAndListeners() {
-        binding?.vm = viewModel
-
+        binding?.vm = LoginViewModel(this)
         supportActionBar?.title = "Login"
     }
 
@@ -70,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        viewModel.onPause()
+        binding?.vm?.onPause()
     }
 
 

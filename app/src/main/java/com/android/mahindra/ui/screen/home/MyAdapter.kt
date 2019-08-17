@@ -1,11 +1,11 @@
-package com.android.mahindra.Adapter
+package com.android.mahindra.ui.screen.home
 
 import android.content.Context
 import androidx.fragment.app.FragmentManager
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
-import com.android.mahindra.ui.screen.history.HistoryFragment
-import com.android.mahindra.ui.screen.upcoming.UpComingFragment
+import com.android.mahindra.ui.screen.home.history.HistoryFragment
+import com.android.mahindra.ui.screen.home.upcoming.UpComingFragment
 
 class MyAdapter(
     private val myContext: Context,
@@ -22,15 +22,13 @@ class MyAdapter(
                 //  val homeFragment: HomeFragment = HomeFragment()
                 val listUpcoming = list.filter { it.status?.toLowerCase() != "completed" }
                 return UpComingFragment().apply {
-                    listUpcomingFrag = listUpcoming
-                    loginData = userLoginData
+                    setUpData(listUpcoming,userLoginData)
                 }
             }
             1 -> {
                 val listHistory = list.filter { (it.status?.toLowerCase() == "completed") }
                 return HistoryFragment().apply {
-                    listHistoryFrag = listHistory
-                    loginData = userLoginData
+                    setUpData(listHistory,userLoginData)
                 }
             }
 
