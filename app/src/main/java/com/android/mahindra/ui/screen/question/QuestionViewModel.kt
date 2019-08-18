@@ -7,6 +7,7 @@ import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.SubmitAnswerModel
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -22,12 +23,10 @@ import java.util.*
 class QuestionViewModel(private val activity: QuestionActivity) {
 
     //header
-    var indexCurrentQuestion = ObservableField("0")
-    var totalQuestions = ObservableField("0")
     var timeToExpire = ObservableField("")
 
     var currentQuestion = ObservableField<Question>()
-    var questionList = mutableListOf<Question>()
+    var questionList = ObservableField(listOf<Question>())
 
 
     private var disposable: Disposable? = null
@@ -71,9 +70,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
                                           }*/
                         result?.questions?.let {
                             if (it.isNotEmpty()) {
-                                indexCurrentQuestion.set("1")
-                                totalQuestions.set(it.size.toString())
-                                questionList.addAll(it)
+                                questionList.set(it)
 
                                 currentQuestion.set(it.get(0))
                                 activity.initViewPager()
@@ -99,7 +96,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
         }
 
         val list = mutableListOf<AnswerModel>()
-        questionList.forEach {
+        questionList?.get()?.forEach {
             val answerModel = AnswerModel(it.questionId, it.type?.toLowerCase(), it.answer)
             list.add(answerModel)
         }
@@ -126,7 +123,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
                         if (result.status == Status.SUCCESS) {
                             alert("Thanks for the exam") {
                                 okButton {
-                                        startActivity(intentFor<HomeActivity>("result" to userData).newTask().clearTask())
+                                    startActivity(intentFor<HomeActivity>(KEY_INTENT_LOGIN_DATA to userData).newTask().clearTask())
                                 }
                             }.show()
                         } else {
@@ -181,6 +178,23 @@ class QuestionViewModel(private val activity: QuestionActivity) {
 
                 }
             )
+    }
+
+    fun toggleReview() {
+        currentQuestion.get()?.let { quesn ->
+            quesn.statusReview = if (quesn.statusReview == "0") "1" else "0"
+            activity?.binding?.toggleReview?.text = if (quesn.statusReview == "0") "Mark as Review" else "Marked as Review"
+            currentQuestion?.set(quesn)
+
+            questionList?.get()?.let {
+                val tempList = it
+                questionList?.set(tempList?.apply {
+                    filter { it.questionId == quesn.questionId }?.get(0)?.statusReview = quesn.statusReview
+                })
+            }
+            activity?.binding?.txtReviewCounter?.text =
+                "Review: ${questionList?.get()?.filter { it.statusReview == "1" }?.size ?: 0}"
+        }
     }
 
     fun dispose() {

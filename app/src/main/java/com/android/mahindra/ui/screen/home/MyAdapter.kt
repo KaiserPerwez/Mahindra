@@ -15,20 +15,27 @@ class MyAdapter(
     val userLoginData: UserLoginData
 ) : androidx.fragment.app.FragmentPagerAdapter(fm) {
 
+    val upComingFragment by lazy {
+        UpComingFragment()
+    }
+    val historyFragment by lazy {
+        HistoryFragment()
+    }
+
     // this is for fragment tabs
     override fun getItem(position: Int): androidx.fragment.app.Fragment? {
         when (position) {
             0 -> {
                 //  val homeFragment: HomeFragment = HomeFragment()
                 val listUpcoming = list.filter { it.status?.toLowerCase() != "completed" }
-                return UpComingFragment().apply {
-                    setUpData(listUpcoming,userLoginData)
+                return upComingFragment.apply {
+                    setUpData(listUpcoming, userLoginData)
                 }
             }
             1 -> {
                 val listHistory = list.filter { (it.status?.toLowerCase() == "completed") }
-                return HistoryFragment().apply {
-                    setUpData(listHistory,userLoginData)
+                return historyFragment.apply {
+                    setUpData(listHistory, userLoginData)
                 }
             }
 

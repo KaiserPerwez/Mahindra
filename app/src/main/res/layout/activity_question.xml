@@ -33,25 +33,24 @@
 				app:layout_constraintEnd_toEndOf="@+id/toolbar"
 				app:layout_constraintTop_toBottomOf="@+id/toolbar"
 				android:id="@+id/linearLayout" >
-			
 			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:textSize="14dp"
-					android:textColor="@color/material_color_grey900"
-					android:text="@{vm.indexCurrentQuestion+`/`+vm.totalQuestions}"
-					tools:text="1/10"
-					android:layout_weight="1" />
-			
-			<TextView
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:textSize="14dp"
-					android:gravity="end"
+					android:gravity="start"
 					android:textColor="@color/material_color_grey900"
 					tools:text="00:23:15"
 					android:text="@{vm.timeToExpire}"
 					android:layout_weight="1" />
+			
+			<ImageView
+					android:id="@+id/iv_quesn_box"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="@drawable/boxes"
+					android:padding="5dp"
+					android:layout_weight="1" />
+		
 		
 		</LinearLayout >
 		<androidx.viewpager.widget.ViewPager
@@ -62,9 +61,98 @@
 				android:layout_width="match_parent"
 				android:layout_height="400dp"
 				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+				app:layout_constraintBottom_toTopOf="@+id/linearLayout2" />
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
 				android:layout_marginBottom="8dp"
-				app:layout_constraintBottom_toTopOf="@+id/submit" />
+				android:gravity="center"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="10dp"
+				app:layout_constraintBottom_toTopOf="@+id/linearLayoutFooter"
+				android:id="@+id/linearLayout2" >
+			
+			<TextView
+					android:id="@+id/txt_quesn_counter"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="3/10"
+					tools:text="1/10"
+					android:textStyle="bold"
+					android:layout_marginStart="20dp"
+					android:layout_weight="3"
+					android:textColor="@color/material_color_red600"
+					android:textSize="30dp" />
+			
+			<TextView
+					android:id="@+id/toggle_review"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:padding="10dp"
+					android:textSize="16dp"
+					android:textColor="@color/material_color_grey800"
+					android:background="@drawable/rect_border_grey"
+					android:layout_weight="1"
+					android:text="Mark as Review"
+					android:onClick="@{()->vm.toggleReview()}"
+			/>
+			<!--android:text="@{(vm.currentQuestion.statusReview.equalsIgnoreCase(`1`)) ? `Mark as Review` : `Marked as Review`}"-->
 		
+		</LinearLayout >
+		<View
+				android:id="@+id/view_line"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:layout_margin="5dp"
+				android:background="@color/material_color_grey400"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+				app:layout_constraintBottom_toTopOf="@+id/linearLayoutFooter" />
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="20dp"
+				android:orientation="horizontal"
+				android:layout_margin="10dp"
+				app:layout_constraintStart_toStartOf="@+id/toolbar"
+				app:layout_constraintEnd_toEndOf="@+id/toolbar"
+				android:id="@+id/linearLayoutFooter"
+				app:layout_constraintVertical_bias="0.1"
+				app:layout_constraintBottom_toTopOf="@+id/submit"
+				android:layout_marginBottom="8dp" >
+			
+			<TextView
+					android:id="@+id/txt_attempted_counter"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="14dp"
+					android:textColor="@color/material_color_grey900"
+					android:text="Attempted: 5"
+					android:layout_weight="1" />
+			
+			<TextView
+					android:id="@+id/txt_unattempted_counter"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="14dp"
+					android:gravity="center"
+					android:textColor="@color/material_color_grey900"
+					android:text="Unattempted: 0"
+					android:layout_weight="1" />
+			<TextView
+					android:id="@+id/txt_review_counter"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:textSize="14dp"
+					android:gravity="end"
+					android:textColor="@color/material_color_grey900"
+					android:text="Review: 0"
+					android:layout_weight="1" />
+		
+		</LinearLayout >
 		<Button
 				android:id="@+id/submit"
 				android:layout_width="match_parent"

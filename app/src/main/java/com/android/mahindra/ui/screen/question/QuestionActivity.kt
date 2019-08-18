@@ -13,10 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.Question
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityQuestionBinding
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
-import com.android.mahindra.util.KEY_INTENT_EXAM_USER
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.androidhiddencamera.CameraConfig
 import com.androidhiddencamera.CameraError
 import com.androidhiddencamera.HiddenCameraActivity
@@ -39,7 +40,7 @@ class QuestionActivity : HiddenCameraActivity() {
     lateinit var item: ExamsModel
     lateinit var userData: UserLoginData
 
-    private val binding by lazy {
+    val binding by lazy {
         DataBindingUtil.setContentView<ActivityQuestionBinding>(this, R.layout.activity_question)
     }
     private val viewModel by lazy {
@@ -57,7 +58,7 @@ class QuestionActivity : HiddenCameraActivity() {
 
         item = intent.getParcelableExtra(KEY_INTENT_EXAM_MODEL)
 
-        userData = intent.getParcelableExtra(KEY_INTENT_EXAM_USER)
+        userData = intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA)
         item.let {
             val testId = it.testId.toString()
             initUiAndListeners(it.testDuration ?: "0")
@@ -146,10 +147,7 @@ class QuestionActivity : HiddenCameraActivity() {
         }
         countDownTimer?.start()
 
-        binding?.vm?.apply {
-
-            setViewDisabled(previous)
-        }
+        setViewDisabled(previous)
 
     }
 
@@ -199,45 +197,64 @@ class QuestionActivity : HiddenCameraActivity() {
 
     fun initViewPager() {
         binding?.vm?.apply {
-            val quesAdapter = QuestionAdapter(questionList, supportFragmentManager)
-            viewPager?.apply {
-                offscreenPageLimit = questionList.size
-                setOnTouchListener { view, motionEvent ->
-                    this.currentItem = this.currentItem
-                    return@setOnTouchListener true
-                }
-                adapter = quesAdapter
-                previous?.setOnClickListener {
-                    if (currentItem > 0) {
-                        saveAnswer(currentItem, quesAdapter)
-                        currentItem -= 1
-                        indexCurrentQuestion.set((currentItem + 1).toString())
-                    }
-                    if (currentItem == 0) {
-                        setViewDisabled(previous)
-                    }
-                    setViewEnabled(next)
-                    binding?.submit?.visibility = View.GONE
-                }
-                next?.setOnClickListener {
-                    if (currentItem < questionList.size) {
+            questionList?.get()?.let {
 
+                binding?.txtQuesnCounter?.text = "1 / ${it.size}"
+                binding?.txtUnattemptedCounter?.text = "Unattempted: ${it.size}"
+                binding?.txtAttemptedCounter?.text = "Attempted: 0"
+
+                val quesAdapter = QuestionAdapter(it, supportFragmentManager)
+                binding?.viewPager?.apply {
+                    offscreenPageLimit = it.size
+                    setOnTouchListener { view, motionEvent ->
+                        this.currentItem = this.currentItem
+                        return@setOnTouchListener true
+                    }
+                    adapter = quesAdapter
+                    binding?.ivQuesnBox?.setOnClickListener {
                         saveAnswer(currentItem, quesAdapter)
-                        currentItem += 1
-                        indexCurrentQuestion.set((currentItem + 1).toString())
                     }
-                    if (currentItem == questionList.size - 1) {
-                        setViewDisabled(next)
-                        binding?.submit?.visibility = View.VISIBLE
+                    binding?.previous?.setOnClickListener { v ->
+                        if (currentItem > 0) {
+                            saveAnswer(currentItem, quesAdapter)
+                            currentItem -= 1
+                            setQuestionOnUi(it,currentItem)
+                        }
+                        setViewEnabled(next)
+                        binding?.submit?.visibility = View.GONE
                     }
-                    setViewEnabled(previous)
-                }
-                submit?.setOnClickListener {
-                    saveAnswer(currentItem, quesAdapter)
-                    binding?.vm?.submitData(item.testId?.toString() ?: "0")
+                    binding?.next?.setOnClickListener { v ->
+                        if (currentItem < it.size) {
+                            saveAnswer(currentItem, quesAdapter)
+                            currentItem += 1
+                            setQuestionOnUi(it,currentItem)
+                        }
+
+                        setViewEnabled(previous)
+                    }
+                    binding?.submit?.setOnClickListener {
+                        saveAnswer(currentItem, quesAdapter)
+                        binding?.vm?.submitData(item.testId?.toString() ?: "0")
+                    }
                 }
             }
         }
+    }
+
+    fun setQuestionOnUi(quesnList: List<Question>, currentItem: Int) {
+        if (currentItem == 0) {
+            setViewDisabled(previous)
+        }
+        if (currentItem == quesnList.size - 1) {
+            setViewDisabled(next)
+            binding?.submit?.visibility = View.VISIBLE
+        }
+
+        binding?.txtQuesnCounter?.text = "${(currentItem + 1)} / ${quesnList.size}"
+
+        val quesn = quesnList.get(currentItem)
+        binding?.vm?.currentQuestion?.set(quesn)
+        binding?.toggleReview?.text = if (quesn.statusReview == "0") "Mark as Review" else "Marked as Review"
     }
 
     private fun saveAnswer(
@@ -250,7 +267,16 @@ class QuestionActivity : HiddenCameraActivity() {
             val ans =
                 "${if (chkA.isChecked) "1," else ""}${if (chkB.isChecked) "2," else ""}${if (chkC.isChecked) "3," else ""}${if (chkD.isChecked) "4," else ""}"
 
-            binding?.vm?.questionList?.get(currentItem)?.answer = ans.substringBeforeLast(",")
+            binding?.vm?.questionList?.get()?.let {
+                val tempList = it
+                tempList?.get(currentItem)?.answer = ans.substringBeforeLast(",")
+                binding?.vm?.questionList?.set(tempList)
+
+                val unattemptedCount = tempList?.filter { it.answer == "0000" || it.answer == "" }?.size
+                binding?.txtUnattemptedCounter?.text = "Unattempted: $unattemptedCount"
+                binding?.txtAttemptedCounter?.text = "Attempted: ${tempList.size - unattemptedCount}"
+
+            }
         }
     }
 

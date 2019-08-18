@@ -15,12 +15,15 @@ class HistoryFragment : androidx.fragment.app.Fragment() {
     private lateinit var listHistoryFrag: List<ExamsModel>
     private lateinit var loginData: UserLoginData
     private lateinit var binding: FragmentHistoryBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        binding = FragmentHistoryBinding.inflate(inflater)
+        return binding.root
+      //  return inflater.inflate(R.layout.fragment_history, container, false)
     }
 
     fun setUpData(listHistory: List<ExamsModel>, userLoginData: UserLoginData) {

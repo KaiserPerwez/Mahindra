@@ -37,9 +37,7 @@
 		<item >Pan Card</item >
 	</string-array >
 	
-	<string name="attempted" >
-		<u >Attempted</u >
-	</string >
+	
 	<string name="unattempted" >
 		<u >Unattempted</u >
 	</string >

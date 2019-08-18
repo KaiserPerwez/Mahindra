@@ -10,7 +10,7 @@ import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityStartTestBinding
 import com.android.mahindra.ui.screen.question.QuestionActivity
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
-import com.android.mahindra.util.KEY_INTENT_EXAM_USER
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import kotlinx.android.synthetic.main.activity_start_test.*
 import org.jetbrains.anko.startActivity
 
@@ -27,14 +27,14 @@ class StartTestActivity : AppCompatActivity() {
     private fun initUiAndListeners() {
         initToolBar()
         val item = intent.getParcelableExtra<ExamsModel>(KEY_INTENT_EXAM_MODEL)
-        val userData = intent.getParcelableExtra<UserLoginData>(KEY_INTENT_EXAM_USER)
+        val userData = intent.getParcelableExtra<UserLoginData>(KEY_INTENT_LOGIN_DATA)
 
         binding?.apply {
 
             testDuration?.text = "1. Test duration ${item.testDuration} min"
 
             startTest?.setOnClickListener {
-                    startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_EXAM_USER to userData)
+                    startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
             }
         }
     }
@@ -43,8 +43,10 @@ class StartTestActivity : AppCompatActivity() {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar)
+/*
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setNavigationOnClickListener { onBackPressed() }
+*/
     }
 
 }

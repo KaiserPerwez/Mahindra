@@ -13,7 +13,6 @@ const val CALL_EMERGENCY = "911"
 
 
 //intent keys
-const val KEY_INTENT_LOGIN_DATA="loginData"
+const val KEY_INTENT_LOGIN_DATA="user_data"
 const val KEY_INTENT_EXAM_MODEL="item"
-const val KEY_INTENT_EXAM_USER="user_data"
 
