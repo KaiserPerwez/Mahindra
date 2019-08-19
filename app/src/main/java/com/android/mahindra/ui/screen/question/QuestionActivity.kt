@@ -1,6 +1,7 @@
 package com.android.mahindra.ui.screen.question
 
 import android.Manifest
+import android.app.Dialog
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -11,11 +12,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
-import com.android.mahindra.data.model.api.Question
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityQuestionBinding
+import com.android.mahindra.ui.screen.review.ReviewAdapter
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.androidhiddencamera.CameraConfig
@@ -213,12 +216,13 @@ class QuestionActivity : HiddenCameraActivity() {
                     adapter = quesAdapter
                     binding?.ivQuesnBox?.setOnClickListener {
                         saveAnswer(currentItem, quesAdapter)
+                        showReviewDialog()
                     }
                     binding?.previous?.setOnClickListener { v ->
                         if (currentItem > 0) {
                             saveAnswer(currentItem, quesAdapter)
                             currentItem -= 1
-                            setQuestionOnUi(it,currentItem)
+                            setQuestionOnUi(currentItem)
                         }
                         setViewEnabled(next)
                         binding?.submit?.visibility = View.GONE
@@ -227,7 +231,7 @@ class QuestionActivity : HiddenCameraActivity() {
                         if (currentItem < it.size) {
                             saveAnswer(currentItem, quesAdapter)
                             currentItem += 1
-                            setQuestionOnUi(it,currentItem)
+                            setQuestionOnUi(currentItem)
                         }
 
                         setViewEnabled(previous)
@@ -241,14 +245,39 @@ class QuestionActivity : HiddenCameraActivity() {
         }
     }
 
-    fun setQuestionOnUi(quesnList: List<Question>, currentItem: Int) {
+    val dialog by lazy {
+        Dialog(this).apply { setContentView(R.layout.dialog_review_list) }
+    }
+
+    private fun showReviewDialog() {
+
+        val rv = dialog.findViewById<RecyclerView>(R.id.rv_review)
+        rv.apply {
+            //setHasFixedSize(true)
+            layoutManager = GridLayoutManager(context, 4)
+
+            val rvAdapter = binding?.vm?.questionList?.get()?.let { ReviewAdapter(it, this@QuestionActivity) }
+            rv.adapter = rvAdapter
+            dialog.show()
+        }
+    }
+
+    fun setQuestionOnUi(currentItem: Int) {
+        val quesnList = binding?.vm?.questionList?.get() ?: return
+
         if (currentItem == 0) {
             setViewDisabled(previous)
-        }
+        } else
+            setViewEnabled(previous)
+
         if (currentItem == quesnList.size - 1) {
             setViewDisabled(next)
             binding?.submit?.visibility = View.VISIBLE
+        } else {
+            setViewEnabled(next)
+            binding?.submit?.visibility = View.GONE
         }
+
 
         binding?.txtQuesnCounter?.text = "${(currentItem + 1)} / ${quesnList.size}"
 
