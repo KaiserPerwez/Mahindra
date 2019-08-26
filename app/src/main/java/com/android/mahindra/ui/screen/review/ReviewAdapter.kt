@@ -9,6 +9,7 @@ import com.android.mahindra.data.model.api.Question
 import com.android.mahindra.ui.screen.question.QuestionActivity
 import kotlinx.android.synthetic.main.item_rv_review.view.*
 import kotlinx.android.synthetic.main.item_rv_upcoming.view.*
+import org.jetbrains.anko.backgroundColor
 
 
 class ReviewAdapter(val listHistoryFrag: List<Question>, val activity: QuestionActivity) :
@@ -25,9 +26,18 @@ class ReviewAdapter(val listHistoryFrag: List<Question>, val activity: QuestionA
         holder.questionNumber?.apply {
             val item = listHistoryFrag[position]
             text = "Q${position + 1}"
+
+            backgroundTintList = if(item.statusReview == "1"){
+                resources.getColorStateList(R.color.yellow_active)
+            } else if(item.answer == "0000" || item.answer == "") {
+                resources.getColorStateList(R.color.red_active)
+            } else {
+                resources.getColorStateList(R.color.green_active)
+            }
+
             setOnClickListener {
-                activity?.binding?.viewPager?.currentItem = position
-                activity?.setQuestionOnUi(position)
+                activity.binding?.viewPager?.currentItem = position
+                activity.setQuestionOnUi(position)
                 activity.dialog.dismiss()
             }
         }

@@ -183,7 +183,11 @@ class QuestionViewModel(private val activity: QuestionActivity) {
     fun toggleReview() {
         currentQuestion.get()?.let { quesn ->
             quesn.statusReview = if (quesn.statusReview == "0") "1" else "0"
-            activity?.binding?.toggleReview?.text = if (quesn.statusReview == "0") "Mark as Review" else "Marked as Review"
+            activity?.binding?.toggleReview?.text =
+                if (quesn.statusReview == "0")
+                    "Mark as Review"
+                else
+                    "Marked as Review"
             currentQuestion?.set(quesn)
 
             questionList?.get()?.let {

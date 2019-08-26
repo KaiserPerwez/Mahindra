@@ -41,12 +41,10 @@ class LoginViewModel(private val activity: LoginActivity) {
                 { result ->
                     activity.apply {
                         if (result.status == Status.SUCCESS) {
-                            /*if (result.isFirstLogin == true)
+                            if (result.isFirstLogin == true)
                                 startActivity<RegisterActivity>(KEY_INTENT_LOGIN_DATA to result)
                             else
                                 startActivity<HomeActivity>(KEY_INTENT_LOGIN_DATA to result)
-*/
-                            startActivity<HomeActivity>(KEY_INTENT_LOGIN_DATA to result)
                             finish()
                         } else
                             showToast(result.message ?: "")
