@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .into(it)
             }
 
-            navHeader?.findViewById<TextView>(R.id.nameCandidate)?.text = "$firstName $lastName"
+            navHeader?.findViewById<TextView>(R.id.nameCandidate)?.text = "$emp_name"
         }
     }
 

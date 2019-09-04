@@ -8,16 +8,16 @@ import kotlinx.android.parcel.Parcelize
 data class UserLoginData(
     @SerializedName("email_id")
     val emailId: String? = "",
-    @SerializedName("first_name")
-    val firstName: String? = "",
+    @SerializedName("emp_name")
+    val emp_name: String? = "",
     @SerializedName("is_first_login")
     val isFirstLogin: Boolean? = false,
-    @SerializedName("last_name")
-    val lastName: String? = "",
     @SerializedName("profile_pic")
     var profilePic: String? = "",
     @SerializedName("sap_code")
     val sapCode: String? = "",
+    @SerializedName("mobile")
+    val mobile: String? = "",
     @SerializedName("status")
     val status: Boolean? = false,
     @SerializedName("msg")

@@ -83,6 +83,10 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0'
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
 
+    //pin view
+    implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.0.0'
+    implementation 'com.github.GoodieBag:Pinview:v1.4'
+
     // Dexter runtime permissions
     implementation 'com.karumi:dexter:5.0.0'
 

@@ -25,13 +25,15 @@ import java.io.File
 class RegisterViewModel(private val activity: RegisterActivity) {
 
     var sapCode = ObservableField("")
-    var firstName = ObservableField("")
-    var lastName = ObservableField("")
+    var name = ObservableField("")
+//    var lastName = ObservableField("")
     var email = ObservableField("")
     var mobile = ObservableField("")
     var otp = ObservableField("")
     var profilePic = ObservableField("")
     var proofPic = ObservableField("")
+    var userPin = ObservableField("")
+    var reUserPin = ObservableField("")
     var proofType = ObservableField("")
 
 
@@ -42,8 +44,9 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         activity.loginData.let {
             sapCode.set(it?.sapCode)
             email.set(it?.emailId)
-            firstName.set(it?.firstName)
-            lastName.set(it?.lastName)
+            name.set(it?.emp_name)
+            mobile.set(it?.mobile)
+//            lastName.set(it?.lastName)
         }
     }
 
@@ -114,11 +117,12 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
         builder.addFormDataPart("sap_code", sapCode.get() ?: "")
         builder.addFormDataPart("ph_no", mobile.get() ?: "")
-        builder.addFormDataPart("first_name", firstName.get() ?: "")
-        builder.addFormDataPart("last_name", lastName.get() ?: "")
+        builder.addFormDataPart("emp_name", name.get() ?: "")
+//        builder.addFormDataPart("last_name", lastName.get() ?: "")
         builder.addFormDataPart("email", email.get() ?: "")
         builder.addFormDataPart("id_proof_type", proofType.get() ?: "")
         builder.addFormDataPart("otp", otp.get() ?: "")
+        builder.addFormDataPart("user_pin", reUserPin.get() ?: "")
 
         val picFromPicturesDirectory =
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath

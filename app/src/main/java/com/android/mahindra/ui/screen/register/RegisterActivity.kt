@@ -20,6 +20,8 @@ import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.mukesh.OnOtpCompletionListener
+import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
@@ -66,6 +68,27 @@ class RegisterActivity : AppCompatActivity() {
                         mobile.error = "Enter a valid number."
                     }
                 }
+            }
+
+            pin_otpview.setPinViewEventListener { pinview, fromUser ->
+                if(!pinview.value.isNullOrEmpty())
+                    vm?.userPin?.set(pinview.value?:"")
+                else
+                    toast("Please enter pin.")
+            }
+
+            /*repin_otpview.setOtpCompletionListener {
+                if(it.isNullOrEmpty() && it == vm?.userPin?.get())
+                    vm?.reUserPin?.set(it?:"")
+                else
+                    toast("Please re enter correct pin.")
+            }*/
+
+            repin_otpview.setPinViewEventListener { pinview, fromUser ->
+                if(!pinview.value.isNullOrEmpty() && pinview.value == vm?.userPin?.get())
+                    vm?.reUserPin?.set(pinview.value?:"")
+                else
+                    toast("Please re enter correct pin.")
             }
         }
 
