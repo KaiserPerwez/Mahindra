@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="vm" type="com.android.mahindra.ui.screen.login.LoginViewModel"/>
+        <variable name="vm" type="com.android.mahindra.ui.screen.validate.ValidateViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.screen.login.LoginActivity">
+            tools:context=".ui.screen.validate.ValidateActivity">
 
         <TextView
                 android:id="@+id/logo"
@@ -22,8 +22,8 @@
                 android:textStyle="bold"
                 android:layout_marginTop="140dp"/>
 
-<!--
-        <TextView
+
+        <!--<TextView
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
@@ -57,61 +57,13 @@
                     android:textSize="14dp"/>
         </com.google.android.material.textfield.TextInputLayout>
     
-        <LinearLayout android:id="@+id/pin_view"
-                      android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      android:layout_marginRight="40dp"
-                      android:layout_marginLeft="40dp"
-                      app:layout_constraintStart_toStartOf="@+id/sap_layout"
-                      app:layout_constraintEnd_toEndOf="@+id/sap_layout"
-                      app:layout_constraintTop_toBottomOf="@+id/sap_layout"
-                      android:paddingTop="@dimen/activity_vertical_margin" >
-        
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Enter PIN" />
-            <!--<com.mukesh.OtpView
-					android:id="@+id/pin_otpview"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					app:layout_constraintStart_toStartOf="@+id/otp_layout"
-					app:layout_constraintEnd_toEndOf="@+id/otp_layout"
-					app:layout_constraintTop_toBottomOf="@+id/otp_layout"
-					android:layout_marginTop="10dp"
-					android:inputType="number"
-					android:itemBackground="#abcdcdcd"
-					android:textColor="@android:color/black"
-					app:itemCount="4"
-					app:lineColor="@color/colorPrimary"
-					app:viewType="rectangle"
-			/>-->
-            <com.goodiebag.pinview.Pinview
-                    android:id="@+id/pin_otpview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cursorVisible="false"
-                    app:forceKeyboard="true"
-                    app:hint=""
-                    app:splitWidth="0dp"
-                    app:inputType="number"
-                    app:password="false"
-                    android:gravity="left"
-                    app:textSize="8sp"
-                    app:pinBackground="@drawable/pin_drawable"
-                    app:pinHeight="50dp"
-                    app:pinLength="4"
-                    app:pinWidth="62dp"/>
-        </LinearLayout >
-
         <Button
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimary"
                 android:padding="16dp"
-                android:text="Login"
+                android:text="Validate"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16dp"

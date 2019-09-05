@@ -1,22 +1,21 @@
-package com.android.mahindra.ui.screen.login
+package com.android.mahindra.ui.screen.validate
 
 import android.Manifest
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
-import com.android.mahindra.databinding.ActivityLoginBinding
+import com.android.mahindra.databinding.ActivityValidateBinding
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 
-class LoginActivity : AppCompatActivity() {
+class ValidateActivity : AppCompatActivity() {
     private val binding by lazy {
-        DataBindingUtil.setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
+        DataBindingUtil.setContentView<ActivityValidateBinding>(this, R.layout.activity_validate)
     }
 
     //methods
@@ -56,14 +55,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initUiAndListeners() {
-        binding?.vm = LoginViewModel(this)
-
-        pin_otpview.setPinViewEventListener { pinview, fromUser ->
-            if(!pinview.value.isNullOrEmpty())
-                binding?.vm?.pin?.set(pinview.value?:"")
-            else
-                toast("Please enter pin.")
-        }
+        binding?.vm = ValidateViewModel(this)
     }
 
     fun showToast(msg: String) {

@@ -19,7 +19,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="Back to Home Screen"
+                app:title="Start Test"
+                app:navigationIcon="@drawable/ic_arrow_back"
                 app:titleTextColor="@color/white" />
         
         <LinearLayout

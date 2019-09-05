@@ -21,9 +21,13 @@ interface ApiService {
 
     //SAMPLES
 
+    @POST("api/validate_sap_code/")
+    @FormUrlEncoded
+    fun userValidate(@Field("sap_code") sap_code: String): Observable<UserLoginData>
+
     @POST("api/login/")
     @FormUrlEncoded
-    fun userLogin(@Field("sap_code") sap_code: String): Observable<UserLoginData>
+    fun userLogin(@Field("sap_code") sap_code: String, @Field("user_pin") user_pin: String): Observable<UserLoginData>
 
 
     @POST("api/generate_otp/")

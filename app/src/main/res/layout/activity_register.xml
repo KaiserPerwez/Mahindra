@@ -177,12 +177,15 @@
 						app:cursorVisible="false"
 						app:forceKeyboard="true"
 						app:hint=""
+						app:splitWidth="0dp"
 						app:inputType="number"
 						app:password="false"
+						android:gravity="left"
+						app:textSize="8sp"
 						app:pinBackground="@drawable/pin_drawable"
-						app:pinHeight="40dp"
+						app:pinHeight="50dp"
 						app:pinLength="4"
-						app:pinWidth="40dp"/>
+						app:pinWidth="62dp"/>
 			</LinearLayout >
 			
 			<LinearLayout android:id="@+id/repin_view"
@@ -224,10 +227,13 @@
 						app:hint=""
 						app:inputType="number"
 						app:password="false"
+						app:splitWidth="0dp"
+						android:gravity="left"
+						app:textSize="8sp"
 						app:pinBackground="@drawable/pin_drawable"
-						app:pinHeight="40dp"
+						app:pinHeight="50dp"
 						app:pinLength="4"
-						app:pinWidth="40dp"/>
+						app:pinWidth="62dp"/>
 			</LinearLayout >
 			
 			<TextView

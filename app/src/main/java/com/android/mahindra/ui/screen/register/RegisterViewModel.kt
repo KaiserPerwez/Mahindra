@@ -209,6 +209,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                             resultData?.profilePic = result.profilePic
 
                             it.startActivity<HomeActivity>(KEY_INTENT_LOGIN_DATA to resultData)
+                            it.finish()
                         } else {
                             it.toast(result.message ?: "")
                         }

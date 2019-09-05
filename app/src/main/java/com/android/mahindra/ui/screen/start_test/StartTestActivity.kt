@@ -1,6 +1,5 @@
 package com.android.mahindra.ui.screen.start_test
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -34,7 +33,8 @@ class StartTestActivity : AppCompatActivity() {
             testDuration?.text = "1. Test duration ${item.testDuration} min"
 
             startTest?.setOnClickListener {
-                    startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
+                startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
+                finish()
             }
         }
     }
@@ -43,10 +43,8 @@ class StartTestActivity : AppCompatActivity() {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar)
-/*
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        toolbar.setNavigationOnClickListener { onBackPressed() }
-*/
+//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+//        toolbar.setNavigationOnClickListener { onBackPressed() }
     }
 
 }
