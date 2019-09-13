@@ -204,7 +204,7 @@ class QuestionActivity : HiddenCameraActivity() {
 
     fun initViewPager() {
         binding?.vm?.apply {
-            questionList?.get()?.let {
+            questionList.get()?.let {
 
                 binding?.txtQuesnCounter?.text = "1 / ${it.size}"
                 binding?.txtUnattemptedCounter?.text = "Unattempted: ${it.size}"
@@ -302,10 +302,11 @@ class QuestionActivity : HiddenCameraActivity() {
 
             binding?.vm?.questionList?.get()?.let {
                 val tempList = it
-                tempList?.get(currentItem)?.answer = ans.substringBeforeLast(",")
+                tempList.get(currentItem).answer = ans.substringBeforeLast(",")
                 binding?.vm?.questionList?.set(tempList)
 
-                val unattemptedCount = tempList?.filter { it.answer == "0000" || it.answer == "" }?.size
+                val unattemptedCount = tempList.filter { it.answer == "0000" || it.answer == "" }
+                    .size
                 binding?.txtUnattemptedCounter?.text = "Unattempted: $unattemptedCount"
                 binding?.txtAttemptedCounter?.text = "Attempted: ${tempList.size - unattemptedCount}"
 
@@ -355,9 +356,14 @@ class QuestionActivity : HiddenCameraActivity() {
     private fun initToolBar() {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
-        setSupportActionBar(toolbar)
-//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-//        toolbar.setNavigationOnClickListener { onBackPressed() }
+        setSupportActionBar(binding?.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onBackPressed() {

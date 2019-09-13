@@ -1,24 +1,21 @@
-package com.android.mahindra.ui.screen.test_complete
+package com.android.mahindra.ui.screen
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.UserLoginData
-import com.android.mahindra.databinding.ActivityTestCompleteBinding
-import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.databinding.ActivitySettingsBinding
+import com.android.mahindra.ui.screen.resetPin.ResetActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
-import org.jetbrains.anko.clearTask
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.newTask
+import org.jetbrains.anko.startActivity
 
-class TestCompleteActivity : AppCompatActivity() {
-    private lateinit var userData: UserLoginData
+class SettingsActivity : AppCompatActivity() {
     private val binding by lazy {
-        DataBindingUtil.setContentView<ActivityTestCompleteBinding>(
-            this,
-            R.layout.activity_test_complete
-        )
+        DataBindingUtil.setContentView<ActivitySettingsBinding>(this, R.layout.activity_settings)
+    }
+    val loginData by lazy {
+        intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA) as UserLoginData
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,12 +25,9 @@ class TestCompleteActivity : AppCompatActivity() {
 
     private fun initUiAndListeners() {
         initToolBar()
-        userData = intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA)
-
-        binding?.apply {
-            goHome?.setOnClickListener {
-                startActivity(intentFor<HomeActivity>(KEY_INTENT_LOGIN_DATA to userData).newTask().clearTask())
-            }
+        binding?.btnReset?.setOnClickListener {
+            startActivity<ResetActivity>(KEY_INTENT_LOGIN_DATA to loginData)
+            finish()
         }
     }
 
@@ -49,5 +43,4 @@ class TestCompleteActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
-
 }
