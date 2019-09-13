@@ -9,6 +9,7 @@ import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ItemRvUpcomingBinding
+import com.android.mahindra.ui.base.BaseRecyclerAdapter
 import com.android.mahindra.ui.screen.start_test.StartTestActivity
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
@@ -20,23 +21,30 @@ class UpcomingExamsAdapter(
     val context: Context?,
     val userLoginData: UserLoginData
 ) :
-    RecyclerView.Adapter<UpcomingExamsAdapter.MyViewHolder>() {
+    BaseRecyclerAdapter<ExamsModel>(listUpcomingFrag) {
+
+
     lateinit var binding: ItemRvUpcomingBinding
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        //val view = MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_rv_upcoming, parent, false))
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_rv_upcoming, parent, false)
+    override fun onCreateViewHolderBase(parent: ViewGroup?, viewType: Int): MyViewHolder {
+        binding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
+            R.layout.item_rv_upcoming,
+            parent,
+            false
+        )
         return MyViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = listUpcomingFrag.size
+    override fun onBindViewHolderBase(holder: RecyclerView.ViewHolder?, position: Int) =
+        (holder as MyViewHolder).bind(listUpcomingFrag[position])
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) = holder.bind(listUpcomingFrag[position])
 
-    inner class MyViewHolder(val binding: ItemRvUpcomingBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(val binding: ItemRvUpcomingBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ExamsModel) {
             binding.apply {
                 model = item
-                root?.setOnClickListener {
+                root.setOnClickListener {
                     it.context.startActivity<StartTestActivity>(
                         KEY_INTENT_EXAM_MODEL to item,
                         KEY_INTENT_LOGIN_DATA to userLoginData

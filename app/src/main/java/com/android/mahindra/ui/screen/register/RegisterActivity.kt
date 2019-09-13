@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
@@ -20,13 +19,11 @@ import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityRegisterBinding
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
-import com.android.mahindra.util.extension.dismissKeyboard
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.mukesh.OnOtpCompletionListener
 import kotlinx.android.synthetic.main.activity_register.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -80,8 +77,8 @@ class RegisterActivity : AppCompatActivity() {
             }*/
 
             pin_otpview.setPinViewEventListener { pinview, fromUser ->
-                if(!pinview.value.isNullOrEmpty())
-                    vm?.userPin?.set(pinview.value?:"")
+                if (!pinview.value.isNullOrEmpty())
+                    vm?.userPin?.set(pinview.value ?: "")
                 else
                     toast("Please enter pin.")
             }
@@ -94,8 +91,8 @@ class RegisterActivity : AppCompatActivity() {
             }*/
 
             repin_otpview.setPinViewEventListener { pinview, fromUser ->
-                if(!pinview.value.isNullOrEmpty() && pinview.value == vm?.userPin?.get())
-                    vm?.reUserPin?.set(pinview.value?:"")
+                if (!pinview.value.isNullOrEmpty() && pinview.value == vm?.userPin?.get())
+                    vm?.reUserPin?.set(pinview.value ?: "")
                 else
                     toast("Please re enter correct pin.")
             }
@@ -203,9 +200,11 @@ class RegisterActivity : AppCompatActivity() {
             //setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
 
-            val rvAdapter =  ContactAdminAdapter(optionList, this@RegisterActivity)
-            rv.adapter = rvAdapter
-            dialog.show()
+            optionList?.let {
+                val rvAdapter = ContactAdminAdapter(it, this@RegisterActivity)
+                rv.adapter = rvAdapter
+                dialog.show()
+            }
         }
     }
 
