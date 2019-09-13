@@ -1,6 +1,7 @@
 package com.android.mahindra.ui.screen.register
 
 import android.Manifest
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,7 +12,10 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.android.mahindra.R
+import com.android.mahindra.data.model.api.Option
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityRegisterBinding
 import com.android.mahindra.ui.screen.home.HomeActivity
@@ -42,6 +46,10 @@ class RegisterActivity : AppCompatActivity() {
     }
     private val viewModel by lazy {
         RegisterViewModel(this)
+    }
+
+    val dialog by lazy {
+        Dialog(this).apply { setContentView(R.layout.dialog_contact_admin) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -186,6 +194,19 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun showReviewDialog(optionList: List<Option>?) {
+
+        val rv = dialog.findViewById<RecyclerView>(R.id.rv_review)
+        rv.apply {
+            //setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+
+            val rvAdapter =  ContactAdminAdapter(optionList, this@RegisterActivity)
+            rv.adapter = rvAdapter
+            dialog.show()
+        }
     }
 
     override fun onPause() {

@@ -1,11 +1,17 @@
 package com.android.mahindra.ui.screen.register
 
+import android.app.Dialog
 import android.os.Environment
 import androidx.databinding.ObservableField
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.android.mahindra.R
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.ui.screen.review.ReviewAdapter
 import com.android.mahindra.ui.screen.validate.ValidateActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.dismissKeyboard
@@ -37,6 +43,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     private var disposable: Disposable? = null
     private val apiService by lazy { ApiService.create() }
+
 
     fun setData() {
         activity.loginData.let {
@@ -101,6 +108,34 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             finish()
         }
     }
+
+    fun contactAdmin(){
+        if (!activity.isDeviceOnline()) {
+            activity.toast("No internet connection.")
+            return
+        }
+
+        disposable = apiService.getChangeRequests()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    activity.let {
+                        if (!result.optionList.isNullOrEmpty()) {
+                            it.showReviewDialog()
+                        }/* else {
+                            it.toast(result.message ?: "")
+                        }*/
+                    }
+                },
+                { error ->
+                    activity.toast(error.message ?: "Error while retrieving data")
+                }
+            )
+    }
+
+
+
 
 
     fun register() {
