@@ -7,6 +7,7 @@ import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.SubmitAnswerModel
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.ui.screen.test_complete.TestCompleteActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -123,7 +124,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
                         if (result.status == Status.SUCCESS) {
                             alert("Thanks for the exam") {
                                 okButton {
-                                    startActivity(intentFor<HomeActivity>(KEY_INTENT_LOGIN_DATA to userData).newTask().clearTask())
+                                    startActivity(intentFor<TestCompleteActivity>(KEY_INTENT_LOGIN_DATA to userData).newTask().clearTask())
                                 }
                             }.show()
                         } else {

@@ -77,6 +77,12 @@
 		</activity >
 		
 		<activity
+				android:name=".ui.screen.test_complete.TestCompleteActivity"
+				android:windowSoftInputMode="stateAlwaysHidden"
+				android:screenOrientation="portrait" >
+		</activity >
+		
+		<activity
 				android:name=".ui.screen.validate.ValidateActivity"
 				android:windowSoftInputMode="stateAlwaysHidden"
 				android:screenOrientation="portrait" >
