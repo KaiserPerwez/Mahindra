@@ -1,4 +1,4 @@
-package com.android.mahindra.ui.screen
+package com.android.mahindra.ui.screen.settings
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

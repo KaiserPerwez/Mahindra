@@ -1,17 +1,11 @@
 package com.android.mahindra.ui.screen.register
 
-import android.app.Dialog
 import android.os.Environment
 import androidx.databinding.ObservableField
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.android.mahindra.R
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
-import com.android.mahindra.ui.screen.review.ReviewAdapter
 import com.android.mahindra.ui.screen.validate.ValidateActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.dismissKeyboard
@@ -30,7 +24,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     var sapCode = ObservableField("")
     var name = ObservableField("")
-//    var lastName = ObservableField("")
+    //    var lastName = ObservableField("")
     var email = ObservableField("")
     var mobile = ObservableField("")
     var otp = ObservableField("")
@@ -109,7 +103,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         }
     }
 
-    fun contactAdmin(){
+    fun contactAdmin() {
         if (!activity.isDeviceOnline()) {
             activity.toast("No internet connection.")
             return
@@ -122,7 +116,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                 { result ->
                     activity.let {
                         if (!result.optionList.isNullOrEmpty()) {
-                            it.showReviewDialog()
+                            it.showReviewDialog(null)
                         }/* else {
                             it.toast(result.message ?: "")
                         }*/
@@ -135,15 +129,14 @@ class RegisterViewModel(private val activity: RegisterActivity) {
     }
 
 
-
-
-
     fun register() {
-        activity?.dismissKeyboard()
+        activity.dismissKeyboard()
 
-        activity?.alert("I agree on the authenticity of the information" +
-                "submitted above. Any act of misinformation may lead to termination, based" +
-                "upon the discretion of Mahindra Finance.") {
+        activity.alert(
+            "I agree on the authenticity of the information" +
+                    "submitted above. Any act of misinformation may lead to termination, based" +
+                    "upon the discretion of Mahindra Finance."
+        ) {
             title = "Terms & Conditions"
             positiveButton("Accept") {
                 registerUser()
@@ -155,7 +148,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     }
 
-    private fun registerUser(){
+    private fun registerUser() {
         if (!activity.isDeviceOnline()) {
             activity.toast("No internet connection.")
             return
@@ -174,13 +167,14 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         builder.addFormDataPart("user_pin", reUserPin.get() ?: "")
 
         val picFromPicturesDirectory =
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).absolutePath
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                .absolutePath
 
         if (picFromPicturesDirectory == null) {
             activity.toast("Your pic not accessible")
             return
         }
-        if (profilePic?.get()?.isBlank() == true) {
+        if (profilePic.get()?.isBlank() == true) {
             activity.toast("Uploading your pic is mandatory")
             return
         }
@@ -195,7 +189,8 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             .compressToFile(profilePicFile)*/
 
         val compressedProfilePic =
-            SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), false)
+            SiliCompressor.with(activity)
+                .compress(profilePic.get(), File(picFromPicturesDirectory), false)
 
         val profilePicFile = File(compressedProfilePic)
 
@@ -218,13 +213,14 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
             .compressToFile(proofPicFile)*/
 
-        if (proofPic?.get()?.isBlank() == true) {
+        if (proofPic.get()?.isBlank() == true) {
             activity.toast("Uploading your proof pic is mandatory")
             return
         }
 
         val compressedProofPic =
-            SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), false)
+            SiliCompressor.with(activity)
+                .compress(proofPic.get(), File(picFromPicturesDirectory), false)
 
         val proofPicFile = File(compressedProofPic)
 
