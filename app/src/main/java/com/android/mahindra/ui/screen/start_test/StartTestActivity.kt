@@ -11,9 +11,12 @@ import com.android.mahindra.ui.screen.question.QuestionActivity
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import kotlinx.android.synthetic.main.activity_start_test.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 
 class StartTestActivity : AppCompatActivity() {
+    private lateinit var item: ExamsModel
+    private lateinit var userData: UserLoginData
     private val binding by lazy {
         DataBindingUtil.setContentView<ActivityStartTestBinding>(this, R.layout.activity_start_test)
     }
@@ -25,18 +28,31 @@ class StartTestActivity : AppCompatActivity() {
 
     private fun initUiAndListeners() {
         initToolBar()
-        val item = intent.getParcelableExtra<ExamsModel>(KEY_INTENT_EXAM_MODEL)
-        val userData = intent.getParcelableExtra<UserLoginData>(KEY_INTENT_LOGIN_DATA)
+        item = intent.getParcelableExtra<ExamsModel>(KEY_INTENT_EXAM_MODEL)
+        userData = intent.getParcelableExtra<UserLoginData>(KEY_INTENT_LOGIN_DATA)
 
         binding?.apply {
 
             testDuration?.text = "1. Test duration ${item.testDuration} min"
 
             startTest?.setOnClickListener {
-                startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
-                finish()
+
+                alert(
+                    "Your camera will be used to click random multiple photographs during the " +
+                            "assessment for the purpose of authenticity check."
+                ) {
+                    positiveButton("Allow Camera") {
+                        startTest()
+                    }
+                    negativeButton("Decline") { }
+                }.show()
             }
         }
+    }
+
+    private fun startTest() {
+        startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
+        finish()
     }
 
     private fun initToolBar() {

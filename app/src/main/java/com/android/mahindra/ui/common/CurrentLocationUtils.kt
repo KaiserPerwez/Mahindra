@@ -1,8 +1,11 @@
+/*
 package com.android.mahindra.ui.common
 
+*/
 /**
  * @author Kaiser Perwez
- */
+ *//*
+
  
 import android.Manifest
 import android.app.Activity
@@ -67,7 +70,9 @@ class CurrentLocationUtils(
         }
     }
 
-    /*GoogleApiClient.ConnectionCallbacks*/
+    */
+/*GoogleApiClient.ConnectionCallbacks*//*
+
     override fun onConnected(p0: Bundle?) {
         val mLocationRequest = createLocationRequest()
 
@@ -125,7 +130,9 @@ class CurrentLocationUtils(
         activity.toast("Error: Google API connection failed")
     }
 
-    /*LocationListener*/
+    */
+/*LocationListener*//*
+
     override fun onLocationChanged(location: Location?) {
         location?.let {
             listener.locationHasChanged(location)
@@ -196,3 +203,4 @@ interface CurrentLocationChangedListener {
     fun locationHasChanged(location: Location)
     fun locationPermissionDenied()
 }
+*/

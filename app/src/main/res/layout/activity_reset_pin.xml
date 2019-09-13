@@ -4,12 +4,12 @@
         xmlns:tools="http://schemas.android.com/tools" >
 	<data >
 		<variable name="vm"
-		          type="com.android.mahindra.ui.screen.login.LoginViewModel" />
+		          type="com.android.mahindra.ui.screen.resetPin.ResetViewModel" />
 	</data >
 	<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			tools:context=".ui.screen.login.LoginActivity"
+			tools:context=".ui.screen.resetPin.ResetActivity"
 			android:background="#Ffffff" >
 		
 		<TextView
@@ -24,34 +24,24 @@
 				android:textSize="48sp"
 				android:fontFamily="sans-serif"
 				android:textStyle="bold"
-				android:layout_marginTop="140dp" />
+				android:layout_marginTop="80dp" />
 		
-		<!--
 		<TextView
 				android:id="@+id/text"
 				android:layout_width="wrap_content"
 				android:layout_height="0dp"
-				android:text="Log In"
-				app:layout_constraintLeft_toLeftOf="@id/logo"
-				app:layout_constraintRight_toRightOf="@id/logo"
-				app:layout_constraintTop_toBottomOf="@id/logo"
-				android:textColor="@color/material_color_grey800"
-				android:textSize="20dp"
-				android:layout_marginTop="176dp"/>-->
-		<TextView
-				android:id="@+id/text"
-				android:layout_width="wrap_content"
-				android:layout_height="0dp"
-				android:text="Enter SAP Code"
+				android:text="Reset PIN"
 				android:layout_marginBottom="10dp"
 				android:layout_marginRight="40dp"
 				android:layout_marginLeft="52dp"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintBottom_toTopOf="@id/sap_layout"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				android:layout_marginTop="160dp"
 				android:textColor="@color/material_color_grey800"
-				android:textSize="16sp" />
+				android:textSize="24sp" />
 		
-		<EditText android:id="@+id/sap_layout"
+		<!--<EditText android:id="@+id/sap_layout"
 		          android:layout_width="match_parent"
 		          android:layout_height="wrap_content"
 		          android:layout_marginRight="40dp"
@@ -64,7 +54,7 @@
 		          android:paddingLeft="18dp"
 		          android:background="@drawable/edittext_border"
 		          android:inputType="number"
-		          android:maxLines="1" />
+		          android:maxLines="1" />-->
 		
 		<!--<com.google.android.material.textfield.TextInputLayout
 				android:id="@+id/sap_layout"
@@ -93,22 +83,50 @@
 		              android:orientation="vertical"
 		              android:layout_marginRight="40dp"
 		              android:layout_marginLeft="40dp"
-		              app:layout_constraintStart_toStartOf="@+id/sap_layout"
-		              app:layout_constraintEnd_toEndOf="@+id/sap_layout"
-		              app:layout_constraintTop_toBottomOf="@+id/sap_layout"
+		              app:layout_constraintStart_toStartOf="parent"
+		              app:layout_constraintEnd_toEndOf="parent"
+		              app:layout_constraintTop_toTopOf="parent"
+		              app:layout_constraintBottom_toBottomOf="parent"
 		              android:paddingTop="@dimen/activity_vertical_margin" >
 			
-			<TextView
+			<!--<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="12dp"
 					android:layout_marginBottom="10dp"
 					android:textColor="@color/material_color_grey800"
 					android:textSize="16sp"
-					android:text="Enter PIN" />
+					android:text="Old PIN" />
 			
 			<com.goodiebag.pinview.Pinview
-					android:id="@+id/pin_otpview"
+					android:id="@+id/pin_oldotpview"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:cursorVisible="true"
+					app:forceKeyboard="false"
+					app:hint=""
+					app:splitWidth="0dp"
+					app:inputType="number"
+					app:password="false"
+					android:gravity="start"
+					app:textSize="8sp"
+					app:pinBackground="@drawable/pin_drawable"
+					app:pinHeight="48dp"
+					app:pinLength="4"
+					app:pinWidth="70dp" />-->
+			
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="12dp"
+					android:layout_marginBottom="10dp"
+					android:layout_marginTop="15dp"
+					android:textColor="@color/material_color_grey800"
+					android:textSize="16sp"
+					android:text="New PIN" />
+			
+			<com.goodiebag.pinview.Pinview
+					android:id="@+id/pin_newotpview"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					app:cursorVisible="true"
@@ -127,13 +145,30 @@
 			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="12dp"
-					android:layout_marginTop="14dp"
-					android:gravity="end"
-					android:onClick="@{()->vm.forgotPin()}"
+					android:layout_marginLeft="12dp"
+					android:layout_marginBottom="10dp"
+					android:layout_marginTop="15dp"
 					android:textColor="@color/material_color_grey800"
-					android:textSize="18sp"
-					android:text="Forgot PIN ?" />
+					android:textSize="16sp"
+					android:text="Confirm PIN" />
+			
+			<com.goodiebag.pinview.Pinview
+					android:id="@+id/pin_confirmotpview"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:cursorVisible="true"
+					app:forceKeyboard="false"
+					app:hint=""
+					app:splitWidth="0dp"
+					app:inputType="number"
+					app:password="false"
+					android:gravity="start"
+					app:textSize="8sp"
+					app:pinBackground="@drawable/pin_drawable"
+					app:pinHeight="48dp"
+					app:pinLength="4"
+					app:pinWidth="70dp" />
+			
 		</LinearLayout >
 		
 		<Button
@@ -142,15 +177,14 @@
 				android:layout_height="wrap_content"
 				android:background="@color/colorPrimary"
 				android:padding="16dp"
-				android:text="Log In"
+				android:text="Submit"
 				android:textAllCaps="false"
 				android:textColor="@color/white"
 				android:textSize="16dp"
-				android:onClick="@{()->vm.loginUser()}"
+				android:onClick="@{()->vm.changePin()}"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent" />
-	
 	
 	</androidx.constraintlayout.widget.ConstraintLayout >
 </layout >

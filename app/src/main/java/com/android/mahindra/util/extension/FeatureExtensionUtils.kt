@@ -3,7 +3,7 @@ package com.android.mahindra.util.extension
 /**
  * @author Kaiser Perwez
  */
- 
+
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -15,14 +15,14 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.MutableLiveData
 import com.android.mahindra.data.local.prefs.PreferenceHelper
 import com.android.mahindra.ui.screen.login.LoginActivity
-import com.google.android.exoplayer2.DefaultLoadControl
-import com.google.android.exoplayer2.DefaultRenderersFactory
-import com.google.android.exoplayer2.ExoPlayerFactory
-import com.google.android.exoplayer2.source.ExtractorMediaSource
-import com.google.android.exoplayer2.source.MediaSource
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
-import com.google.android.exoplayer2.ui.PlayerView
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
+//import com.google.android.exoplayer2.DefaultLoadControl
+//import com.google.android.exoplayer2.DefaultRenderersFactory
+//import com.google.android.exoplayer2.ExoPlayerFactory
+//import com.google.android.exoplayer2.source.ExtractorMediaSource
+//import com.google.android.exoplayer2.source.MediaSource
+//import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
+//import com.google.android.exoplayer2.ui.PlayerView
+//import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
@@ -118,7 +118,7 @@ fun androidx.fragment.app.FragmentActivity?.loadFragment(contentFrame: Int, frag
     }
 }
 
-fun Activity?.playVideo(playerView: PlayerView, url: String) {
+/*fun Activity?.playVideo(playerView: PlayerView, url: String) {
     val player = ExoPlayerFactory.newSimpleInstance(
         DefaultRenderersFactory(this),
         DefaultTrackSelector(), DefaultLoadControl()
@@ -134,7 +134,7 @@ private fun buildMediaSource(uri: Uri): MediaSource {
     return ExtractorMediaSource.Factory(
         DefaultHttpDataSourceFactory("exoplayer-codelab")
     ).createMediaSource(uri)
-}
+}*/
 
 fun String.isImageFile(): Boolean {
     val mimeType = URLConnection.guessContentTypeFromName(this)

@@ -6,6 +6,7 @@
 			android:name="android.hardware.camera"
 			android:required="true" />
 	
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.CAMERA" />
@@ -52,6 +53,7 @@
 		<activity
 				android:name=".ui.screen.register.RegisterActivity"
 				android:screenOrientation="portrait"
+				android:windowSoftInputMode="stateAlwaysHidden"
 				android:theme="@style/AppTheme.NoActionBar">
 			
 			<!--
@@ -64,11 +66,19 @@
 		</activity >
 		<activity
 				android:name=".ui.screen.login.LoginActivity"
+				android:windowSoftInputMode="stateAlwaysHidden"
+				android:screenOrientation="portrait" >
+		</activity >
+		
+		<activity
+				android:name=".ui.screen.resetPin.ResetActivity"
+				android:windowSoftInputMode="stateAlwaysHidden"
 				android:screenOrientation="portrait" >
 		</activity >
 		
 		<activity
 				android:name=".ui.screen.validate.ValidateActivity"
+				android:windowSoftInputMode="stateAlwaysHidden"
 				android:screenOrientation="portrait" >
 			<intent-filter >
 				<action android:name="android.intent.action.MAIN" />

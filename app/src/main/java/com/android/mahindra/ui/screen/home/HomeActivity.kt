@@ -163,5 +163,4 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toast(msg)
     }
 
-
 }

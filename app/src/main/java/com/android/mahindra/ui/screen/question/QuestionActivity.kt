@@ -30,7 +30,10 @@ import com.androidhiddencamera.config.CameraImageFormat
 import com.androidhiddencamera.config.CameraResolution
 import com.androidhiddencamera.config.CameraRotation
 import kotlinx.android.synthetic.main.activity_question.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
+import org.jetbrains.anko.yesButton
 import java.io.File
 
 
@@ -130,6 +133,7 @@ class QuestionActivity : HiddenCameraActivity() {
                 binding?.vm?.timeToExpire?.set("TimeOut")
 //                countDownTimerRandom?.cancel()
                 updateHandler.removeCallbacks(runnable)
+                binding?.submit?.performClick()
             }
 
             override fun onTick(time: Long) {
@@ -354,6 +358,17 @@ class QuestionActivity : HiddenCameraActivity() {
         setSupportActionBar(toolbar)
 //        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
 //        toolbar.setNavigationOnClickListener { onBackPressed() }
+    }
+
+    override fun onBackPressed() {
+        alert(
+            "Submit the test."
+        ) {
+            yesButton {
+                binding?.submit?.performClick()
+            }
+            noButton { }
+        }.show()
     }
 
 }

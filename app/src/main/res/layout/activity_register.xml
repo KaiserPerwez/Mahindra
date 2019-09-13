@@ -1,133 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-
-        <variable name="vm" type="com.android.mahindra.ui.screen.register.RegisterViewModel"/>
-        <variable name="act" type="com.android.mahindra.ui.screen.register.RegisterActivity"/>
-
-    </data>
-	
-	<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	            xmlns:app="http://schemas.android.com/apk/res-auto"
-	            xmlns:tools="http://schemas.android.com/tools"
-	            android:layout_width="match_parent"
-	            android:layout_height="match_parent"
-	            tools:context=".ui.screen.register.RegisterActivity">-->
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto" >
+	<data >
 		
-		<androidx.constraintlayout.widget.ConstraintLayout
+		<variable name="vm"
+		          type="com.android.mahindra.ui.screen.register.RegisterViewModel" />
+		<variable name="act"
+		          type="com.android.mahindra.ui.screen.register.RegisterActivity" />
+	
+	</data >
+	
+	<ScrollView android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:fillViewport="true"
+	            tools:context=".ui.screen.register.RegisterActivity">
+	
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			tools:context=".ui.screen.register.RegisterActivity" >
+		
+		<TextView
+				android:id="@+id/logo"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Register"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				android:textSize="20sp"
+				android:layout_marginTop="30dp" />
+		
+		<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/name_layout"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				tools:context=".ui.screen.register.RegisterActivity" >
+				android:layout_height="wrap_content"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp"
+				app:layout_constraintStart_toStartOf="@+id/logo"
+				app:layout_constraintEnd_toEndOf="@+id/logo"
+				app:layout_constraintTop_toBottomOf="@+id/logo"
+				android:layout_marginTop="20dp"
+				app:layout_constraintBottom_toTopOf="@+id/logo"
+				app:layout_constraintVertical_bias="0.05" >
 			
-			<TextView
-					android:id="@+id/logo"
-					android:layout_width="wrap_content"
+			<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/first_name"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:text="Register"
-					app:layout_constraintLeft_toLeftOf="parent"
-					app:layout_constraintRight_toRightOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					android:textSize="20dp"
-					android:layout_marginTop="20dp" />
+					android:hint="Name"
+					android:focusable="false"
+					android:focusableInTouchMode="false"
+					android:text="@={vm.name}"
+					android:inputType="textCapWords"
+					android:textSize="14dp" />
+		</com.google.android.material.textfield.TextInputLayout >
+		
+		<!--<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/last_name_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp"
+				app:layout_constraintStart_toStartOf="@+id/first_name_layout"
+				app:layout_constraintEnd_toEndOf="@+id/first_name_layout"
+				app:layout_constraintTop_toBottomOf="@+id/first_name_layout"
+				android:layout_marginTop="10dp" >
+			
+			<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/last_name"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Last Name"
+					android:text="@={vm.lastName}"
+					android:inputType="textCapWords"
+					android:textSize="14dp" />
+		</com.google.android.material.textfield.TextInputLayout >-->
+		
+		<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/email_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp"
+				app:layout_constraintStart_toStartOf="@+id/name_layout"
+				app:layout_constraintEnd_toEndOf="@+id/name_layout"
+				app:layout_constraintTop_toBottomOf="@+id/name_layout"
+				android:layout_marginTop="10dp" >
+			
+			<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/email"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="*Email"
+					android:text="@={vm.email}"
+					android:inputType="textEmailAddress"
+					android:textSize="14dp" />
+		</com.google.android.material.textfield.TextInputLayout >
+		
+		<com.google.android.material.textfield.TextInputLayout
+				android:id="@+id/mobile_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp"
+				app:layout_constraintStart_toStartOf="@+id/email_layout"
+				app:layout_constraintEnd_toEndOf="@+id/email_layout"
+				app:layout_constraintTop_toBottomOf="@+id/email_layout"
+				android:layout_marginTop="10dp" >
+			
+			<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/mobile"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="*Mobile Number"
+					android:inputType="phone"
+					android:maxLength="10"
+					android:focusable="false"
+					android:focusableInTouchMode="false"
+					android:text="@={vm.mobile}"
+					android:textSize="14dp" />
+		</com.google.android.material.textfield.TextInputLayout >
+		
+		
+		<RelativeLayout
+				android:id="@+id/otp_layout"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="@+id/mobile_layout"
+				app:layout_constraintEnd_toEndOf="@+id/mobile_layout"
+				app:layout_constraintTop_toBottomOf="@+id/mobile_layout"
+		>
 			
 			<com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/name_layout"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginRight="40dp"
+					android:layout_alignParentLeft="true"
+					android:layout_centerVertical="true"
 					android:layout_marginLeft="40dp"
-					app:layout_constraintStart_toStartOf="@+id/logo"
-					app:layout_constraintEnd_toEndOf="@+id/logo"
-					app:layout_constraintTop_toBottomOf="@+id/logo"
-					android:layout_marginTop="20dp"
-					app:layout_constraintBottom_toTopOf="@+id/logo"
-					app:layout_constraintVertical_bias="0.05" >
-				
-				<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/first_name"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:hint="Name"
-						android:text="@={vm.name}"
-						android:inputType="textCapWords"
-						android:textSize="14dp" />
-			</com.google.android.material.textfield.TextInputLayout >
-			
-			<!--<com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/last_name_layout"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
 					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp"
-					app:layout_constraintStart_toStartOf="@+id/first_name_layout"
-					app:layout_constraintEnd_toEndOf="@+id/first_name_layout"
-					app:layout_constraintTop_toBottomOf="@+id/first_name_layout"
-					android:layout_marginTop="10dp" >
-				
-				<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/last_name"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:hint="Last Name"
-						android:text="@={vm.lastName}"
-						android:inputType="textCapWords"
-						android:textSize="14dp" />
-			</com.google.android.material.textfield.TextInputLayout >-->
-			
-			<com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/email_layout"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp"
-					app:layout_constraintStart_toStartOf="@+id/name_layout"
-					app:layout_constraintEnd_toEndOf="@+id/name_layout"
-					app:layout_constraintTop_toBottomOf="@+id/name_layout"
-					android:layout_marginTop="10dp" >
-				
-				<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/email"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:hint="*Email"
-						android:text="@={vm.email}"
-						android:inputType="textEmailAddress"
-						android:textSize="14dp" />
-			</com.google.android.material.textfield.TextInputLayout >
-			
-			<com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/mobile_layout"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp"
-					app:layout_constraintStart_toStartOf="@+id/email_layout"
-					app:layout_constraintEnd_toEndOf="@+id/email_layout"
-					app:layout_constraintTop_toBottomOf="@+id/email_layout"
-					android:layout_marginTop="10dp" >
-				
-				<com.google.android.material.textfield.TextInputEditText
-						android:id="@+id/mobile"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:hint="*Mobile Number"
-						android:inputType="phone"
-						android:maxLength="10"
-						android:text="@={vm.mobile}"
-						android:textSize="14dp" />
-			</com.google.android.material.textfield.TextInputLayout >
-			
-			
-			<com.google.android.material.textfield.TextInputLayout
-					android:id="@+id/otp_layout"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp"
-					app:layout_constraintStart_toStartOf="@+id/mobile_layout"
-					app:layout_constraintEnd_toEndOf="@+id/mobile_layout"
-					app:layout_constraintTop_toBottomOf="@+id/mobile_layout"
 					android:layout_marginTop="10dp" >
 				
 				<com.google.android.material.textfield.TextInputEditText
@@ -139,249 +151,240 @@
 						android:text="@={vm.otp}"
 						android:textSize="14dp" />
 			</com.google.android.material.textfield.TextInputLayout >
-			
-			<LinearLayout android:id="@+id/pin_view"
-			              android:layout_width="match_parent"
-			              android:layout_height="wrap_content"
-			              android:orientation="vertical"
-			              android:layout_marginRight="40dp"
-			              android:layout_marginLeft="40dp"
-			              app:layout_constraintStart_toStartOf="@+id/otp_layout"
-			              app:layout_constraintEnd_toEndOf="@+id/otp_layout"
-			              app:layout_constraintTop_toBottomOf="@+id/otp_layout"
-			              android:paddingTop="@dimen/activity_vertical_margin" >
-				
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Set PIN" />
-				<!--<com.mukesh.OtpView
-						android:id="@+id/pin_otpview"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						app:layout_constraintStart_toStartOf="@+id/otp_layout"
-						app:layout_constraintEnd_toEndOf="@+id/otp_layout"
-						app:layout_constraintTop_toBottomOf="@+id/otp_layout"
-						android:layout_marginTop="10dp"
-						android:inputType="number"
-						android:itemBackground="#abcdcdcd"
-						android:textColor="@android:color/black"
-						app:itemCount="4"
-						app:lineColor="@color/colorPrimary"
-						app:viewType="rectangle"
-				/>-->
-				<com.goodiebag.pinview.Pinview
-						android:id="@+id/pin_otpview"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						app:cursorVisible="false"
-						app:forceKeyboard="true"
-						app:hint=""
-						app:splitWidth="0dp"
-						app:inputType="number"
-						app:password="false"
-						android:gravity="left"
-						app:textSize="8sp"
-						app:pinBackground="@drawable/pin_drawable"
-						app:pinHeight="50dp"
-						app:pinLength="4"
-						app:pinWidth="62dp"/>
-			</LinearLayout >
-			
-			<LinearLayout android:id="@+id/repin_view"
-			              android:layout_width="match_parent"
-			              android:layout_height="wrap_content"
-			              android:orientation="vertical"
-			              android:layout_marginRight="40dp"
-			              android:layout_marginLeft="40dp"
-			              app:layout_constraintStart_toStartOf="@+id/pin_view"
-			              app:layout_constraintEnd_toEndOf="@+id/pin_view"
-			              app:layout_constraintTop_toBottomOf="@+id/pin_view"
-			              android:paddingTop="@dimen/activity_vertical_margin" >
-				
-				<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Confirm PIN" />
-				<!--<com.mukesh.OtpView
-						android:id="@+id/repin_otpview"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						app:layout_constraintStart_toStartOf="@+id/pin_view"
-						app:layout_constraintEnd_toEndOf="@+id/pin_view"
-						app:layout_constraintTop_toBottomOf="@+id/pin_view"
-						android:layout_marginTop="10dp"
-						android:inputType="number"
-						android:itemBackground="#abcdcdcd"
-						android:textColor="@android:color/black"
-						app:itemCount="4"
-						app:lineColor="@android:color/transparent"
-						app:viewType="line"
-				/>-->
-				<com.goodiebag.pinview.Pinview
-						android:id="@+id/repin_otpview"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						app:cursorVisible="false"
-						app:forceKeyboard="true"
-						app:hint=""
-						app:inputType="number"
-						app:password="false"
-						app:splitWidth="0dp"
-						android:gravity="left"
-						app:textSize="8sp"
-						app:pinBackground="@drawable/pin_drawable"
-						app:pinHeight="50dp"
-						app:pinLength="4"
-						app:pinWidth="62dp"/>
-			</LinearLayout >
+			<TextView
+					android:layout_marginRight="40dp"
+					android:layout_alignParentRight="true"
+					android:text="Generate OTP"
+					android:layout_centerVertical="true"
+					android:onClick="@{()->vm.validateMobile()}"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content" />
+		</RelativeLayout >
+		
+		<LinearLayout android:id="@+id/pin_view"
+		              android:layout_width="match_parent"
+		              android:layout_height="wrap_content"
+		              android:orientation="vertical"
+		              android:layout_marginRight="40dp"
+		              android:layout_marginLeft="40dp"
+		              app:layout_constraintStart_toStartOf="@+id/otp_layout"
+		              app:layout_constraintEnd_toEndOf="@+id/otp_layout"
+		              app:layout_constraintTop_toBottomOf="@+id/otp_layout"
+		              android:paddingTop="@dimen/activity_vertical_margin" >
 			
 			<TextView
-					android:id="@+id/upload_profile_photo"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					app:layout_constraintStart_toStartOf="@+id/repin_view"
-					app:layout_constraintEnd_toEndOf="@+id/repin_view"
-					app:layout_constraintTop_toBottomOf="@+id/repin_view"
-					android:layout_marginRight="50dp"
-					android:onClick="@{(view)->act.initPermission(view)}"
-					android:drawableRight="@drawable/ic_photo_camera"
+					android:text="Set PIN" />
+			<com.goodiebag.pinview.Pinview
+					android:id="@+id/pin_otpview"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:cursorVisible="true"
+					app:forceKeyboard="false"
+					app:hint=""
+					app:splitWidth="0dp"
+					app:inputType="number"
+					app:password="false"
+					android:gravity="left"
+					app:textSize="8sp"
+					app:pinBackground="@drawable/pin_drawable"
+					app:pinHeight="50dp"
+					app:pinLength="4"
+					app:pinWidth="70dp" />
+		</LinearLayout >
+		
+		<LinearLayout android:id="@+id/repin_view"
+		              android:layout_width="match_parent"
+		              android:layout_height="wrap_content"
+		              android:orientation="vertical"
+		              android:layout_marginRight="40dp"
+		              android:layout_marginLeft="40dp"
+		              app:layout_constraintStart_toStartOf="@+id/pin_view"
+		              app:layout_constraintEnd_toEndOf="@+id/pin_view"
+		              app:layout_constraintTop_toBottomOf="@+id/pin_view"
+		              android:paddingTop="@dimen/activity_vertical_margin" >
+			
+			<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Confirm PIN" />
+			<com.goodiebag.pinview.Pinview
+					android:id="@+id/repin_otpview"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:cursorVisible="true"
+					app:forceKeyboard="false"
+					app:hint=""
+					app:password="false"
+					app:splitWidth="0dp"
+					app:inputType="number"
+					android:gravity="left"
+					app:textSize="8sp"
+					app:pinBackground="@drawable/pin_drawable"
+					app:pinHeight="50dp"
+					app:pinLength="4"
+					app:pinWidth="70dp" />
+		</LinearLayout >
+		
+		<TextView
+				android:id="@+id/upload_profile_photo"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="@+id/repin_view"
+				app:layout_constraintEnd_toEndOf="@+id/repin_view"
+				app:layout_constraintTop_toBottomOf="@+id/repin_view"
+				android:layout_marginRight="50dp"
+				android:onClick="@{(view)->act.initPermission(view)}"
+				android:drawableRight="@drawable/ic_photo_camera"
+				android:drawableTint="@color/material_color_grey800"
+				android:layout_marginLeft="40dp"
+				android:text="@{vm.profilePic}"
+				android:singleLine="true"
+				android:textSize="14dp"
+				android:layout_marginTop="20dp"
+				android:hint="*Upload Profile Photo" />
+		
+		<View
+				android:id="@+id/profile_view"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/material_color_grey600"
+				app:layout_constraintStart_toStartOf="@+id/upload_profile_photo"
+				app:layout_constraintEnd_toEndOf="@+id/upload_profile_photo"
+				app:layout_constraintTop_toBottomOf="@+id/upload_profile_photo"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="20dp" />
+		
+		<LinearLayout
+				android:id="@+id/id_proof_layout"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_gravity="center"
+				android:weightSum="1"
+				android:onClick="@{(view)->act.initPermission(view)}"
+				app:layout_constraintStart_toStartOf="@+id/profile_view"
+				app:layout_constraintEnd_toEndOf="@+id/profile_view"
+				app:layout_constraintTop_toBottomOf="@+id/profile_view"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp"
+				android:layout_marginTop="20dp" >
+			
+			<!--android:entries="@array/proof_spinner"-->
+			<!--<Spinner
+				android:id="@+id/upload_id_proof"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:drawableRight="@drawable/ic_photo_camera"
+				android:drawableTint="@color/material_color_grey800"
+				android:layout_marginTop="10dp"
+				android:layout_marginBottom="10dp"
+				android:layout_weight="1"
+				android:padding="10dp"
+				android:entries="@array/proof_spinner" />-->
+			
+			<TextView
+					android:id="@+id/upload_id_proof"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
 					android:drawableTint="@color/material_color_grey800"
-					android:layout_marginLeft="40dp"
-					android:text="@{vm.profilePic}"
-					android:singleLine="true"
+					android:hint="Click to select an option"
+					android:layout_weight="1"
+					android:paddingRight="10dp"
+					android:paddingTop="10dp"
+					android:paddingBottom="10dp"
 					android:textSize="14dp"
-					android:layout_marginTop="20dp"
-					android:hint="*Upload Profile Photo" />
+					android:drawableEnd="@android:drawable/arrow_down_float"
+					android:onClick="@{()->vm.displayProofType()}"
+					android:text="@{vm.proofType}"
+					android:drawablePadding="10dp" />
 			
 			<View
-					android:id="@+id/profile_view"
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
+					android:layout_width="1dp"
+					android:layout_height="match_parent"
 					android:background="@color/material_color_grey600"
-					app:layout_constraintStart_toStartOf="@+id/upload_profile_photo"
-					app:layout_constraintEnd_toEndOf="@+id/upload_profile_photo"
-					app:layout_constraintTop_toBottomOf="@+id/upload_profile_photo"
-					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp"
-					android:layout_marginTop="5dp"
-					android:layout_marginBottom="20dp" />
+					android:layout_marginRight="10dp" />
 			
-			<LinearLayout
-					android:id="@+id/id_proof_layout"
-					android:layout_width="match_parent"
+			<ImageView
+					android:id="@+id/proof_button"
+					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:orientation="horizontal"
+					android:background="@drawable/ic_photo_camera"
 					android:layout_gravity="center"
-					android:weightSum="1"
-					android:onClick="@{(view)->act.initPermission(view)}"
-					app:layout_constraintStart_toStartOf="@+id/profile_view"
-					app:layout_constraintEnd_toEndOf="@+id/profile_view"
-					app:layout_constraintTop_toBottomOf="@+id/profile_view"
-					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp"
-					android:layout_marginTop="20dp" >
-				
-				<!--android:entries="@array/proof_spinner"-->
-				<!--<Spinner
-                    android:id="@+id/upload_id_proof"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_photo_camera"
-                    android:drawableTint="@color/material_color_grey800"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_weight="1"
-                    android:padding="10dp"
-                    android:entries="@array/proof_spinner" />-->
-				
-				<TextView
-						android:id="@+id/upload_id_proof"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:drawableTint="@color/material_color_grey800"
-						android:hint="Click to select an option"
-						android:layout_weight="1"
-						android:paddingRight="10dp"
-						android:paddingTop="10dp"
-						android:paddingBottom="10dp"
-						android:textSize="14dp"
-						android:drawableEnd="@android:drawable/arrow_down_float"
-						android:onClick="@{()->vm.displayProofType()}"
-						android:text="@{vm.proofType}"
-						android:drawablePadding="10dp" />
-				
-				<View
-						android:layout_width="1dp"
-						android:layout_height="match_parent"
-						android:background="@color/material_color_grey600"
-						android:layout_marginRight="10dp" />
-				
-				<ImageView
-						android:id="@+id/proof_button"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:background="@drawable/ic_photo_camera"
-						android:layout_gravity="center"
-						android:padding="10dp"
-						android:layout_marginRight="10dp"
-						android:backgroundTint="@color/material_color_grey800" />
-			</LinearLayout >
-			
-			<View
-					android:id="@+id/proof_view"
-					android:layout_width="match_parent"
-					android:layout_height="1dp"
-					android:background="@color/material_color_grey600"
-					app:layout_constraintStart_toStartOf="@+id/id_proof_layout"
-					app:layout_constraintEnd_toEndOf="@+id/id_proof_layout"
-					app:layout_constraintTop_toBottomOf="@+id/id_proof_layout"
-					android:layout_marginRight="40dp"
-					android:layout_marginLeft="40dp" />
+					android:padding="10dp"
+					android:layout_marginRight="10dp"
+					android:backgroundTint="@color/material_color_grey800" />
+		</LinearLayout >
+		
+		<View
+				android:id="@+id/proof_view"
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="@color/material_color_grey600"
+				app:layout_constraintStart_toStartOf="@+id/id_proof_layout"
+				app:layout_constraintEnd_toEndOf="@+id/id_proof_layout"
+				app:layout_constraintTop_toBottomOf="@+id/id_proof_layout"
+				android:layout_marginRight="40dp"
+				android:layout_marginLeft="40dp" />
+		
+		<LinearLayout android:id="@+id/contact_admin_layout"
+		              android:layout_width="match_parent"
+		              android:layout_height="wrap_content"
+		              android:orientation="horizontal"
+		              android:layout_marginRight="40dp"
+		              android:layout_marginLeft="40dp"
+		              app:layout_constraintStart_toStartOf="parent"
+		              app:layout_constraintEnd_toEndOf="parent"
+		              app:layout_constraintTop_toBottomOf="@+id/proof_view"
+		              android:paddingTop="@dimen/activity_vertical_margin" >
 			
 			<TextView
 					android:id="@+id/contact_admin"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_width="0dp"
+					android:layout_height="match_parent"
+					android:layout_weight=".6"
+					android:paddingTop="10dp"
 					app:layout_constraintStart_toStartOf="@+id/proof_view"
 					app:layout_constraintEnd_toStartOf="@+id/login_page"
 					app:layout_constraintTop_toBottomOf="@+id/proof_view"
-					android:layout_marginLeft="40dp"
 					android:gravity="left"
 					android:onClick="@{()->vm.redirectLogin()}"
-					android:layout_marginTop="20dp"
-					android:text="Contact Admin"/>
+					android:text="Contact Admin" />
 			
 			<TextView
 					android:id="@+id/login_page"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
+					android:layout_width="0dp"
+					android:layout_weight="1.4"
+					android:paddingTop="10dp"
+					android:layout_height="match_parent"
 					app:layout_constraintStart_toEndOf="@+id/contact_admin"
 					app:layout_constraintEnd_toEndOf="parent"
 					app:layout_constraintTop_toBottomOf="@+id/proof_view"
-					android:layout_marginRight="40dp"
 					android:gravity="right"
 					android:onClick="@{()->vm.redirectLogin()}"
-					android:layout_marginTop="20dp"
 					android:text="Already have an Account?"
 					app:layout_constraintHorizontal_bias="0.5" />
 			
-			<Button
-					android:id="@+id/register"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:background="@color/colorPrimary"
-					android:padding="16dp"
-					android:text="Register"
-					android:onClick="@{()->vm.register()}"
-					android:textAllCaps="false"
-					android:textColor="@color/white"
-					android:textSize="16dp"
-					android:layout_marginTop="20dp"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintBottom_toBottomOf="parent" />
+		</LinearLayout>
 		
-		</androidx.constraintlayout.widget.ConstraintLayout >
-	<!--</ScrollView>-->
-</layout>
+		<Button
+				android:id="@+id/register"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				android:background="@color/colorPrimary"
+				android:padding="16dp"
+				android:text="Register"
+				android:onClick="@{()->vm.register()}"
+				android:textAllCaps="false"
+				android:textColor="@color/white"
+				android:textSize="16dp"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent" />
+	
+	</androidx.constraintlayout.widget.ConstraintLayout >
+	</ScrollView>
+</layout >

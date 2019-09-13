@@ -25,10 +25,20 @@ interface ApiService {
     @FormUrlEncoded
     fun userValidate(@Field("sap_code") sap_code: String): Observable<UserLoginData>
 
+    @POST("api/forgot_pin/")
+    @FormUrlEncoded
+    fun forgotPin(@Field("sap_code") sap_code: String): Observable<UserLoginData>
+
+    @POST("api/forgot_pin/")
+    @FormUrlEncoded
+    fun changePin(
+        @Field("sap_code") sap_code: String,
+        @Field("new_pin") new_pin: String
+    ): Observable<UserLoginData>
+
     @POST("api/login/")
     @FormUrlEncoded
     fun userLogin(@Field("sap_code") sap_code: String, @Field("user_pin") user_pin: String): Observable<UserLoginData>
-
 
     @POST("api/generate_otp/")
     @FormUrlEncoded

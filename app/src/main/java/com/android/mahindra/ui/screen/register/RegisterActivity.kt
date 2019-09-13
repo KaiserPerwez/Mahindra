@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
@@ -15,6 +16,7 @@ import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ActivityRegisterBinding
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
+import com.android.mahindra.util.extension.dismissKeyboard
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -50,7 +52,6 @@ class RegisterActivity : AppCompatActivity() {
     private fun initUiAndListeners() {
         supportActionBar?.title = "Register"
         loginData = intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA)
-
         binding.apply {
             vm = viewModel
             vm?.setData()
@@ -60,7 +61,7 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity<HomeActivity>()
             }
 
-            mobile.setOnFocusChangeListener { view, hasFocus ->
+            /*mobile.setOnFocusChangeListener { view, hasFocus ->
                 if (!hasFocus) {
                     if (mobile.text?.length == 10) {
                         vm?.validateMobile()
@@ -68,7 +69,7 @@ class RegisterActivity : AppCompatActivity() {
                         mobile.error = "Enter a valid number."
                     }
                 }
-            }
+            }*/
 
             pin_otpview.setPinViewEventListener { pinview, fromUser ->
                 if(!pinview.value.isNullOrEmpty())

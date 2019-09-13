@@ -1,8 +1,11 @@
+/*
 package com.android.mahindra.data.service
 
+*/
 /**
  * @author Kaiser Perwez
- */
+ *//*
+
  
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -10,15 +13,18 @@ import com.google.firebase.messaging.RemoteMessage
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     private val TAG = "MyFirebaseMsgService"
     private var parsed_data: String? = null
-    /**
+    */
+/**
      * Called when message is received.
      *
      * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
-     */
+     *//*
+
 
     override fun onMessageReceived(remoteMessage: RemoteMessage?) {
 
-        /*Log.d(TAG, "From: " + remoteMessage!!.from!!)
+        */
+/*Log.d(TAG, "From: " + remoteMessage!!.from!!)
         
         // Check if message contains an empty data payload.
         if (remoteMessage.data.isEmpty()) return
@@ -42,7 +48,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-*/
+*//*
+
     }
 
     private fun parseHeaderData(headerData: Map<String, String>) {
@@ -51,7 +58,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     private fun showTipStatusNotification(notif_tip_id: String, title: String, body: String, channelId: String) {
 
-       /* val intentNotif = Intent(this, LoginActivity::class.java)
+       */
+/* val intentNotif = Intent(this, LoginActivity::class.java)
         intentNotif.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
 
         val intentPending = PendingIntent.getActivity(this, 0, intentNotif, PendingIntent.FLAG_ONE_SHOT)
@@ -85,7 +93,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
         notificationManager.notify(0, builder.build())
-*/
+*//*
+
     }
 
 }
+*/

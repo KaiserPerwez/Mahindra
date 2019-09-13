@@ -6,6 +6,7 @@ import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.ui.screen.validate.ValidateActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.dismissKeyboard
 import com.android.mahindra.util.extension.isDeviceOnline
@@ -16,10 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.selector
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import java.io.File
 
 class RegisterViewModel(private val activity: RegisterActivity) {
@@ -99,7 +97,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     fun redirectLogin() {
         activity.apply {
-            startActivity<HomeActivity>()
+            startActivity<ValidateActivity>()
             finish()
         }
     }
@@ -107,6 +105,22 @@ class RegisterViewModel(private val activity: RegisterActivity) {
 
     fun register() {
         activity?.dismissKeyboard()
+
+        activity?.alert("I agree on the authenticity of the information" +
+                "submitted above. Any act of misinformation may lead to termination, based" +
+                "upon the discretion of Mahindra Finance.") {
+            title = "Terms & Conditions"
+            positiveButton("Accept") {
+                registerUser()
+            }
+            negativeButton("Decline") {
+
+            }
+        }.show()
+
+    }
+
+    private fun registerUser(){
         if (!activity.isDeviceOnline()) {
             activity.toast("No internet connection.")
             return
@@ -146,7 +160,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             .compressToFile(profilePicFile)*/
 
         val compressedProfilePic =
-            SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), true)
+            SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), false)
 
         val profilePicFile = File(compressedProfilePic)
 
@@ -175,7 +189,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         }
 
         val compressedProofPic =
-            SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), true)
+            SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), false)
 
         val proofPicFile = File(compressedProofPic)
 
