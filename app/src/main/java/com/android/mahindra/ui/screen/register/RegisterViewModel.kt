@@ -122,7 +122,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
                 { result ->
                     activity.let {
                         if (!result.optionList.isNullOrEmpty()) {
-                            it.showReviewDialog()
+                            it.showReviewDialog(result.optionList)
                         }/* else {
                             it.toast(result.message ?: "")
                         }*/

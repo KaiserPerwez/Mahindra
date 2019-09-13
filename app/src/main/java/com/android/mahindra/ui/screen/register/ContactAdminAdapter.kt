@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.Option
+import kotlinx.android.synthetic.main.item_rv_admin_option.view.*
 
 
 class ContactAdminAdapter(val listOption: List<Option>?, val activity: RegisterActivity) :
@@ -17,32 +18,25 @@ class ContactAdminAdapter(val listOption: List<Option>?, val activity: RegisterA
         return view
     }
 
-    override fun getItemCount(): Int = listOption.size
+    override fun getItemCount(): Int = listOption?.size ?:0
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        /*holder.questionNumber?.apply {
-            val item = listOption[position]
-            text = "Q${position + 1}"
+        holder.title?.apply {
+            val item = listOption?.get(position)
+            text = item?.option
 
-            backgroundTintList = if (item.statusReview == "1") {
-                resources.getColorStateList(R.color.yellow_active)
-            } else if (item.answer == "0000" || item.answer == "") {
-                resources.getColorStateList(R.color.red_active)
-            } else {
-                resources.getColorStateList(R.color.green_active)
-            }
-
-            setOnClickListener {
+            /*setOnClickListener {
                 activity.binding?.viewPager?.currentItem = position
                 activity.setQuestionOnUi(position)
                 activity.dialog.dismiss()
-            }
-        }*/
+            }*/
+        }
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val root = view.layout
+        val root = view.rootView
+        val title = view.title
 //        val questionNumber = view.question_number
     }
 }

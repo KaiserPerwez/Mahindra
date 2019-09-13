@@ -4,6 +4,8 @@ import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
+import com.android.mahindra.ui.screen.login.LoginActivity
+import com.android.mahindra.ui.screen.register.RegisterActivity
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.dismissKeyboard
 import com.android.mahindra.util.extension.isDeviceOnline
@@ -40,11 +42,11 @@ class ValidateViewModel(private val activity: ValidateActivity) {
                 { result ->
                     activity.apply {
                         if (result.status == Status.SUCCESS) {
-                            /*   if (result.isFirstLogin == true)
+                               if (result.isFirstLogin == true)
                                    startActivity<RegisterActivity>(KEY_INTENT_LOGIN_DATA to result)
                                else
                                    startActivity<LoginActivity>(KEY_INTENT_LOGIN_DATA to result)
-   */                                startActivity<HomeActivity>(KEY_INTENT_LOGIN_DATA to result)
+//                                   startActivity<HomeActivity>(KEY_INTENT_LOGIN_DATA to result)
                             finish()
                         } else
                             showToast(result.message ?: "")
