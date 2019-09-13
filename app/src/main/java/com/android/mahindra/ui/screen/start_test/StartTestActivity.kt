@@ -10,9 +10,9 @@ import com.android.mahindra.databinding.ActivityStartTestBinding
 import com.android.mahindra.ui.screen.question.QuestionActivity
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
-import kotlinx.android.synthetic.main.activity_start_test.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
+
 
 class StartTestActivity : AppCompatActivity() {
     private lateinit var item: ExamsModel
@@ -58,9 +58,14 @@ class StartTestActivity : AppCompatActivity() {
     private fun initToolBar() {
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
-        setSupportActionBar(toolbar)
-//        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-//        toolbar.setNavigationOnClickListener { onBackPressed() }
+        setSupportActionBar(binding?.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }

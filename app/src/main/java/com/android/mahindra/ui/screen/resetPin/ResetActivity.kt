@@ -18,10 +18,6 @@ class ResetActivity : AppCompatActivity() {
         DataBindingUtil.setContentView<ActivityResetPinBinding>(this, R.layout.activity_reset_pin)
     }
 
-    private val viewModel by lazy {
-        ResetViewModel(this)
-    }
-
     //methods
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +29,9 @@ class ResetActivity : AppCompatActivity() {
 
         loginData = intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA)
         binding.apply {
-            vm = viewModel
+            vm = ResetViewModel(this@ResetActivity)
             vm?.sapCode?.set(loginData?.sapCode)
-            pin_newotpview.setPinViewEventListener { pinview, fromUser ->
+            pin_newotpview?.setPinViewEventListener { pinview, fromUser ->
                 if (!pinview.value.isNullOrEmpty())
                     vm?.newPin?.set(pinview.value ?: "")
                 else
@@ -51,6 +47,20 @@ class ResetActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun initToolBar() {
+        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Make sure the toolbar exists in the activity and is not null
+        /*    setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)*/
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+
 
     fun showToast(msg: String) {
         toast(msg)
