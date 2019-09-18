@@ -195,9 +195,9 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             .compressToFile(profilePicFile)*/
 
         val compressedProfilePic =
-            SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory), false)
+            SiliCompressor.with(activity).compress(profilePic.get(), File(picFromPicturesDirectory))
 
-        val profilePicFile = File(compressedProfilePic)
+        val profilePicFile = File(profilePic.get())
 
         builder.addFormDataPart(
             "profile_pic",
@@ -226,7 +226,7 @@ class RegisterViewModel(private val activity: RegisterActivity) {
         val compressedProofPic =
             SiliCompressor.with(activity).compress(proofPic.get(), File(picFromPicturesDirectory), false)
 
-        val proofPicFile = File(compressedProofPic)
+        val proofPicFile = File(proofPic.get())
 
         builder.addFormDataPart(
             "id_proof",

@@ -45,10 +45,7 @@ class UpcomingExamsAdapter(
             binding.apply {
                 model = item
                 root.setOnClickListener {
-                    it.context.startActivity<StartTestActivity>(
-                        KEY_INTENT_EXAM_MODEL to item,
-                        KEY_INTENT_LOGIN_DATA to userLoginData
-                    )
+                    (context as UpComingFragment).validateTest(item)
                 }
             }
         }

@@ -16,6 +16,7 @@ import com.android.mahindra.data.remote.api.ApiService.Companion.BASE_URL_FILE
 import com.android.mahindra.databinding.ActivityHomeBinding
 import com.android.mahindra.ui.screen.login.LoginActivity
 import com.android.mahindra.ui.screen.settings.SettingsActivity
+import com.android.mahindra.ui.screen.validate.ValidateActivity
 import com.android.mahindra.util.GlideApp
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.google.android.material.navigation.NavigationView
@@ -137,7 +138,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 startActivity<SettingsActivity>(KEY_INTENT_LOGIN_DATA to loginData)
             }
             R.id.nav_logout -> {
-                startActivity(intentFor<LoginActivity>())
+                startActivity(intentFor<ValidateActivity>())
                 finish()
             }
         }

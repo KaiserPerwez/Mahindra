@@ -29,16 +29,25 @@ interface ApiService {
     @FormUrlEncoded
     fun forgotPin(@Field("sap_code") sap_code: String): Observable<UserLoginData>
 
-    @POST("api/forgot_pin/")
+    @POST("api/change_pin/")
     @FormUrlEncoded
     fun changePin(
         @Field("sap_code") sap_code: String,
+        @Field("old_pin") old_pin: String,
         @Field("new_pin") new_pin: String
     ): Observable<UserLoginData>
 
     @POST("api/login/")
     @FormUrlEncoded
     fun userLogin(@Field("sap_code") sap_code: String, @Field("user_pin") user_pin: String): Observable<UserLoginData>
+
+    @POST("api/change_status/")
+    @FormUrlEncoded
+    fun changeStatus(@Field("sap_code") sap_code: String, @Field("test_id") test_id: String): Observable<BaseResponse<Any>>
+
+    @POST("api/validate_scheduled_datetime/")
+    @FormUrlEncoded
+    fun validateScheduledDatetime(@Field("sap_code") sap_code: String, @Field("test_id") test_id: String): Observable<BaseResponse<Any>>
 
     @POST("api/generate_otp/")
     @FormUrlEncoded

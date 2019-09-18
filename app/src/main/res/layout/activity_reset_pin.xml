@@ -89,7 +89,7 @@
 		              app:layout_constraintBottom_toBottomOf="parent"
 		              android:paddingTop="@dimen/activity_vertical_margin" >
 			
-			<!--<TextView
+			<TextView
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:layout_marginLeft="12dp"
@@ -113,7 +113,7 @@
 					app:pinBackground="@drawable/pin_drawable"
 					app:pinHeight="48dp"
 					app:pinLength="4"
-					app:pinWidth="70dp" />-->
+					app:pinWidth="70dp" />
 			
 			<TextView
 					android:layout_width="match_parent"

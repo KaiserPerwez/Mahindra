@@ -7,14 +7,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.databinding.FragmentUpComingBinding
-import kotlinx.android.synthetic.main.fragment_up_coming.*
+import com.android.mahindra.ui.screen.start_test.StartTestActivity
+import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
+import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 
 class UpComingFragment : androidx.fragment.app.Fragment() {
     private lateinit var listUpcomingFrag: List<ExamsModel>
     private lateinit var loginData: UserLoginData
     private lateinit var binding: FragmentUpComingBinding
+
+    private var disposable: Disposable? = null
+    private val apiService by lazy { ApiService.create() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +55,35 @@ class UpComingFragment : androidx.fragment.app.Fragment() {
             layoutManager = LinearLayoutManager(this.context)
             adapter = UpcomingExamsAdapter(listUpcomingFrag, this@UpComingFragment.context, loginData)
         }
+    }
+
+    fun validateTest(item: ExamsModel?) {
+        val dialog = indeterminateProgressDialog("Loding data...").apply {
+            setCancelable(false)
+        }
+
+        disposable = apiService.validateScheduledDatetime(
+            loginData.sapCode ?: "",
+            item?.testId?.toString() ?: ""
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { runOnUiThread { dialog.show() } }
+            .doAfterTerminate { runOnUiThread { dialog.dismiss() } }
+            .subscribe(
+                { result ->
+                    if (result.status == Status.SUCCESS) {
+                        startActivity<StartTestActivity>(
+                            KEY_INTENT_EXAM_MODEL to item,
+                            KEY_INTENT_LOGIN_DATA to loginData
+                        )
+                    } else
+                        toast(result.message ?: "")
+                },
+                { error ->
+                    toast(error.message ?: "Error while fetching data")
+                }
+            )
     }
 
 }

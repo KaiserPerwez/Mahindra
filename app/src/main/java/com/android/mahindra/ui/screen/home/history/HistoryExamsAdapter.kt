@@ -1,17 +1,13 @@
 package com.android.mahindra.ui.screen.home.history
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.databinding.ItemRvHistoryBinding
-import com.android.mahindra.ui.screen.start_test.StartTestActivity
-import kotlinx.android.synthetic.main.item_rv_history.view.*
 
 
 class HistoryExamsAdapter(val listHistoryFrag: List<ExamsModel>, val context: Context?) :
@@ -19,8 +15,8 @@ class HistoryExamsAdapter(val listHistoryFrag: List<ExamsModel>, val context: Co
     lateinit var binding: ItemRvHistoryBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-       // val view = MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_rv_history, parent, false))
-      //  binding = ItemRvHistoryBinding.inflate(LayoutInflater.from(context))
+        // val view = MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_rv_history, parent, false))
+        //  binding = ItemRvHistoryBinding.inflate(LayoutInflater.from(context))
         binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_rv_history, parent, false)
         return MyViewHolder(binding)
         //return view
@@ -45,19 +41,19 @@ class HistoryExamsAdapter(val listHistoryFrag: List<ExamsModel>, val context: Co
         }
     }*/
 
-   /* class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        // Holds the TextView that will add each animal to
-        val root = view.layout
-        val testName = view.test_name
-        val duration = view.duration
-        val scheduledOn = view.schedule
-        val completedIn = view.complete_in
-    }*/
-   inner class MyViewHolder(val binding: ItemRvHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
-       fun bind(item: ExamsModel) {
-           binding.apply {
-               model = item
-           }
-       }
-   }
+    /* class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+         // Holds the TextView that will add each animal to
+         val root = view.layout
+         val testName = view.test_name
+         val duration = view.duration
+         val scheduledOn = view.schedule
+         val completedIn = view.complete_in
+     }*/
+    inner class MyViewHolder(val binding: ItemRvHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: ExamsModel) {
+            binding.apply {
+                model = item
+            }
+        }
+    }
 }

@@ -3,20 +3,17 @@ package com.android.mahindra.ui.screen.resetPin
 import androidx.databinding.ObservableField
 import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.remote.api.ApiService
-import com.android.mahindra.ui.screen.home.HomeActivity
-import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.android.mahindra.util.extension.dismissKeyboard
 import com.android.mahindra.util.extension.isDeviceOnline
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.indeterminateProgressDialog
-import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class ResetViewModel(private val activity: ResetActivity) {
     var sapCode = ObservableField("")
+    var oldPin = ObservableField("")
     var newPin = ObservableField("")
     var confirmPin = ObservableField("")
 
@@ -26,8 +23,13 @@ class ResetViewModel(private val activity: ResetActivity) {
     fun changePin() {
         activity?.dismissKeyboard()
 
-        if(confirmPin.get().equals("")){
-            activity.showToast("Please enter PIN.")
+        if (oldPin.get().equals("")) {
+            activity.showToast("Please enter old PIN.")
+            return
+        }
+
+        if (confirmPin.get().equals("")) {
+            activity.showToast("Please enter new PIN.")
             return
         }
 
@@ -42,7 +44,8 @@ class ResetViewModel(private val activity: ResetActivity) {
 
         disposable = apiService.changePin(
             sapCode.get() ?: "",
-            confirmPin.get()?: ""
+            oldPin.get() ?: "",
+            confirmPin.get() ?: ""
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

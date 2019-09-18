@@ -5,16 +5,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.databinding.ActivityStartTestBinding
 import com.android.mahindra.ui.screen.question.QuestionActivity
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
+import com.android.mahindra.util.extension.dismissKeyboard
+import com.android.mahindra.util.extension.isDeviceOnline
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.toast
 
 
 class StartTestActivity : AppCompatActivity() {
+
+    private var disposable: Disposable? = null
+    private val apiService by lazy { ApiService.create() }
+
     private lateinit var item: ExamsModel
     private lateinit var userData: UserLoginData
     private val binding by lazy {
@@ -51,8 +64,31 @@ class StartTestActivity : AppCompatActivity() {
     }
 
     private fun startTest() {
-        startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
-        finish()
+        val dialog = indeterminateProgressDialog("Loding data...").apply {
+            setCancelable(false)
+        }
+
+        disposable = apiService.changeStatus(
+            userData.sapCode ?: "",
+            item.testId?.toString() ?: ""
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { runOnUiThread { dialog.show() } }
+            .doAfterTerminate { runOnUiThread { dialog.dismiss() } }
+            .subscribe(
+                { result ->
+                    if (result.status == Status.SUCCESS) {
+                        startActivity<QuestionActivity>(KEY_INTENT_EXAM_MODEL to item, KEY_INTENT_LOGIN_DATA to userData)
+                        finish()
+                    } else
+                        toast(result.message ?: "")
+                },
+                { error ->
+                    toast(error.message ?: "Error while fetching data")
+                }
+            )
+
     }
 
     private fun initToolBar() {
@@ -61,6 +97,19 @@ class StartTestActivity : AppCompatActivity() {
         setSupportActionBar(binding?.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
+    }
+
+    fun changeStatus() {
+
+    }
+
+    private fun dispose() {
+        disposable?.dispose()
+    }
+
+    override fun onPause(){
+        super.onPause()
+        dispose()
     }
 
     override fun onSupportNavigateUp(): Boolean {

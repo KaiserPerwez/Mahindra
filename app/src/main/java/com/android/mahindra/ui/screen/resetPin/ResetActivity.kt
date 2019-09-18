@@ -31,11 +31,19 @@ class ResetActivity : AppCompatActivity() {
         binding.apply {
             vm = ResetViewModel(this@ResetActivity)
             vm?.sapCode?.set(loginData?.sapCode)
+
+            pin_oldotpview?.setPinViewEventListener { pinview, fromUser ->
+                if (!pinview.value.isNullOrEmpty())
+                    vm?.oldPin?.set(pinview.value ?: "")
+                else
+                    toast("Please enter old pin.")
+            }
+
             pin_newotpview?.setPinViewEventListener { pinview, fromUser ->
                 if (!pinview.value.isNullOrEmpty())
                     vm?.newPin?.set(pinview.value ?: "")
                 else
-                    toast("Please enter pin.")
+                    toast("Please enter new pin.")
             }
 
             pin_confirmotpview.setPinViewEventListener { pinview, fromUser ->
@@ -59,8 +67,6 @@ class ResetActivity : AppCompatActivity() {
         onBackPressed()
         return true
     }
-
-
 
     fun showToast(msg: String) {
         toast(msg)
