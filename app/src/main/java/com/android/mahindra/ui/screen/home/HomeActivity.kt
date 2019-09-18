@@ -11,20 +11,32 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.android.mahindra.R
 import com.android.mahindra.data.model.api.ExamsModel
+import com.android.mahindra.data.model.api.Status
 import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.data.remote.api.ApiService.Companion.BASE_URL_FILE
 import com.android.mahindra.databinding.ActivityHomeBinding
 import com.android.mahindra.ui.screen.login.LoginActivity
 import com.android.mahindra.ui.screen.settings.SettingsActivity
+import com.android.mahindra.ui.screen.start_test.StartTestActivity
 import com.android.mahindra.ui.screen.validate.ValidateActivity
 import com.android.mahindra.util.GlideApp
+import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.tabs.TabLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivity
+import org.jetbrains.anko.support.v4.indeterminateProgressDialog
+import org.jetbrains.anko.support.v4.runOnUiThread
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.support.v4.toast
 import org.jetbrains.anko.toast
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +47,9 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     val loginData by lazy {
         intent.getParcelableExtra(KEY_INTENT_LOGIN_DATA) as UserLoginData
     }
+
+    private var disposable: Disposable? = null
+    private val apiService by lazy { ApiService.create() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,6 +159,35 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding?.drawerLayout?.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    fun validateTest(item: ExamsModel?) {
+        val dialog = indeterminateProgressDialog("Loading data...").apply {
+            setCancelable(false)
+        }
+
+        disposable = apiService.validateScheduledDatetime(
+            loginData.sapCode ?: "",
+            item?.testId?.toString() ?: ""
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { runOnUiThread { dialog.show() } }
+            .doAfterTerminate { runOnUiThread { dialog.dismiss() } }
+            .subscribe(
+                { result ->
+                    if (result.status == Status.SUCCESS) {
+                        startActivity<StartTestActivity>(
+                            KEY_INTENT_EXAM_MODEL to item,
+                            KEY_INTENT_LOGIN_DATA to loginData
+                        )
+                    } else
+                        toast(result.message ?: "Can not give test now")
+                },
+                { error ->
+                    toast(error.message ?: "Error while fetching data")
+                }
+            )
     }
 
     override fun onPause() {

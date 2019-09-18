@@ -57,33 +57,6 @@ class UpComingFragment : androidx.fragment.app.Fragment() {
         }
     }
 
-    fun validateTest(item: ExamsModel?) {
-        val dialog = indeterminateProgressDialog("Loding data...").apply {
-            setCancelable(false)
-        }
 
-        disposable = apiService.validateScheduledDatetime(
-            loginData.sapCode ?: "",
-            item?.testId?.toString() ?: ""
-        )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { runOnUiThread { dialog.show() } }
-            .doAfterTerminate { runOnUiThread { dialog.dismiss() } }
-            .subscribe(
-                { result ->
-                    if (result.status == Status.SUCCESS) {
-                        startActivity<StartTestActivity>(
-                            KEY_INTENT_EXAM_MODEL to item,
-                            KEY_INTENT_LOGIN_DATA to loginData
-                        )
-                    } else
-                        toast(result.message ?: "")
-                },
-                { error ->
-                    toast(error.message ?: "Error while fetching data")
-                }
-            )
-    }
 
 }

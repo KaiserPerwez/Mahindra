@@ -10,6 +10,7 @@ import com.android.mahindra.data.model.api.ExamsModel
 import com.android.mahindra.data.model.api.UserLoginData
 import com.android.mahindra.databinding.ItemRvUpcomingBinding
 import com.android.mahindra.ui.base.BaseRecyclerAdapter
+import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.ui.screen.start_test.StartTestActivity
 import com.android.mahindra.util.KEY_INTENT_EXAM_MODEL
 import com.android.mahindra.util.KEY_INTENT_LOGIN_DATA
@@ -45,7 +46,7 @@ class UpcomingExamsAdapter(
             binding.apply {
                 model = item
                 root.setOnClickListener {
-                    (context as UpComingFragment).validateTest(item)
+                    (context as HomeActivity).validateTest(item)
                 }
             }
         }
