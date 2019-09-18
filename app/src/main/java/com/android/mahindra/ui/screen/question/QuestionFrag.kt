@@ -21,7 +21,47 @@ class QuestionFrag(val item: Question) : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_question, container, false)
-        binding?.model = item
         return binding!!.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding?.apply {
+            model = item
+            chkA?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    resetCheckBoxes()
+                    chkA.isChecked = true
+                }
+            }
+            chkB?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    resetCheckBoxes()
+                    chkB.isChecked = true
+                }
+            }
+            chkC?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    resetCheckBoxes()
+                    chkC.isChecked = true
+                }
+            }
+            chkD?.setOnCheckedChangeListener { buttonView, isChecked ->
+                if (isChecked) {
+                    resetCheckBoxes()
+                    chkD.isChecked = true
+                }
+            }
+        }
+
+    }
+
+    fun resetCheckBoxes() {
+        binding?.apply {
+            chkA?.isChecked = false
+            chkB?.isChecked = false
+            chkC?.isChecked = false
+            chkD?.isChecked = false
+        }
     }
 }
