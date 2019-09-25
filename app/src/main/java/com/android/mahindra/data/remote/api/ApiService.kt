@@ -43,11 +43,11 @@ interface ApiService {
 
     @POST("api/change_status/")
     @FormUrlEncoded
-    fun changeStatus(@Field("sap_code") sap_code: String, @Field("test_id") test_id: String): Observable<BaseResponse<Any>>
+    fun changeStatus(@Field("sap_code") sap_code: String, @Field("test_id") test_id: String, @Field("scheduled_id") scheduled_id: String): Observable<BaseResponse<Any>>
 
     @POST("api/validate_scheduled_datetime/")
     @FormUrlEncoded
-    fun validateScheduledDatetime(@Field("sap_code") sap_code: String, @Field("test_id") test_id: String): Observable<BaseResponse<Any>>
+    fun validateScheduledDatetime(@Field("sap_code") sap_code: String, @Field("test_id") test_id: String, @Field("scheduled_id") scheduled_id: String): Observable<BaseResponse<Any>>
 
     @POST("api/generate_otp/")
     @FormUrlEncoded
@@ -106,6 +106,8 @@ interface ApiService {
 //        val BASE_URL_FILE: String = "http://192.168.1.100:9090"
         val BASE_URL: String = "http://134.209.153.25:9090/"
         val BASE_URL_FILE: String = "http://134.209.153.25:9090"
+//        val BASE_URL: String = "https://pixams.com/"
+//        val BASE_URL_FILE: String = "https://pixams.com"
         val BASE_URL_FILES = "http://209.59.156.100/${if (debug) devUrl else liveUrl}public/uploads/"
 
         fun create(baseUrl: String = BASE_URL): ApiService {

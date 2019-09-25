@@ -8,6 +8,10 @@ class SubmitAnswerModel(
     @Expose
     var testId: String? = null,
 
+    @SerializedName("scheduled_id")
+    @Expose
+    var scheduled_id: String? = null,
+
     @SerializedName("sap_code")
     @Expose
     var sapCode: String? = null,

@@ -168,7 +168,8 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         disposable = apiService.validateScheduledDatetime(
             loginData.sapCode ?: "",
-            item?.testId?.toString() ?: ""
+            item?.testId?.toString() ?: "",
+            item?.scheduled_id?.toString() ?: ""
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

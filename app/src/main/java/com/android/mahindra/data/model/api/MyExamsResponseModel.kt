@@ -36,6 +36,9 @@ data class ExamsModel(
     @SerializedName("test_id")
     @Expose
     var testId: Int? = null,
+    @SerializedName("scheduled_id")
+    @Expose
+    var scheduled_id: Int? = null,
     @SerializedName("completed_in")
     @Expose
     var completedIn: String? = null

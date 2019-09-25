@@ -1,10 +1,7 @@
 package com.android.mahindra.ui.screen.question
 
 import androidx.databinding.ObservableField
-import com.android.mahindra.data.model.api.AnswerModel
-import com.android.mahindra.data.model.api.Question
-import com.android.mahindra.data.model.api.Status
-import com.android.mahindra.data.model.api.SubmitAnswerModel
+import com.android.mahindra.data.model.api.*
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.ui.screen.test_complete.TestCompleteActivity
@@ -85,7 +82,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
             )
     }
 
-    fun submitData(testId: String) {
+    fun submitData(testDetail: ExamsModel) {
         //   activity?.hideKeyboard()
         if (!activity.isDeviceOnline()) {
             activity.showToast("No internet connection.")
@@ -103,7 +100,8 @@ class QuestionViewModel(private val activity: QuestionActivity) {
         }
 
         val answerRequestModel = SubmitAnswerModel(
-            testId,
+            testDetail.testId?.toString() ?: "" ,
+            testDetail.scheduled_id?.toString() ?: "" ,
             activity.userData.sapCode,
             SimpleDateFormat("dd/M/yyyy hh:mm:ss").format(Date()),
             list
@@ -148,6 +146,7 @@ class QuestionViewModel(private val activity: QuestionActivity) {
         builder.setType(MultipartBody.FORM)
 
         builder.addFormDataPart("test_id", activity.item.testId.toString())
+        builder.addFormDataPart("scheduled_id", activity.item.scheduled_id.toString())
         builder.addFormDataPart("test_name", activity.item.testName)
         builder.addFormDataPart("sap_code", activity.userData.sapCode)
 

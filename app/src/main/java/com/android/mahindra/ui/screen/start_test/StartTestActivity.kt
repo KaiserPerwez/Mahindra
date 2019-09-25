@@ -70,7 +70,8 @@ class StartTestActivity : AppCompatActivity() {
 
         disposable = apiService.changeStatus(
             userData.sapCode ?: "",
-            item.testId?.toString() ?: ""
+            item.testId?.toString() ?: "",
+            item.scheduled_id?.toString() ?: ""
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

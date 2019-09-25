@@ -242,7 +242,7 @@ class QuestionActivity : HiddenCameraActivity() {
                     }
                     binding?.submit?.setOnClickListener {
                         saveAnswer(currentItem, quesAdapter)
-                        binding?.vm?.submitData(item.testId?.toString() ?: "0")
+                        binding?.vm?.submitData(item)
                     }
                 }
             }
