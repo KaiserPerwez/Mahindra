@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.android.mahindra.R
-import com.android.mahindra.data.model.api.Status
-import com.android.mahindra.data.model.api.UserLoginData
+import com.android.mahindra.data.model.api.*
 import com.android.mahindra.data.remote.api.ApiService
 import com.android.mahindra.ui.screen.home.HomeActivity
 import com.android.mahindra.ui.screen.review.ReviewAdapter
@@ -134,7 +133,30 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             )
     }
 
-
+    fun submitContactForm(listOption: List<Option>){
+        if (!activity.isDeviceOnline()) {
+            activity.toast("No internet connection.")
+            return
+        }
+        val queryList = ContactAdminRequest(listOption)
+        disposable = apiService.contactAdmin(queryList)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { result ->
+                    activity.let {
+                        if (result.status == true) {
+                            it.toast(result.message ?: "")
+                        } else {
+                            it.toast(result.message ?: "")
+                        }
+                    }
+                },
+                { error ->
+                    activity.toast(error.message ?: "Error while retrieving data")
+                }
+            )
+    }
 
 
 

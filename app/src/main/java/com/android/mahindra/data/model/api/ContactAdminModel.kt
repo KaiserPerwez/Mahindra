@@ -7,6 +7,11 @@ data class ContactAdminResponse(
     val optionList: List<Option>? = listOf()
 )
 
+data class ContactAdminRequest(
+    @SerializedName("change_list")
+    val optionList: List<Option>? = listOf()
+)
+
 data class Option(
     @SerializedName("id")
     val id: Int? = 0,
@@ -15,5 +20,5 @@ data class Option(
     @SerializedName("is_checked")
     var isChecked: Boolean = false,
     @SerializedName("description")
-    val description: String? = ""
+    var description: String? = ""
 )

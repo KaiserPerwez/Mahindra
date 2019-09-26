@@ -208,7 +208,9 @@ class RegisterActivity : AppCompatActivity() {
 
 
                 rv?.submit?.setOnClickListener {
+                    toast("hi")
                     val seletedList = rvAdapter.selectedChoiceList
+                    binding?.vm?.submitContactForm(seletedList)
                 }
             }
         }
