@@ -11,5 +11,9 @@ data class Option(
     @SerializedName("id")
     val id: Int? = 0,
     @SerializedName("option")
-    val option: String? = ""
+    val option: String? = "",
+    @SerializedName("is_checked")
+    var isChecked: Boolean = false,
+    @SerializedName("description")
+    val description: String? = ""
 )

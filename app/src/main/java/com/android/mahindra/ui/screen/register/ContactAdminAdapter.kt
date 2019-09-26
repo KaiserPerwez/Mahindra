@@ -15,6 +15,7 @@ class ContactAdminAdapter(val listOption: List<Option>, val activity: RegisterAc
 
 
     lateinit var binding: ItemRvAdminOptionBinding
+    val selectedChoiceList = mutableListOf<Option>()
 
     override fun onCreateViewHolderBase(
         parent: ViewGroup?,
@@ -32,16 +33,21 @@ class ContactAdminAdapter(val listOption: List<Option>, val activity: RegisterAc
     override fun onBindViewHolderBase(holder: RecyclerView.ViewHolder?, position: Int) =
         (holder as MyViewHolder).bind(listOption[position])
 
+
     inner class MyViewHolder(val binding: ItemRvAdminOptionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Option) {
             binding.apply {
                 model = item
-                root.setOnClickListener {
-                    /*                    it.context.startActivity<StartTestActivity>(
-                                                        KEY_INTENT_EXAM_MODEL to item,
-                                                        KEY_INTENT_LOGIN_DATA to userLoginData
-                                                    )*/
+                binding.apply {
+                    checkBox?.setOnCheckedChangeListener { buttonView, isChecked ->
+                        //        item?.isChecked = isChecked
+
+                        if (isChecked)
+                            selectedChoiceList.add(item)
+                        else
+                            selectedChoiceList.remove(item)
+                    }
                 }
             }
         }
