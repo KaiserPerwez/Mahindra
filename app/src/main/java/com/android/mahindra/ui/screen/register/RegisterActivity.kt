@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
@@ -25,7 +26,6 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.android.synthetic.main.dialog_contact_admin.view.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 import java.io.File
@@ -204,14 +204,14 @@ class RegisterActivity : AppCompatActivity() {
             optionList?.let {
                 val rvAdapter = ContactAdminAdapter(it, this@RegisterActivity)
                 rv.adapter = rvAdapter
-                dialog.show()
 
 
-                rv?.submit?.setOnClickListener {
+                dialog.findViewById<TextView>(R.id.submit)?.setOnClickListener {
                     toast("hi")
                     val seletedList = rvAdapter.selectedChoiceList
                     binding?.vm?.submitContactForm(seletedList)
                 }
+                dialog.show()
             }
         }
     }
