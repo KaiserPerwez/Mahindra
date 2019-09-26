@@ -9,7 +9,9 @@ data class ContactAdminResponse(
 
 data class ContactAdminRequest(
     @SerializedName("change_list")
-    val optionList: List<Option>? = listOf()
+    val optionList: List<Option>? = listOf(),
+    @SerializedName("sap_code")
+    val sapCode: String
 )
 
 data class Option(

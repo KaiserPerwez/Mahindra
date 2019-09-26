@@ -138,11 +138,20 @@ class RegisterViewModel(private val activity: RegisterActivity) {
             activity.toast("No internet connection.")
             return
         }
-        val queryList = ContactAdminRequest(listOption)
+        val queryList = ContactAdminRequest(listOption, sapCode.get() ?: "")
+
+        val dialog = activity.indeterminateProgressDialog("Sending data...").apply {
+            setCancelable(false)
+        }
         disposable = apiService.contactAdmin(queryList)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
+            .doOnSubscribe {
+                activity.runOnUiThread { dialog.show() }
+            }
+            .doAfterTerminate {
+                activity.runOnUiThread { dialog.dismiss() }
+            }.subscribe(
                 { result ->
                     activity.let {
                         if (result.status == true) {

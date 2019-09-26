@@ -95,6 +95,10 @@ interface ApiService {
     @POST("api/contact_admin/")
     fun contactAdmin(@Body contactAdminList: ContactAdminRequest): Observable<BaseResponse<Any>>
 
+    @POST("api/contact_admin/")
+    @FormUrlEncoded
+    fun contactAdmin( @Field("change_list") optionList: String?, @Field("sap_code") sapCode: String): Observable<BaseResponse<Any>>
+
     @POST("api/fetch_scheduled_test/")
     @FormUrlEncoded
     fun getExams(@Field("sap_code") sapCode: String?): Observable<MyExamsResponseModel>

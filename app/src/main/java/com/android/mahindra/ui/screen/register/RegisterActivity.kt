@@ -207,9 +207,9 @@ class RegisterActivity : AppCompatActivity() {
 
 
                 dialog.findViewById<TextView>(R.id.submit)?.setOnClickListener {
-                    toast("hi")
                     val seletedList = rvAdapter.selectedChoiceList
                     binding?.vm?.submitContactForm(seletedList)
+                    dialog.dismiss()
                 }
                 dialog.show()
             }
