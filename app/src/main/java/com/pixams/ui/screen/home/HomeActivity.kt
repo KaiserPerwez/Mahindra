@@ -52,7 +52,10 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun initUiAndListeners() {
-        setSupportActionBar(toolbar)
+        binding?.appBarHome?.toolbar?.apply {
+            inflateMenu(R.menu.home)
+            setSupportActionBar(this)
+        }
         binding?.apply {
             vm = HomeViewModel(this@HomeActivity)
             appBarHome.tabLayout.apply {
@@ -151,7 +154,6 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         return super.onOptionsItemSelected(item)
     }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
