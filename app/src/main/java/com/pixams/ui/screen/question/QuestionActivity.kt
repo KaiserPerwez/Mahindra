@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
-import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
@@ -15,13 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.pixams.R
-import com.pixams.data.model.api.ExamsModel
-import com.pixams.data.model.api.UserLoginData
-import com.pixams.databinding.ActivityQuestionBinding
-import com.pixams.ui.screen.review.ReviewAdapter
-import com.pixams.util.KEY_INTENT_EXAM_MODEL
-import com.pixams.util.KEY_INTENT_LOGIN_DATA
 import com.androidhiddencamera.CameraConfig
 import com.androidhiddencamera.CameraError
 import com.androidhiddencamera.HiddenCameraActivity
@@ -30,13 +22,19 @@ import com.androidhiddencamera.config.CameraFacing
 import com.androidhiddencamera.config.CameraImageFormat
 import com.androidhiddencamera.config.CameraResolution
 import com.androidhiddencamera.config.CameraRotation
+import com.pixams.R
+import com.pixams.data.model.api.ExamsModel
+import com.pixams.data.model.api.UserLoginData
+import com.pixams.databinding.ActivityQuestionBinding
+import com.pixams.ui.screen.review.ReviewAdapter
+import com.pixams.util.KEY_INTENT_EXAM_MODEL
+import com.pixams.util.KEY_INTENT_LOGIN_DATA
 import kotlinx.android.synthetic.main.activity_question.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.toast
 import org.jetbrains.anko.yesButton
 import java.io.File
-import java.lang.Exception
 
 
 class QuestionActivity : HiddenCameraActivity() {
@@ -227,8 +225,11 @@ class QuestionActivity : HiddenCameraActivity() {
                 val quesAdapter = QuestionAdapter(it, supportFragmentManager)
                 binding?.viewPager?.apply {
                     offscreenPageLimit = it.size
+
+                    canScrollHorizontally(0)
                     setOnTouchListener { view, motionEvent ->
-                        this.currentItem = this.currentItem
+                        this.setCurrentItem(this.currentItem, false)
+                        //this.currentItem = this.currentItem
                         return@setOnTouchListener true
                     }
                     adapter = quesAdapter
