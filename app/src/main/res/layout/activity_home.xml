@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools" >
     <data >
     <variable name="vm"
-              type="com.android.mahindra.ui.screen.home.HomeViewModel" />
+              type="com.pixams.ui.screen.home.HomeViewModel" />
     </data >
     <androidx.drawerlayout.widget.DrawerLayout
             android:id="@+id/drawer_layout"

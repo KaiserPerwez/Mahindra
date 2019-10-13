@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-		package="com.android.mahindra" >
+		package="com.pixams" >
 	
 	<uses-feature
 			android:name="android.hardware.camera"
@@ -20,7 +20,8 @@
 			android:supportsRtl="true"
 			android:theme="@style/AppTheme"
 			android:usesCleartextTraffic="true" >
-		<activity android:name=".ui.screen.settings.SettingsActivity" ></activity >
+		
+		<activity android:name="com.pixams.ui.screen.settings.SettingsActivity" ></activity >
 		<provider
 				android:name="androidx.core.content.FileProvider"
 				android:authorities="${applicationId}.provider"
@@ -32,18 +33,18 @@
 		</provider >
 		
 		<activity
-				android:name=".ui.screen.start_test.StartTestActivity"
+				android:name="com.pixams.ui.screen.start_test.StartTestActivity"
 				android:screenOrientation="portrait" ></activity >
 		<activity
-				android:name=".ui.screen.question.QuestionActivity"
+				android:name="com.pixams.ui.screen.question.QuestionActivity"
 				android:screenOrientation="portrait" ></activity >
 		<activity
-				android:name=".ui.screen.home.HomeActivity"
+				android:name="com.pixams.ui.screen.home.HomeActivity"
 				android:label="@string/title_activity_home"
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar" ></activity >
 		<activity
-				android:name=".ui.screen.register.RegisterActivity"
+				android:name="com.pixams.ui.screen.register.RegisterActivity"
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar"
 				android:windowSoftInputMode="stateAlwaysHidden" >
@@ -57,19 +58,19 @@
             -->
 		</activity >
 		<activity
-				android:name=".ui.screen.login.LoginActivity"
+				android:name="com.pixams.ui.screen.login.LoginActivity"
 				android:screenOrientation="portrait"
 				android:windowSoftInputMode="stateAlwaysHidden" ></activity >
 		<activity
-				android:name=".ui.screen.resetPin.ResetActivity"
+				android:name="com.pixams.ui.screen.resetPin.ResetActivity"
 				android:screenOrientation="portrait"
 				android:windowSoftInputMode="stateAlwaysHidden" ></activity >
 		<activity
-				android:name=".ui.screen.test_complete.TestCompleteActivity"
+				android:name="com.pixams.ui.screen.test_complete.TestCompleteActivity"
 				android:screenOrientation="portrait"
 				android:windowSoftInputMode="stateAlwaysHidden" ></activity >
 		<activity
-				android:name=".ui.screen.validate.ValidateActivity"
+				android:name="com.pixams.ui.screen.validate.ValidateActivity"
 				android:screenOrientation="portrait"
 				android:windowSoftInputMode="stateAlwaysHidden" >
 			<intent-filter >

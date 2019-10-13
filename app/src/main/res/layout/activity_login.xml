@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools" >
 	<data >
 		<variable name="vm"
-		          type="com.android.mahindra.ui.screen.login.LoginViewModel" />
+		          type="com.pixams.ui.screen.login.LoginViewModel" />
 	</data >
 	<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"

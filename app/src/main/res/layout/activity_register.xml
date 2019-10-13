@@ -5,9 +5,9 @@
 	<data >
 		
 		<variable name="vm"
-		          type="com.android.mahindra.ui.screen.register.RegisterViewModel" />
+		          type="com.pixams.ui.screen.register.RegisterViewModel" />
 		<variable name="act"
-		          type="com.android.mahindra.ui.screen.register.RegisterActivity" />
+		          type="com.pixams.ui.screen.register.RegisterActivity" />
 	
 	</data >
 	

@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools" >
 	<data >
 		<variable name="model"
-		          type="com.android.mahindra.data.model.api.Question" />
+		          type="com.pixams.data.model.api.Question" />
 		<import type="android.view.View" />
 	</data >
 	<ScrollView

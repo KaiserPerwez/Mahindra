@@ -6,7 +6,7 @@
 		
 		<variable
 				name="model"
-				type="com.android.mahindra.data.model.api.Option" />
+				type="com.pixams.data.model.api.Option" />
 	</data >
 	
 	<LinearLayout

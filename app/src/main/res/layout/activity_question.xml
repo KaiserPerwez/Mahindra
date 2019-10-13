@@ -4,7 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" >
 	<data >
 		<variable name="vm"
-		          type="com.android.mahindra.ui.screen.question.QuestionViewModel" />
+		          type="com.pixams.ui.screen.question.QuestionViewModel" />
 		<import type="android.view.View" />
 	</data >
 	<androidx.constraintlayout.widget.ConstraintLayout
