@@ -226,12 +226,13 @@ class QuestionActivity : HiddenCameraActivity() {
                 binding?.viewPager?.apply {
                     offscreenPageLimit = it.size
 
-                    canScrollHorizontally(0)
-                    setOnTouchListener { view, motionEvent ->
-                        this.setCurrentItem(this.currentItem, false)
-                        //this.currentItem = this.currentItem
+                    //canScrollHorizontally(0)
+                  /*  setOnTouchListener { view, motionEvent ->
+                     //   this.setCurrentItem(this.currentItem, false)
+                        this.currentItem = this.currentItem
                         return@setOnTouchListener true
-                    }
+                    }*/
+            //        setSwipePagingEnabled(false)
                     adapter = quesAdapter
                     binding?.ivQuesnBox?.setOnClickListener {
                         saveAnswer(currentItem, quesAdapter)

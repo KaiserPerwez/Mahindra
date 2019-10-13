@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools" >
-    <data >
-    
-    </data >
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.screen.home.HomeActivity" >
-        
-        <com.google.android.material.appbar.AppBarLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:theme="@style/AppTheme.AppBarOverlay" >
-            
-            <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"
-                    app:title="Home" />
-            
-            <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:tabSelectedTextColor="@color/white"
-                    app:tabIndicatorColor="@color/white"
-                    app:tabMode="fixed"
-                    app:tabGravity="fill" />
-        
-        </com.google.android.material.appbar.AppBarLayout >
-        
-        <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-        
-        <!--<include
-                android:id="@+id/content_home"
-                layout="@layout/content_home" />
-    -->
-    
-    </androidx.coordinatorlayout.widget.CoordinatorLayout >
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools" >
+	
+	<data >
+	
+	</data >
+	
+	<androidx.coordinatorlayout.widget.CoordinatorLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			tools:context=".ui.screen.home.HomeActivity" >
+		
+		<com.google.android.material.appbar.AppBarLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:theme="@style/AppTheme.AppBarOverlay" >
+			
+			<androidx.appcompat.widget.Toolbar
+					android:id="@+id/toolbar"
+					android:layout_width="match_parent"
+					android:layout_height="?attr/actionBarSize"
+					android:background="?attr/colorPrimary"
+					app:popupTheme="@style/AppTheme.PopupOverlay"
+					app:title="Home" />
+			
+			<com.google.android.material.tabs.TabLayout
+					android:id="@+id/tabLayout"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:tabGravity="fill"
+					app:tabIndicatorColor="@color/white"
+					app:tabMode="fixed"
+					app:tabSelectedTextColor="@color/white" />
+		
+		</com.google.android.material.appbar.AppBarLayout >
+		
+		<androidx.viewpager.widget.ViewPager
+				android:id="@+id/viewPager"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+		
+		<!--<include
+				android:id="@+id/content_home"
+				layout="@layout/content_home" />
+	-->
+	
+	</androidx.coordinatorlayout.widget.CoordinatorLayout >
 </layout >

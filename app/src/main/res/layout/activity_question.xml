@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto" >
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools" >
+	
 	<data >
-		<variable name="vm"
-		          type="com.pixams.ui.screen.question.QuestionViewModel" />
+		
+		<variable
+				name="vm"
+				type="com.pixams.ui.screen.question.QuestionViewModel" />
+		
 		<import type="android.view.View" />
 	</data >
+	
 	<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
@@ -20,8 +25,8 @@
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toTopOf="parent"
-				app:popupTheme="@style/AppTheme.PopupOverlay"
 				app:navigationIcon="@drawable/ic_arrow_back"
+				app:popupTheme="@style/AppTheme.PopupOverlay"
 				app:title="Question"
 				app:titleTextColor="@color/white" />
 		
@@ -54,165 +59,169 @@
 		</LinearLayout >-->
 		
 		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/linearLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal"
 				android:layout_marginTop="10dp"
-				app:layout_constraintStart_toStartOf="@+id/toolbar"
+				android:orientation="horizontal"
 				app:layout_constraintEnd_toEndOf="@+id/toolbar"
-				app:layout_constraintTop_toBottomOf="@+id/toolbar"
-				android:id="@+id/linearLayout">
+				app:layout_constraintStart_toStartOf="@+id/toolbar"
+				app:layout_constraintTop_toBottomOf="@+id/toolbar" >
 			
 			<TextView
+					android:id="@+id/textView2"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="16dp"
-					android:textColor="@color/material_color_grey800"
-					tools:text="00:23:15"
+					android:background="@drawable/round_border_grey"
 					android:gravity="left"
 					android:paddingLeft="10dp"
+					android:paddingTop="5dp"
 					android:paddingRight="10dp"
 					android:paddingBottom="5dp"
-					android:paddingTop="5dp"
-					android:background="@drawable/round_border_grey"
-					android:id="@+id/textView2"
 					android:text="@{vm.timeToExpire}"
+					android:textColor="@color/material_color_grey800"
+					android:textSize="16dp"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintEnd_toStartOf="@+id/iv_quesn_box"
-					app:layout_constraintTop_toTopOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
 					app:layout_constraintHorizontal_bias="0.067"
-					app:layout_constraintVertical_bias="1.0"/>
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintVertical_bias="1.0"
+					tools:text="00:23:15" />
 			
 			<ImageView
 					android:id="@+id/iv_quesn_box"
 					android:layout_width="40dp"
 					android:layout_height="30dp"
-					android:textSize="14dp"
-					app:layout_goneMarginLeft="60dp"
-					android:background="@drawable/boxes"
-					app:layout_constraintTop_toTopOf="@+id/textView2"
-					app:layout_constraintBottom_toBottomOf="@+id/textView2"
 					android:layout_marginEnd="20dp"
-					app:layout_constraintEnd_toEndOf="parent"/>
+					android:background="@drawable/boxes"
+					android:textSize="14dp"
+					app:layout_constraintBottom_toBottomOf="@+id/textView2"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/textView2"
+					app:layout_goneMarginLeft="60dp" />
 		
-		</androidx.constraintlayout.widget.ConstraintLayout>
+		</androidx.constraintlayout.widget.ConstraintLayout >
 		
-		<androidx.viewpager.widget.ViewPager
-				app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
+		<com.pixams.util.NonSwipableViewPager
 				android:id="@+id/viewPager"
 				android:layout_width="match_parent"
-				android:layout_height="400dp"
+				android:layout_height="0dp"
 				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-				app:layout_constraintBottom_toTopOf="@+id/linearLayout2" />
+				app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+		
 		<LinearLayout
+				android:id="@+id/linearLayout2"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal"
+				android:layout_marginEnd="10dp"
 				android:layout_marginBottom="8dp"
 				android:gravity="center"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				android:layout_marginEnd="10dp"
+				android:orientation="horizontal"
 				app:layout_constraintBottom_toTopOf="@+id/linearLayoutFooter"
-				android:id="@+id/linearLayout2" >
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent" >
 			
 			<TextView
 					android:id="@+id/txt_quesn_counter"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="3/10"
-					tools:text="1/10"
-					android:textStyle="bold"
 					android:layout_marginStart="20dp"
 					android:layout_weight="3"
+					android:text="3/10"
 					android:textColor="@color/material_color_red600"
-					android:textSize="30dp" />
+					android:textSize="30dp"
+					android:textStyle="bold"
+					tools:text="1/10" />
 			
 			<TextView
 					android:id="@+id/toggle_review"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:gravity="center"
-					android:padding="10dp"
-					android:textSize="16dp"
-					android:textColor="@color/material_color_grey800"
-					android:background="@drawable/rect_border_grey"
 					android:layout_weight="1"
-					android:text="Mark as Review"
+					android:background="@drawable/rect_border_grey"
+					android:gravity="center"
 					android:onClick="@{()->vm.toggleReview()}"
-			/>
+					android:padding="10dp"
+					android:text="Mark as Review"
+					android:textColor="@color/material_color_grey800"
+					android:textSize="16dp" />
 			<!--android:text="@{(vm.currentQuestion.statusReview.equalsIgnoreCase(`1`)) ? `Mark as Review` : `Marked as Review`}"-->
 		
 		</LinearLayout >
+		
 		<View
 				android:id="@+id/view_line"
 				android:layout_width="match_parent"
 				android:layout_height="1dp"
 				android:layout_margin="5dp"
 				android:background="@color/material_color_grey400"
-				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintBottom_toTopOf="@+id/linearLayoutFooter"
 				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-				app:layout_constraintBottom_toTopOf="@+id/linearLayoutFooter" />
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+		
 		<LinearLayout
+				android:id="@+id/linearLayoutFooter"
 				android:layout_width="match_parent"
 				android:layout_height="20dp"
-				android:orientation="horizontal"
 				android:layout_margin="10dp"
-				app:layout_constraintStart_toStartOf="@+id/toolbar"
-				app:layout_constraintEnd_toEndOf="@+id/toolbar"
-				android:id="@+id/linearLayoutFooter"
-				app:layout_constraintVertical_bias="0.1"
+				android:layout_marginBottom="8dp"
+				android:orientation="horizontal"
 				app:layout_constraintBottom_toTopOf="@+id/submit"
-				android:layout_marginBottom="8dp" >
+				app:layout_constraintEnd_toEndOf="@+id/toolbar"
+				app:layout_constraintStart_toStartOf="@+id/toolbar"
+				app:layout_constraintVertical_bias="0.1" >
 			
 			<TextView
 					android:id="@+id/txt_attempted_counter"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textSize="14dp"
-					android:textColor="@color/material_color_grey900"
+					android:layout_weight="1"
 					android:text="Attempted: 5"
-					android:layout_weight="1" />
+					android:textColor="@color/material_color_grey900"
+					android:textSize="14dp" />
 			
 			<TextView
 					android:id="@+id/txt_unattempted_counter"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textSize="14dp"
+					android:layout_weight="1"
 					android:gravity="center"
-					android:textColor="@color/material_color_grey900"
 					android:text="Unattempted: 0"
-					android:layout_weight="1" />
+					android:textColor="@color/material_color_grey900"
+					android:textSize="14dp" />
+			
 			<TextView
 					android:id="@+id/txt_review_counter"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:textSize="14dp"
+					android:layout_weight="1"
 					android:gravity="end"
-					android:textColor="@color/material_color_grey900"
 					android:text="Review: 0"
-					android:layout_weight="1" />
+					android:textColor="@color/material_color_grey900"
+					android:textSize="14dp" />
 		
 		</LinearLayout >
+		
 		<Button
 				android:id="@+id/submit"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@color/green_active"
 				android:padding="16dp"
-				android:visibility="gone"
-				tools:visibility="visible"
 				android:text="Submit"
 				android:textAllCaps="false"
 				android:textColor="@color/white"
 				android:textSize="16dp"
-				app:layout_constraintStart_toStartOf="@+id/button_layout"
+				android:visibility="gone"
+				app:layout_constraintBottom_toTopOf="@+id/button_layout"
 				app:layout_constraintEnd_toEndOf="@+id/button_layout"
-				app:layout_constraintBottom_toTopOf="@+id/button_layout" />
+				app:layout_constraintStart_toStartOf="@+id/button_layout"
+				tools:visibility="visible" />
 		
 		<LinearLayout
 				android:id="@+id/button_layout"
@@ -227,26 +236,27 @@
 					android:id="@+id/previous"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_weight="1"
 					android:background="@color/colorPrimary"
 					android:padding="16dp"
 					android:text="Previous"
-					android:layout_weight="1"
 					android:textAllCaps="false"
 					android:textColor="@color/white"
 					android:textSize="16dp" />
 			
-			<View android:layout_width="1dp"
-			      android:layout_height="match_parent"
-			      android:background="@color/material_color_grey100" />
+			<View
+					android:layout_width="1dp"
+					android:layout_height="match_parent"
+					android:background="@color/material_color_grey100" />
 			
 			<Button
 					android:id="@+id/next"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
+					android:layout_weight="1"
 					android:background="@color/colorPrimary"
 					android:padding="16dp"
 					android:text="Next"
-					android:layout_weight="1"
 					android:textAllCaps="false"
 					android:textColor="@color/white"
 					android:textSize="16dp" />
